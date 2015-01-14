@@ -1,0 +1,96 @@
+/*------------------------------------*\
+    #COMMON
+\*------------------------------------*/
+/**
+ * common variables which can be used by any plugins, these will be defined below
+ */
+/*------------------------------------*\
+    #TYPEPLATE
+\*------------------------------------*/
+/**
+ * variables for the typeplate plugin, for typography
+ */
+/*------------------------------------*\
+    #INUIT
+\*------------------------------------*/
+/**
+ * variables for the unuit plugin
+ */
+.nav--hero-nav {
+  -skrollr-animation-name: nav-appear;
+}
+
+@-skrollr-keyframes nav-appear {
+  bottom-top {
+    opacity: 0;
+  }
+
+  -400-bottom-top {
+    opacity: 1;
+  }
+}
+.section--hero__subtitle {
+  -skrollr-animation-name: subtitle-rise;
+}
+
+.section--hero__arrow {
+  -skrollr-animation-name: arrow-appear;
+}
+
+@-skrollr-keyframes subtitle-rise {
+  bottom-top {
+    opacity: 0;
+    -webkit-transform: translate(0px, 20px);
+    -ms-transform: translate(0px, 20px);
+    transform: translate(0px, 20px);
+  }
+
+  -400-bottom-top {
+    opacity: 1;
+    -webkit-transform: translate(0px, 0px);
+    -ms-transform: translate(0px, 0px);
+    transform: translate(0px, 0px);
+  }
+}
+@-skrollr-keyframes arrow-appear {
+  bottom-top {
+    opacity: 0;
+  }
+
+  -400-bottom-top {
+    opacity: 1;
+  }
+}
+.section--section-gap__img--parallax {
+  -skrollr-animation-name: gap-parallax;
+}
+
+@-skrollr-keyframes gap-parallax {
+  bottom-top {
+    background-position: 0 100%;
+  }
+
+  top-bottom {
+    background-position: 0 0%;
+  }
+}
+.section--section-gap-1__img--layer-1 {
+  -skrollr-animation-name: gap-1-layer-1-rotate;
+}
+
+@-skrollr-keyframes gap-1-layer-1-rotate {
+  bottom-top {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+
+  top-bottom {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-transform-origin: 12.42837% 58.94552%;
+    -ms-transform-origin: 12.42837% 58.94552%;
+    transform-origin: 12.42837% 58.94552%;
+  }
+}

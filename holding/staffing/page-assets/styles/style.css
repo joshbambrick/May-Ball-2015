@@ -1,0 +1,29 @@
+.content {
+    margin: 0 auto;
+    width: 800px;
+    max-width: 100%;
+}
+
+.form__jump-link {
+    opacity: 0.5;
+}
+
+.form__jump-link:hover {
+    opacity: 1;
+}
+
+.form__prompt {
+    margin: 0 20px 50px;
+}
+
+.form__deadline {
+    margin-top: 20px;
+}
+
+.job-descriptions {
+	border-top: solid 1px #aaa;
+}
+
+.job-descriptions__job-pay {
+	font-weight: normal;
+}

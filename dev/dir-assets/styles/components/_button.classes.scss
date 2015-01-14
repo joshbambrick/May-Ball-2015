@@ -1,0 +1,24 @@
+%button {
+    text-align: center;
+    display: block;
+    padding: $lib-spacing-unit--tiny;
+    margin: 0 $lib-spacing-unit--tiny;
+
+    color: inherit;
+
+    &:hover {
+        background-color: colour(full-white);
+        box-shadow: 0 1px 7px 0px rgba(0,0,0,0.25);
+        border-radius: 3px;
+        text-decoration: none;
+    }
+}
+
+%button-large {
+    @extend %button;
+    @extend .typl8-epsilon;
+    font-weight: bold;
+
+    padding: $lib-spacing-unit;
+    margin: 0 $lib-spacing-unit;
+}

@@ -1,0 +1,24 @@
+html {
+    overflow-y: scroll; /* [1] */
+    min-height: 100%; /* [2] */
+    -webkit-text-size-adjust: 100%; /* [3] */
+        -ms-text-size-adjust: 100%; /* [3] */
+    -moz-osx-font-smoothing: grayscale; /* [4] */
+     -webkit-font-smoothing: antialiased; /* [4] */
+}
+
+a:link, a:visited {
+	text-decoration: none;
+	color: colour(lighter-content);
+}
+
+// comes after the above to take precedence
+// don't combine selectors as precedence becomes too high
+a:hover {
+	text-decoration: underline;
+	color: inherit;
+}
+
+@include selection {
+    background-color: colour(faded-content);
+}

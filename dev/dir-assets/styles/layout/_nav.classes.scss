@@ -1,0 +1,64 @@
+/* nav */.nav {
+    top: 0;
+
+    background-color: colour(section-background);
+    text-align: center;
+
+    padding: 0 $lib-spacing-unit--large;
+
+    border-bottom: solid 1px colour(section-background);
+    
+    @include respond(palm) {
+        padding: $lib-spacing-unit--tiny $lib-spacing-unit;
+    }
+
+    &--hero-nav {
+        margin: 0 (-$lib-spacing-unit--large);
+
+        @include respond(palm) {
+            margin: 0 (-$lib-spacing-unit);
+        }
+    }
+
+    &--hidden {
+        @extend %hidden;
+    }
+
+    &--fixed {
+        z-index: z(nav);
+        position: fixed;
+        width: 100%;
+        border-color: colour(border);
+        // hide box shadow of items
+        overflow: hidden;
+    }
+}
+
+/* ul */.nav__list {
+    @extend %list-block--small;
+    @extend %list-inline;
+}
+
+/* a */.nav__list-link {
+    &, &:link, &:visited {
+        @extend %button;
+    }
+
+    &--selected {
+        &, &:link, &:visited {
+            font-weight: bold;
+            
+            &:hover {
+                background-color: transparent;
+                box-shadow: none;
+                border-radius: none;
+            }
+        }
+    }
+
+    @include respond(palm) {
+        padding: $lib-spacing-unit--mini;
+        margin: 0 $lib-spacing-unit--tiny;
+        font-size: $lib-small-print-size;
+    }
+}

@@ -1,0 +1,13 @@
+@include add-image-file(parallax, (
+    url: "../img/parallax.jpg",
+    width: $parallax-image-file-width,
+    height: $number-of-parallax-images * $parallax-image-file-height
+));
+
+@for $cur-parallax-image-number from 1 through $number-of-parallax-images {
+    @include add-image(parallax + $cur-parallax-image-number, (
+        file: parallax,
+        background-position-x: 0,
+        background-position-y: ($cur-parallax-image-number / 6) * 100%
+    ));
+}

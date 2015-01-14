@@ -1,0 +1,92 @@
+.section--hero {
+    @extend %content-section;
+
+    text-align: center;
+    padding: $lib-spacing-unit $lib-spacing-unit--large $lib-spacing-unit--large * 2;
+
+    @include respond(palm) {
+        padding: $lib-spacing-unit $lib-spacing-unit$lib-spacing-unit * 2;
+    }
+}
+
+.section--parallax-hero { 
+    @extend %parallax-content-section;
+}
+
+// the width and height of the image
+$hero-logo-image-max-width: 500px;
+$hero-logo-image-max-height: 550px;
+
+/* figure */.section--hero__figure {
+    display: inline-block;
+    width: $hero-logo-image-max-width;
+    max-width: 100%;
+}
+
+/* span */.section--hero__img {
+    display: inline-block;
+    width: 100%;
+    padding-top: ($hero-logo-image-max-height / $hero-logo-image-max-width) * 100%;
+    background-image: url(../img/hero-logo.png);
+    background-size: cover;
+}
+
+// to create a new row for the arrow 
+/* div */.section--hero__arrow-row {
+    margin: $lib-spacing-unit--large 0;
+
+    @include respond(palm) {
+        margin: $lib-spacing-unit 0;
+    }
+}
+
+/* span */ .section--hero__arrow {
+    width: 64px;
+    height: 64px;
+    border-right: 1px solid colour(faded-content);
+    border-bottom: 1px solid colour(faded-content);
+    display: inline-block;
+    transform: rotate(45deg);
+    position: relative;
+    // otherwise the arrow appears much close to the row below
+    top: -16px;
+
+    &:hover {
+        // darken on hover
+        border-color: colour(content);
+    }
+
+    @include respond(palm) {
+        width: 32px;
+        height: 32px;
+        top: -4px;
+    }
+}
+
+/* h1 */ .section--hero__title {
+    // if you change this extend, must update skrollr effects
+    @extend .typl8-tera;
+
+    margin-bottom: $lib-spacing-unit--large;
+    
+    @include respond(palm) {
+        margin-bottom: $lib-spacing-unit;
+    }
+    
+    &--palm {
+        @extend .typl8-alpha;
+    }
+}
+
+/* h3 */ .section--hero__subtitle {
+    font-weight: normal;
+    margin-bottom: $lib-spacing-unit--large;
+    
+    @include respond(palm) {
+        margin-bottom: $lib-spacing-unit;
+    }
+
+    &--palm {
+        @extend .typl8-gamma;
+    }
+}

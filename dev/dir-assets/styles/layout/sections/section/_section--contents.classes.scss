@@ -1,0 +1,34 @@
+.section--contents {
+    @extend %content-section;
+
+}
+
+/* hN */.section--contents__title {
+    @extend .typl8-alpha;
+
+    text-align: left;
+    
+    // even titles should be left-aligned
+    // use 4n as every other section is a divider
+    .section--odd & {
+        text-align: right;
+    }
+
+    &--palm {
+        @extend .typl8-gamma;
+    }
+
+    &--thumb {
+        @extend .typl8-zeta;
+    }
+
+    &--subpage-title {
+        text-align: right;
+    }
+
+    @include respond(palm) {
+        &, .section--odd & {
+            text-align: center;
+        }
+    }
+}

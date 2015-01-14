@@ -1,0 +1,28 @@
+/* article */.section {
+    @extend %clearfix;
+}
+
+.section__contents {
+    @extend %palm-one-whole;
+
+    width: 80%;
+    margin: 0 auto;
+}
+
+// extended by sections with content (--hero or --contents)
+%content-section {
+    background-color: colour(section-background);
+    padding: $lib-spacing-unit--large;
+    
+    @include respond(palm) {
+        padding: $lib-spacing-unit;
+    }
+}
+
+%parallax-content-section {
+    box-shadow: 0 0 40px 5px rgba(0, 0, 0, 0.5);
+
+    // may want to shift these to into `content-section`
+    position: relative;
+    z-index: z(content-section);
+}

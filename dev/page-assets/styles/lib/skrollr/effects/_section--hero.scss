@@ -1,0 +1,29 @@
+.section--hero__subtitle {
+    -skrollr-animation-name: subtitle-rise;
+}
+
+.section--hero__arrow {
+    -skrollr-animation-name: arrow-appear;
+}
+
+@-skrollr-keyframes subtitle-rise {
+    bottom-top {
+        opacity: 0;
+        transform: translate(0px, 20px);
+    }
+
+    -400-bottom-top {
+        opacity: 1;
+        transform: translate(0px, 0px);
+    }
+}
+
+@-skrollr-keyframes arrow-appear {
+    bottom-top {
+        opacity: 0;
+    }
+
+    -400-bottom-top {
+        opacity: 1;
+    }
+}

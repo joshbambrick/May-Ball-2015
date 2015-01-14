@@ -1,0 +1,47 @@
+/* div */.section--contents__text {
+    @extend %palm-one-whole;
+    
+    width: 50%;
+}
+
+/* figure */.section--contents__img-figure {
+    @extend %palm-one-whole;
+
+    display: inline-block;
+    
+    width: 45%;
+    margin: 0 5% 0 0;
+    
+    .section--odd & {
+        margin: 0 0 0 5%;
+    }
+
+    @include respond(palm) {
+        &, .section--odd & {
+            margin: 0 0 $lib-spacing-unit 0;
+        }
+    }
+}
+
+/* span */.section--contents__img {
+    display: block;
+    height: 0;
+    // default aspect ratio of 2 : 1 (width : height)
+    padding-top: 50%;
+    background-size: cover;
+
+    // could replace that with the below to ensure that
+    // all of image is shown (if image aspect ratio not 2:1)
+    // background-size: contain;
+    // background-repeat: no-repeat;
+    // background-position: center;
+}
+
+.section--contents__text,
+.section--contents__img-figure {
+    float: left;
+
+    .section--odd & {
+        float: right;
+    }
+}
