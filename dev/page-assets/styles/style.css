@@ -2328,10 +2328,10 @@ body.unselectable {
 
 .section--section-gap-1__img--layer-1 {
   background-image: url("../img/section-gap-1-layer-1.png");
-  width: 300px;
-  height: 300px;
-  top: 200px;
-  left: 100px;
+  width: 15%;
+  height: 75%;
+  top: 10%;
+  left: 5%;
 }
 
 .section--section-gap-2__img--layer-0 {

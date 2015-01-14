@@ -49,8 +49,9 @@
 
     @for $cur-parallax-layer-i from 0 through (length($cur-parallax-layers) - 1) {
         $cur-parallax-layer: nth($cur-parallax-layers, $cur-parallax-layer-i + 1);
+        $cur-paralax-layer-rotate: map-get($cur-parallax-layer, "rotate");
 
-        @if (map-get($cur-parallax-layer, "rotate")) {
+        @if ($cur-paralax-layer-rotate) {
             @if (not map-get($cur-parallax-layer, "ignore")) {
                 $cur-parallax-layer-animation-name: #{"gap-" + $cur-parallax-image-i + "-layer-" + $cur-parallax-layer-i + "-rotate"};
 
@@ -61,14 +62,14 @@
                 @-skrollr-keyframes $cur-parallax-layer-animation-name {
                     // when the top of the image hits the bottom of the viewport
                     bottom-top {
-                        transform: rotate(360deg);
-                        transform-origin: map-get($cur-parallax-layer, "rotate-x") map-get($cur-parallax-layer, "rotate-y");
+                        transform: translateY(0px) translateX(0px) rotate(0deg);
                     }
 
                     // when the bottom of the image hits the top of the viewport
                     top-bottom {
-                        transform: rotate(0deg);
-                        transform-origin: 12.42837% 58.94552%;
+                        $topShift: map-get($cur-parallax-layer, "topEnd") - map-get($cur-parallax-layer, "topStart");
+                        $leftShift: map-get($cur-parallax-layer, "leftEnd") - map-get($cur-parallax-layer, "leftStart");
+                        transform: translateY($topShift) translateX($leftShift) rotate($cur-paralax-layer-rotate);
                     }
                 }
             }

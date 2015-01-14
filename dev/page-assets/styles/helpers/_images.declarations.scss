@@ -1,30 +1,45 @@
 $parallax-image-layers: (
-	(
-		// the first (and only) layer of the first parallax image
-		(rotate: false),
-		// this is only here so that sass interprets the above line as the
-		// first element of a list, instead of just one map (no list)
-		// you must explicitly ignore these lists in any loops
-		(ignore: true)
-	), (
-		// the first layer of the second parallax image
-		(rotate: false),
-		// the second layer of the second parallax image
-		// (rotate: true, rotate-x: 6.94 / 55.84 * 100%, rotate-y: 11.08 / 28.45 * 100%)
-		(rotate: true, width: 300px, height: 300px, top: 200px, left: 100px)
-	), (
-		(rotate: false),
-		(ignore: true)
-	), (
-		(rotate: false),
-		(ignore: true)
-	), (
-		(rotate: false),
-		(ignore: true)
-	), (
-		(rotate: false),
-		(ignore: true)
-	)
+    (
+        // the first (and only) layer of the first parallax image
+        (rotate: false),
+        // this is only here so that sass interprets the above line as the
+        // first element of a list, instead of just one map (no list)
+        // you must explicitly ignore these lists in any loops
+        (ignore: true)
+    ), (
+        // the first layer of the second parallax image
+        (rotate: false),
+        // the second layer of the second parallax image
+        // (rotate: -100deg, rotate-x: 6.94 / 55.84 * 100%, rotate-y: 11.08 / 28.45 * 100%)
+        // (rotate: -100deg, width: 200px, height: 200px, top: 50px, left: 100px)
+        
+        // should be less of a shift than the normal ones
+        (
+            // the start and end positions
+            rotate: -100deg,
+
+            // forms a circle
+            width: 15%,
+            height: 75%,
+            
+            topStart: 10%,
+            leftStart: 5%,
+            topEnd: 20%,
+            leftEnd: 5%
+        )
+    ), (
+        (rotate: false),
+        (ignore: true)
+    ), (
+        (rotate: false),
+        (ignore: true)
+    ), (
+        (rotate: false),
+        (ignore: true)
+    ), (
+        (rotate: false),
+        (ignore: true)
+    )
 );
 $number-of-parallax-images: length($parallax-image-layers);
 $parallax-image-file-width: 960px;

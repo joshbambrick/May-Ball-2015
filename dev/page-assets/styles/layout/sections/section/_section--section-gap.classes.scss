@@ -37,8 +37,8 @@
                     // transform-origin: map-get($cur-parallax-layer, "rotate-x") map-get($cur-parallax-layer, "rotate-y");
                     width: map-get($cur-parallax-layer, "width");
                     height: map-get($cur-parallax-layer, "height");
-                    top: map-get($cur-parallax-layer, "top");
-                    left: map-get($cur-parallax-layer, "left");
+                    top: map-get($cur-parallax-layer, "topStart");
+                    left: map-get($cur-parallax-layer, "leftStart");
                 }
             }
         }
