@@ -31,7 +31,11 @@
 
         @if (not map-get($cur-parallax-layer, "ignore")) {
             .section--section-gap-#{$cur-parallax-image-i}__img--layer-#{$cur-parallax-layer-i} {
-                background-image: url("../img/section-gap-" + $cur-parallax-image-i + "-layer-" + $cur-parallax-layer-i + ".png");
+                @if (map-get($cur-parallax-layer, "png")) {
+                    background-image: url("../img/section-gap-" + $cur-parallax-image-i + "-layer-" + $cur-parallax-layer-i + ".png");
+                } @else {
+                    background-image: url("../img/section-gap-" + $cur-parallax-image-i + "-layer-" + $cur-parallax-layer-i + ".jpg");
+                }
                 
                 @if (map-get($cur-parallax-layer, "rotate")) {
                     // transform-origin: map-get($cur-parallax-layer, "rotate-x") map-get($cur-parallax-layer, "rotate-y");
