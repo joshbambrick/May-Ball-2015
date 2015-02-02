@@ -1,17 +1,25 @@
+%section-background {
+    background-image: url(../img/section-background.jpg);
+    background-size: cover;
+}
+
 /* article */.section {
     @extend %clearfix;
 }
 
 .section__contents {
     @extend %palm-one-whole;
+    @extend %clearfix;
 
     width: 80%;
     margin: 0 auto;
+    position: relative;
 }
 
 // extended by sections with content (--hero or --contents)
 %content-section {
-    background-color: colour(section-background);
+    @extend %section-background;
+
     padding: $lib-spacing-unit--large;
     
     @include respond(palm) {

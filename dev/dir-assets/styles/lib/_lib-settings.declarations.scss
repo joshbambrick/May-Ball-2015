@@ -17,9 +17,9 @@ $lib-font-weight: normal !default;
 // (1.65 * 18px = 29.7px)
 $lib-line-height: 1.65 !default;
 // Serif font face
-$lib-font-serif-boolean: false !default;
+$lib-font-serif-boolean: true !default;
 // Custom font-face stack, if set will be added to the $font-family
-$lib-custom-font-family: 'Open Sans', Arial !default;
+$lib-custom-font-family: Garamond, 'Times New Roman' !default;
 // add spacing between consecutive paragraphs
 $lib-paragraph-spacing: true !default;
 
@@ -36,8 +36,8 @@ $lib-spacing-unit--huge:    round($lib-spacing-unit * 4) !default;
 $lib-enable-list-block--small: true !default;
 $lib-enable-list-block--tiny: true !default;
 
-$lib-body-color: #444 !default;
-$lib-heading-color: #222 !default;
+$lib-body-color: #e7e3d8 !default;
+$lib-heading-color: #ae9751 !default;
 
 $lib-small-print-size: 65% !default;
 

@@ -1,10 +1,10 @@
 html {
-    overflow-y: scroll; /* [1] */
-    min-height: 100%; /* [2] */
-    -webkit-text-size-adjust: 100%; /* [3] */
-        -ms-text-size-adjust: 100%; /* [3] */
-    -moz-osx-font-smoothing: grayscale; /* [4] */
-     -webkit-font-smoothing: antialiased; /* [4] */
+    overflow-y: scroll;
+    min-height: 100%;
+    -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+    -moz-osx-font-smoothing: grayscale;
+     -webkit-font-smoothing: antialiased;
 }
 
 a:link, a:visited {
@@ -18,6 +18,14 @@ a:hover {
 	text-decoration: underline;
 	color: inherit;
 }
+
+h1, h2, h3, h4, h5, h6 {
+    // no longer using DaunPenh as the letters are positioned weirdly on the line
+    // font-family: DaunPenh, "Times New Roman", serif;
+    letter-spacing: 0.15em;
+    font-weight: normal;
+}
+
 
 @include selection {
     background-color: colour(faded-content);

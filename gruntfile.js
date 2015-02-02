@@ -85,6 +85,7 @@ module.exports = function (grunt) {
                     },
                     paths: {
                         // NOTE: must also keep GRUNTFILE.JS up to date
+                        text:                   'lib/require/text',
                         jquery:                 'lib/jquery/jquery',
                         jqueryBem:              'lib/jquery/jquery-bem',
                         jqueryMayBall:          'lib/jquery/jquery-breakpoint',

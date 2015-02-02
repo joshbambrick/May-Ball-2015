@@ -12,64 +12,96 @@
 |
 */
 
-define([], function () {
-    var filler1 = "Williamsburg keffiyeh hashtag, 90's irony kogi narwhal pickled mustache sustainable wolf raw denim Odd Future. Biodiesel 90's bitters paleo, organic cardigan selvage craft beer Brooklyn post-ironic. Small batch post-ironic food truck mlkshk tousled, stumptown next level fixie butcher Portland viral photo booth banjo tote bag.",
-        filler2 = "Selvage Pitchfork fingerstache fanny pack, Cosby sweater pug Echo Park 90's cray dreamcatcher mumblecore Bushwick craft beer. Marfa Brooklyn aesthetic irony. Marfa scenester stumptown, fingerstache cornhole XOXO PBRB. Lomo pour-over tote bag, Neutra artisan direct trade wolf street art roof party cray chambray meggings pug quinoa freegan.";
-        // filler3 = "\n\nTumblr meh sriracha Odd Future Marfa messenger bag, small batch cray Godard plaid. Kickstarter locavore normcore post-ironic. Brooklyn single-origin coffee meh whatever ethnic, biodiesel fap Godard gentrify banjo. Chillwave sustainable you probably haven't heard of them viral keytar. Brunch pop-up cardigan McSweeney's freegan, locavore sriracha selfies 8-bit next level blog keytar. Freegan aesthetic sartorial, Blue Bottle chillwave iPhone Thundercats wolf craft beer meggings salvia direct trade mlkshk Tumblr fap. Post-ironic tote bag ethnic gluten-free Truffaut.\n\nMlkshk letterpress Intelligentsia vegan mumblecore fanny pack, sriracha master cleanse small batch irony YOLO kale chips squid. Scenester hoodie gentrify, polaroid pour-over readymade Blue Bottle selvage art party ugh Cosby sweater kitsch Tonx wayfarers. Brunch try-hard Schlitz raw denim. Pour-over cornhole Echo Park, Tumblr seitan raw denim slow-carb. Squid crucifix DIY mixtape Portland selvage Pitchfork 90's scenester art party trust fund messenger bag banjo stumptown Tonx. Banksy cornhole craft beer art party selvage fixie. Tote bag tattooed semiotics selfies";
-
+define([
+    'text!templates/night.html',
+    'text!templates/entertainment.html',
+    'text!templates/ticket-info.html',
+    'text!templates/sponsors.html'
+], function (
+    nightTemplate,
+    entsTemplate,
+    ticketInfoTemplate,
+    sponsorsTemplate
+) {
     return [{
         // identifier-friendly label
         label: 'hero',
-        // url-friendly label (defaults to `label` if undefined)
-        title: 'ThemeName',
-        // title: 'Wildcard',
-        titleTemplate: 'Theme<wbr>Name',
-        // titleTemplate: 'Wild<wbr>card',
-        subtitle: 'Jesus College May Ball 2015',
-        jumpArrow: true,
+        // title (defaults to `label` if undefined)
+        // used to refer to this section with user  (eg navigation links)
+        title: 'Wildcard',
+        titleTemplate: 'WILD<wbr>CARD',
+        subheadings: [{
+            text: 'JESUS COLLEGE MAY BALL',
+            label: 'subtitle'
+        }, {
+            text: '15 - 06 -15',
+            label: 'date'
+        }],
+        jumpArrow: false,
         type: 'hero'
     }, {
         label: 'section-gap-0',
         type: 'section-gap',
         layers: ['parallax']
     }, {
-        label: 'tickets',
-        title: 'Tickets',
-        titleTemplate: 'Tickets',
+        label: 'night',
+        title: 'The Night',
+        titleTemplate: 'The Night',
         type: 'content',
-        template: '<p>' + filler1 + '</p><p>' + filler2 + '</p>'
+        template: nightTemplate
     }, {
         label: 'section-gap-1',
-        type: 'section-gap',
-        layers: ['parallax', 'rotate']
-    }, {
-        label: 'charities',
-        title: 'Charities',
-        titleTemplate: 'Char<wbr>ities',
-        type: 'content',
-        template: '<p>' + filler1 + '</p><p>' + filler2 + '</p>'
-    }, {
-        label: 'section-gap-2',
-        type: 'section-gap',
-        layers: ['parallax']
-    }, {
-        label: 'staffing',
-        title: 'Staffing',
-        titleTemplate: 'Staff<wbr>ing',
-        type: 'content',
-        template: '<p>' + filler1 + '</p><a href="staffing/apply" class="section--staffing__apply-button">Apply to work</a>'
-    }, {
-        label: 'section-gap-3',
         type: 'section-gap',
         layers: ['parallax']
     }, {
         label: 'entertainment',
         title: 'Entertainment',
-        titleTemplate: 'Entertain<wbr>ment',
+        titleTemplate: 'Entertainment',
         type: 'content',
-        template: '<p>' + filler2 + '</p><a href="entertainment/apply" class="section--entertainment__apply-button">Apply to perform</a>'
+        template: entsTemplate
+    }, {
+        label: 'section-gap-2',
+        type: 'section-gap',
+        layers: ['parallax']
+    }, {
+        label: 'ticket-info',
+        title: 'Tickets',
+        titleTemplate: 'Tickets',
+        type: 'content',
+        template: ticketInfoTemplate
+    }, {
+        label: 'section-gap-3',
+        type: 'section-gap',
+        layers: ['parallax', 'rotate']
+    }, {
+        label: 'sponsors',
+        title: 'Sponsors',
+        titleTemplate: 'Spon<wbr>sors',
+        type: 'content',
+        template: sponsorsTemplate
     }, {
         label: 'section-gap-4',
+        type: 'section-gap',
+        layers: ['parallax']
+    }, {
+        label: 'charities',
+        title: 'Charities',
+        titleTemplate: 'Char<wbr>ities',
+        type: 'content',
+        template: '<p>' + 'hello' + '</p>',
+        noImage: true
+    }, {
+        label: 'section-gap-5',
+        type: 'section-gap',
+        layers: ['parallax', 'rotate']
+    }, {
+        label: 'work',
+        title: 'Work',
+        titleTemplate: 'Work',
+        type: 'content',
+        template: '<p>' + 'hello' + '</p><a href="work/apply" class="section--work__apply-button">Apply to work</a>'
+    }, {
+        label: 'section-gap-6',
         type: 'section-gap',
         layers: ['parallax']
     }, {
@@ -77,9 +109,10 @@ define([], function () {
         title: 'Committee',
         titleTemplate: 'Commi<wbr>ttee',
         type: 'content',
-        template: '<p>' + filler1 + '</p><p>' + filler2 + '</p>'
+        template: '<p>' + 'hello' + '</p>',
+        noImage: true
     }, {
-        label: 'section-gap-5',
+        label: 'section-gap-7',
         type: 'section-gap',
         layers: ['parallax']
     }, {

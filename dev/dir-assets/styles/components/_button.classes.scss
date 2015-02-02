@@ -7,8 +7,8 @@
     color: inherit;
 
     &:hover {
-        background-color: colour(full-white);
-        box-shadow: 0 1px 7px 0px rgba(0,0,0,0.25);
+        background-color: rgba(0, 0, 0, 0.5);
+        box-shadow: 0 1px 7px 0px rgba(255, 255, 255, 0.25);
         border-radius: 3px;
         text-decoration: none;
     }

@@ -38,36 +38,44 @@ define([
         render: function () {
             var sectionLabel = this.model.get('label'),
                 sectionTitleTemplate = this.model.get('titleTemplate'),
-                sectionSubtitle = this.model.get('subtitle'),
-                $title, $subtitle, $figure, $arrowRow;
+                sectionSubheadings = this.model.get('subheadings'),
+                getClasses = _.partial(_.getBEMClasses, 'section', [sectionLabel, 'hero']),
+                $title, $subheadings, $figure, $arrowRow;
 
             this.$el.addBEMSuffix(sectionLabel);
             
-            $figure = $('<figure>').addClass('section--' + sectionLabel + '__figure section--hero__figure section__figure').appendTo(this.$el);
-            $('<span>').addClass('section--' + sectionLabel + '__img section--hero__img section__img').appendTo($figure);
+            $figure = $('<figure>').addClass(getClasses('figure')).appendTo(this.$el);
+            $('<span>').addClass(getClasses('img')).appendTo($figure);
 
-            $title = $('<h1>').addClass('section--' + sectionLabel + '__title section--hero__title section__title').html(_.render(sectionTitleTemplate)).appendTo(this.$el);
-            
-            $subtitle = $('<h3>').addClass('section--' + sectionLabel + '__subtitle section--hero__subtitle section__subtitle').text(sectionSubtitle).appendTo(this.$el);
+            $title = $('<h1>').addClass(getClasses('title')).html(_.render(sectionTitleTemplate)).appendTo(this.$el);
+
+            $subheadings = $();
+
+            _.each(sectionSubheadings, function (curSubheading) {
+                $subheadings.add($('<h3>').addClass(getClasses('subheading', [curSubheading.label])).text(curSubheading.text).appendTo(this.$el));
+            }, this);
 
             if (this.model.get('jumpArrow')) {
-                $arrowRow = $('<div>').addClass('section--' + sectionLabel + '__arrow-row section--hero__arrow-row section__arrow-row').appendTo(this.$el);
+                $arrowRow = $('<div>').addClass(
+                    getClasses('arrow-row')
+                ).appendTo(this.$el);
+
                 this.getSectionHyperLink(this.firstContentSectionLabel)
-                    .addClass('section--' + sectionLabel + '__arrow section--hero__arrow section__arrow')
+                    .addClass(getClasses('arrow'))
                     .appendTo($arrowRow);
             }
 
             _.bindDefer(function () {
                 $.breakpoint.on(['palm'], function (breakpoint) {
-                    var titlePalmClass = 'section--' + sectionLabel + '__title--palm section--hero__title--palm section__title--palm',
-                        subtitlePalmClass = 'section--' + sectionLabel + '__subtitle--palm section--hero__subtitle--palm section__title--palm';
+                    var titlePalmClass = getClasses('title', 'palm', true),
+                        subheadingPalmClass = getClasses('subheading', 'palm', true);
                     
                     if (breakpoint === 'palm') {
                         $title.addClass(titlePalmClass);
-                        $subtitle.addClass(subtitlePalmClass);
+                        $subheadings.addClass(subheadingPalmClass);
                     } else {
                         $title.removeClass(titlePalmClass);
-                        $subtitle.removeClass(subtitlePalmClass);
+                        $subheadings.removeClass(subheadingPalmClass);
                     }
                 }, true);
             }, this);

@@ -15,21 +15,34 @@ $parallax-image-layers: (
         
         // should be less of a shift than the normal ones
         (
+            rotate: true,
+
             // the image file is a png, not a jpg
             png: true,
-
+            
             // the start and end positions
-            rotate: -360deg,
+            rotate-start: -0deg,
+            rotate-end: -360deg,
 
             // forms a circle
-            width: 15%,
+            // width: 15%,
+            width: 7.5%,
             height: 75%,
             
-            topStart: 10%,
-            leftStart: 5%,
-            topEnd: 40%,
-            leftEnd: 5%
+            top-start: -100%,
+            left-start: 5%,
+            top-end: 95%,
+            left-end: 5%,
+
+            origin-x: 0%,
+            origin-y: 50%
         )
+    ), (
+        (rotate: false),
+        (ignore: true)
+    ), (
+        (rotate: false),
+        (ignore: true)
     ), (
         (rotate: false),
         (ignore: true)

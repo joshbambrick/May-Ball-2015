@@ -3,16 +3,15 @@
 
 }
 
+/* div */.section--contents__title-container {
+    text-align: center;
+}
+
 /* hN */.section--contents__title {
     @extend .typl8-alpha;
 
-    text-align: left;
-    
-    // even titles should be left-aligned
-    // use 4n as every other section is a divider
-    .section--odd & {
-        text-align: right;
-    }
+    display: inline-block;
+    margin-bottom: $lib-spacing-unit;
 
     &--palm {
         @extend .typl8-gamma;
@@ -31,4 +30,12 @@
             text-align: center;
         }
     }
+}
+
+/* div */.section--contents__title-underline {
+    background-color: colour(heading-text);
+    height: 2px;
+    margin-left: 35%;
+    margin-right: 35%;
+    margin-bottom: $lib-spacing-unit;
 }

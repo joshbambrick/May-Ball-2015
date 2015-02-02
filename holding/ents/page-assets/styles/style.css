@@ -1,9 +1,3 @@
-.content {
-    margin: 0 auto;
-    width: 800px;
-    max-width: 100%;
-}
-
 .form__jump-link {
     opacity: 0.5;
 }
@@ -13,7 +7,7 @@
 }
 
 .form__prompt {
-    margin: 0 20px 50px;
+    margin-bottom: 30px;
 }
 
 .form__deadline {

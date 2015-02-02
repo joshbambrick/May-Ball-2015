@@ -1,7 +1,7 @@
 .section--section-gap {
     // the approach to height with 'rosa' is to have it at 66%
     // this would require setting `height: 100%` on all ancestors up to <html>
-    // the approach I've used has the advantage of keeping scale with teh width, meaining
+    // the approach I've used has the advantage of keeping scale with the width, meaning
     // that you can always be sure that it will work on all screen sizes (background
     // doesn't get shifted off the edge) since the same part of the image will be visible 
     // on all screen sizes at the top of scroll and similarly, at the bottom of scroll
@@ -31,18 +31,28 @@
 
         @if (not map-get($cur-parallax-layer, "ignore")) {
             .section--section-gap-#{$cur-parallax-image-i}__img--layer-#{$cur-parallax-layer-i} {
-                @if (map-get($cur-parallax-layer, "png")) {
-                    background-image: url("../img/section-gap-" + $cur-parallax-image-i + "-layer-" + $cur-parallax-layer-i + ".png");
-                } @else {
-                    background-image: url("../img/section-gap-" + $cur-parallax-image-i + "-layer-" + $cur-parallax-layer-i + ".jpg");
+                @each $device-width in (palm, lap, desk) {
+                    @include respond($device-width) {
+                        @if (map-get($cur-parallax-layer, "png")) {
+                            background-image: url("../img/section-gap-" + $cur-parallax-image-i + "-layer-" + $cur-parallax-layer-i + "-" + $device-width + ".png");
+                        } @else {
+                            background-image: url("../img/section-gap-" + $cur-parallax-image-i + "-layer-" + $cur-parallax-layer-i + "-" + $device-width + ".jpg");
+                        }
+                    }
                 }
                 
+                
                 @if (map-get($cur-parallax-layer, "rotate")) {
-                    // transform-origin: map-get($cur-parallax-layer, "rotate-x") map-get($cur-parallax-layer, "rotate-y");
+                    @if (map-get($cur-parallax-layer, "origin-x") != null) {
+                        transform-origin: map-get($cur-parallax-layer, "origin-x") map-get($cur-parallax-layer, "origin-y");
+                    }
+
                     width: map-get($cur-parallax-layer, "width");
                     height: map-get($cur-parallax-layer, "height");
-                    top: map-get($cur-parallax-layer, "topStart");
-                    left: map-get($cur-parallax-layer, "leftStart");
+                    // top: map-get($cur-parallax-layer, "top-start");
+                    top: 0;
+                    // left: map-get($cur-parallax-layer, "left-start");
+                    left: 0;
                 }
             }
         }

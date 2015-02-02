@@ -70,6 +70,32 @@
         },
         bindDefer: function () {
             _.defer(_.bind.apply(_, arguments));
+        },
+        getBEMClasses: function (blockLabel, blockModifiers, elementLabel, elementModifiers, onlyWithElementModifiers) {
+            var blockOptions = [], elementOptions = [];
+
+            // accepts null, a single item, or an array
+            blockModifiers = _.toArray(blockModifiers);
+            blockModifiers.push('');
+            
+            _.each(blockModifiers, function (curModifier) {
+                blockOptions.push(blockLabel + (curModifier ? '--' + curModifier : ''));
+            });
+
+
+            // accepts null, a single item, or an array
+            elementModifiers = _.toArray(elementModifiers);
+            if (!onlyWithElementModifiers) {
+                elementModifiers.push('');
+            }
+
+            _.each(elementModifiers, function (curModifier) {
+                _.each(blockOptions, function (curBlockOpt) {
+                    elementOptions.push(curBlockOpt + '__' + elementLabel + (curModifier ? '--' + curModifier : ''));
+                });
+            });
+
+            return elementOptions.join(' ');
         }
     });
 }));

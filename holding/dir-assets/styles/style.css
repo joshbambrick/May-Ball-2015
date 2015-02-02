@@ -6,16 +6,19 @@ html {
 body {
 	position:relative;
 	font-family: "Open Sans", Arial, serif;
-    color: #fff;
+    color: #ddd;
 	margin: 0px;
-    background-color: rgba(17,17,17,1);
-    background: -moz-linear-gradient(top,  rgba(17,17,17,1) 0%, rgba(33,33,33,1) 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(17,17,17,1)), color-stop(100%,rgba(33,33,33,1))); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top,  rgba(17,17,17,1) 0%,rgba(33,33,33,1) 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top,  rgba(17,17,17,1) 0%,rgba(33,33,33,1) 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top,  rgba(17,17,17,1) 0%,rgba(33,33,33,1) 100%); /* IE10+ */
-    background: linear-gradient(to bottom,  rgba(17,17,17,1) 0%,rgba(33,33,33,1) 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( .111111', .212121',GradientType=0 ); /* IE6-9 */
+    background-color: rgb(17, 17, 17);
+    background-image: url(../img/background.png);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: Garamond, Baskerville, 'Baskerville Old Face', 'Hoefler Text', 'Times New Roman', serif;
 }
 
 .cf:after {
@@ -53,7 +56,12 @@ body {
 
 .header__main-heading, .header__nav {
     margin: 0 auto 20px;
-    font-family: inherit;
+}
+
+.header__main-heading {
+    font-size: 3em;
+    color: #fafafa;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .header__nav-link {
@@ -81,6 +89,15 @@ body {
     margin: 0 auto;
 }
 
+.content-section {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.content-section--padded {
+    padding: 20px;
+    margin: 0 2.5%;
+}
+
 .footer {
     text-align: center;
     margin: 50px 0;
@@ -88,7 +105,7 @@ body {
 }
 
 a:link, a:active, a:visited {
-    color: #fff;
+    color: #ddd;
     text-decoration:none;
 }
 

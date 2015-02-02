@@ -1,31 +1,78 @@
-.staff__position-heading {
-	font-size: 18px;
-	padding: 0;
-	margin: 0;
-    font-family: inherit;
-    font-weight:bold;
-}
-
 .content {
     text-align:center;
     font-size: 16px;
     line-height: 20px;
+    position: relative;   
 }
 
-.staffing__staff-column--left, .staffing__staff-column--right, .staffing__staff-column--center{
-	float: left;
-	width: 32%;
+.staff__staff-column, .staff__staff-column:before {
+    width: 30%;
 }
 
-.staffing__staff-column--left{
-    margin-left: 2%;
-    margin-right: 0;
+.staff__staff-column {
+    float: left;
+    /* remove default margins and add one to left */
+    margin: 0 0 0 2.5%;
+    padding: 2em 0;
 }
-.staffing__staff-column--right{
-    margin-left: 0;
-    margin-right: 2%;
+
+/*
+    background for each column
+    will take up full height of container
+    so all column heights equal
+*/
+.staff__staff-column:before {
+    content: "";
+    
+    display: block;
+    
+    position: absolute;
+    top: 0;
+    bottom: 0;
+
+    background-color: rgba(0,0,0,0.3);
+
+    /*
+        behind the column itself
+    */
+    z-index: -100;
 }
-.staffing__staff-column--centre{
-    margin-left: 0 auto;
-    margin-right: 0 auto;
+
+@media screen and (max-width: 719px) {
+    /* single column layout */
+    .staff__staff-column, .staff__staff-column:before {
+        width: 95%;
+    }
+
+    /*
+        apply backgrounds to the columns directly
+        as otherwise they will all overlap
+        also add margins to both sides
+    */
+    .staff__staff-column {
+        background-color: rgba(0,0,0,0.3);
+        margin-right: 2.5%;
+        margin-top: 2.5%;
+    }
+    
+    .staff__staff-column:first-child {
+        margin-top: 0;
+    }
+
+    .staff__staff-column:before {
+        background-color: transparent;
+    }
+}
+
+.staff__staff-column--right{
+    margin-right: 2.5%;
+}
+
+.staff__position-heading {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.staff__member {
+    margin: 1em 0;
 }

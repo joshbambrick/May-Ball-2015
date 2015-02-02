@@ -16,19 +16,6 @@
 /**
  * variables for the unuit plugin
  */
-.nav--hero-nav {
-  -skrollr-animation-name: nav-appear;
-}
-
-@-skrollr-keyframes nav-appear {
-  bottom-top {
-    opacity: 0;
-  }
-
-  -400-bottom-top {
-    opacity: 1;
-  }
-}
 .section--hero__subtitle {
   -skrollr-animation-name: subtitle-rise;
 }
@@ -80,14 +67,14 @@
 
 @-skrollr-keyframes gap-1-layer-1-rotate {
   bottom-top {
-    -webkit-transform: translateY(0%) translateX(0%) rotate(0deg);
-    -ms-transform: translateY(0%) translateX(0%) rotate(0deg);
-    transform: translateY(0%) translateX(0%) rotate(0deg);
+    -webkit-transform: translateY(-100%) translateX(5%) rotate(0deg);
+    -ms-transform: translateY(-100%) translateX(5%) rotate(0deg);
+    transform: translateY(-100%) translateX(5%) rotate(0deg);
   }
 
   top-bottom {
-    -webkit-transform: translateY(30%) translateX(0%) rotate(-360deg);
-    -ms-transform: translateY(30%) translateX(0%) rotate(-360deg);
-    transform: translateY(30%) translateX(0%) rotate(-360deg);
+    -webkit-transform: translateY(95%) translateX(5%) rotate(-360deg);
+    -ms-transform: translateY(95%) translateX(5%) rotate(-360deg);
+    transform: translateY(95%) translateX(5%) rotate(-360deg);
   }
 }

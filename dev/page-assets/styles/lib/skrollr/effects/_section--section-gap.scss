@@ -62,17 +62,18 @@
                 @-skrollr-keyframes $cur-parallax-layer-animation-name {
                     // when the top of the image hits the bottom of the viewport
                     bottom-top {
-                        // these will both be 0 of the correct units
-                        $topStartShift: map-get($cur-parallax-layer, "topStart") - map-get($cur-parallax-layer, "topStart");
-                        $leftStartShift: map-get($cur-parallax-layer, "leftStart") - map-get($cur-parallax-layer, "leftStart");
-                        transform: translateY($topStartShift) translateX($leftStartShift) rotate(0deg);
+                        $top-start: map-get($cur-parallax-layer, "top-start");
+                        $left-start: map-get($cur-parallax-layer, "left-start");
+                        $rotate-start: map-get($cur-parallax-layer, "rotate-start");
+                        transform: translateY($top-start) translateX($left-start) rotate($rotate-start);
                     }
 
                     // when the bottom of the image hits the top of the viewport
                     top-bottom {
-                        $topEndShift: map-get($cur-parallax-layer, "topEnd") - map-get($cur-parallax-layer, "topStart");
-                        $leftEndShift: map-get($cur-parallax-layer, "leftEnd") - map-get($cur-parallax-layer, "leftStart");
-                        transform: translateY($topEndShift) translateX($leftEndShift) rotate($cur-paralax-layer-rotate);
+                        $top-end: map-get($cur-parallax-layer, "top-end");
+                        $left-end: map-get($cur-parallax-layer, "left-end");
+                        $rotate-end: map-get($cur-parallax-layer, "rotate-end");
+                        transform: translateY($top-end) translateX($left-end) rotate($rotate-end);
                     }
                 }
             }

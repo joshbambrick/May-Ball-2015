@@ -32,23 +32,32 @@ define([
             this.render();
         },
         render: function () {
-            var sectionLabel = this.model.get('label'), titleTemplate = this.model.get('titleTemplate'), $contents, $title, $imgFigure;
+            var sectionLabel = this.model.get('label'), titleTemplate = this.model.get('titleTemplate'), noImage = !!this.model.get('noImage'),
+                getClasses = _.partial(_.getBEMClasses, 'section', [sectionLabel, 'contents', noImage ? 'no-image' : 'image']),
+                $contents, $text, $title, $titleContainer, $imgFigure;
 
             this.$el.addBEMSuffix(sectionLabel);
 
-            $contents = $('<div>').addClass('section__contents section--' + sectionLabel + '__contents').appendTo(this.$el);
+            $contents = $('<div>').addClass(getClasses('contents')).appendTo(this.$el);
 
-            $title = $('<h4>').addClass('section--' + sectionLabel + '__title section--contents__title section__title').html(_.render(titleTemplate)).appendTo($contents);
-
-            $imgFigure = $('<figure>').addClass('section--' + sectionLabel + '__img-figure section--contents__img-figure section__img-figure').appendTo($contents);
-            $('<span>').addClass('section--' + sectionLabel + '__img section--contents__img section__img').appendTo($imgFigure);
+            this.$el.addBEMSuffix(noImage ? 'no-image' : 'image');
             
-            $('<div>').addClass('section--' + sectionLabel + '__text section--contents__text section__text').appendTo($contents).html(_.render(this.model.get('template')));
+            if (!noImage) {
+                $imgFigure = $('<figure>').addClass(getClasses('img-figure')).appendTo($contents);
+                $('<span>').addClass(getClasses('img')).appendTo($imgFigure);
+            }
+            
+            $text = $('<div>').addClass(getClasses('text')).html(_.render(this.model.get('template'))).appendTo($contents);
+            
+
+            $titleContainer = $('<div>').addClass(getClasses('title-container')).prependTo($text);
+            $title = $('<h4>').addClass(getClasses('title')).html(_.render(titleTemplate)).appendTo($titleContainer);
+            $('<div>').addClass(getClasses('title-underline')).appendTo($titleContainer);
 
 
             $.breakpoint.on(['thumb', 'palm'], _.bind(function (breakpoint) {
-                var palmClass = 'section--' + sectionLabel + '__title--palm section--contents__title--palm section__title--palm',
-                    thumbClass = 'section--' + sectionLabel + '__title--thumb section--contents__title--thumb section__title--thumb';
+                var palmClass = getClasses('title', 'palm', true),
+                    thumbClass = getClasses('title', 'thumb', true);
 
                 if (breakpoint === 'palm') {
                     $title.addClass(palmClass);

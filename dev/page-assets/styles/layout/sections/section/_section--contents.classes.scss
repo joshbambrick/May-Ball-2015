@@ -2,12 +2,16 @@
     @extend %palm-one-whole;
     
     width: 50%;
+
+    &.section--no-image__text {
+        width: auto;
+    }
 }
 
 /* figure */.section--contents__img-figure {
     @extend %palm-one-whole;
 
-    display: inline-block;
+    display: block;
     
     width: 45%;
     margin: 0 5% 0 0;
@@ -18,23 +22,26 @@
 
     @include respond(palm) {
         &, .section--odd & {
-            margin: 0 0 $lib-spacing-unit 0;
+            max-width: 300px;
+            margin: 0 auto $lib-spacing-unit;
         }
     }
 }
 
 /* span */.section--contents__img {
     display: block;
+    
+    // aspect ratio of set by varying
+    // `padding-top` on a per-image basis
     height: 0;
-    // default aspect ratio of 2 : 1 (width : height)
-    padding-top: 50%;
-    background-size: cover;
+    
+    // background-size: cover;
 
     // could replace that with the below to ensure that
     // all of image is shown (if image aspect ratio not 2:1)
-    // background-size: contain;
-    // background-repeat: no-repeat;
-    // background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .section--contents__text,
@@ -43,5 +50,11 @@
 
     .section--odd & {
         float: right;
+    }
+
+    @include respond(palm) {
+        &, .section--odd & {
+            float: none;
+        }
     }
 }

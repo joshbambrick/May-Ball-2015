@@ -1,9 +1,0 @@
-.section--entertainment__apply-button {
-    @extend %button-large;
-}
-
-/* span */.section--entertainment__img {
-    background-image: url(../img/entertainment.jpg);
-    // could override aspect ratio by varying the below (currently 2:1)
-    // padding-top: 50%;
-}

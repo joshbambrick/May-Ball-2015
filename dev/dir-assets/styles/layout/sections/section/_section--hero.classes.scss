@@ -1,11 +1,12 @@
 .section--hero {
     @extend %content-section;
 
+    background-image: url(../img/hero-background.png);
     text-align: center;
-    padding: $lib-spacing-unit $lib-spacing-unit--large $lib-spacing-unit--large * 2;
+    padding: $lib-spacing-unit $lib-spacing-unit--large 0;
 
     @include respond(palm) {
-        padding: $lib-spacing-unit $lib-spacing-unit$lib-spacing-unit * 2;
+        padding: $lib-spacing-unit $lib-spacing-unit 0;
     }
 }
 
@@ -14,8 +15,8 @@
 }
 
 // the width and height of the image
-$hero-logo-image-max-width: 500px;
-$hero-logo-image-max-height: 550px;
+$hero-logo-image-max-width: 400px;
+$hero-logo-image-max-height: 440px;
 
 /* figure */.section--hero__figure {
     display: inline-block;
@@ -65,28 +66,35 @@ $hero-logo-image-max-height: 550px;
 
 /* h1 */ .section--hero__title {
     // if you change this extend, must update skrollr effects
-    @extend .typl8-tera;
+    @extend .typl8-beta;
 
-    margin-bottom: $lib-spacing-unit--large;
-    
-    @include respond(palm) {
-        margin-bottom: $lib-spacing-unit;
-    }
-    
-    &--palm {
-        @extend .typl8-alpha;
-    }
+    font-family: 'Times New Roman', serif;
+
+    color: colour(title-text);
+    letter-spacing: 0.3em;
 }
 
-/* h3 */ .section--hero__subtitle {
+.section--hero__subheading {
     font-weight: normal;
-    margin-bottom: $lib-spacing-unit--large;
-    
-    @include respond(palm) {
-        margin-bottom: $lib-spacing-unit;
-    }
+    margin-bottom: $lib-spacing-unit;
+    color: colour(subtitle-text);
+}
 
-    &--palm {
-        @extend .typl8-gamma;
+/* h3 */ .section--hero__subheading--subtitle {
+    @extend .typl8-epsilon;
+}
+
+/* span */ .section--hero__subheading--date {
+    @extend .typl8-delta;
+
+    &:before, &:after {
+        transition: width 0.5s;
+        content: "";
+        display: inline-block;
+        width: 2.25em;
+        background: colour(subtitle-text);
+        height: 2px;
+        vertical-align: middle;
+        margin: 0 1em;
     }
 }
