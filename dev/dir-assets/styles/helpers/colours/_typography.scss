@@ -3,3 +3,4 @@
 @include add-colour(heading-text, $lib-heading-color);
 @include add-colour(highlighted-heading-text, lighten(colour(heading-text), 25%));
 @include add-colour(subtitle-text, #a00000);
+@include add-colour(highlighted-subtitle-text, lighten(colour(subtitle-text), 25%));

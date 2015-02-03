@@ -38,6 +38,7 @@ define([
         render: function () {
             var sectionLabel = this.model.get('label'),
                 sectionTitleTemplate = this.model.get('titleTemplate'),
+                sectionTitleShowTime = this.model.get('titleShowTime'),
                 sectionSubheadings = this.model.get('subheadings'),
                 getClasses = _.partial(_.getBEMClasses, 'section', [sectionLabel, 'hero']),
                 $title, $subheadings, $figure, $arrowRow;
@@ -47,12 +48,26 @@ define([
             $figure = $('<figure>').addClass(getClasses('figure')).appendTo(this.$el);
             $('<span>').addClass(getClasses('img')).appendTo($figure);
 
-            $title = $('<h1>').addClass(getClasses('title')).html(_.render(sectionTitleTemplate)).appendTo(this.$el);
+            $title = $('<h1>').addClass(getClasses('title', 'unshown')).html(_.render(sectionTitleTemplate)).appendTo(this.$el);
+
+            $(function () {
+                setTimeout(function () {
+                    $title.removeClass(getClasses('title', 'unshown', true));
+                }, sectionTitleShowTime);
+            });
 
             $subheadings = $();
 
             _.each(sectionSubheadings, function (curSubheading) {
-                $subheadings.add($('<h3>').addClass(getClasses('subheading', [curSubheading.label])).text(curSubheading.text).appendTo(this.$el));
+                var $curSubheading = $('<h3>').addClass(getClasses('subheading', [curSubheading.label, 'unshown'])).text(curSubheading.text).appendTo(this.$el);
+
+                $subheadings.add($curSubheading);
+
+                $(function () {
+                    setTimeout(function () {
+                        $curSubheading.removeClass(getClasses('subheading', 'unshown', true));
+                    }, curSubheading.showTime);
+                });
             }, this);
 
             if (this.model.get('jumpArrow')) {

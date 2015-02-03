@@ -33,7 +33,7 @@ define([
         },
         render: function () {
             var sectionLabel = this.model.get('label'), titleTemplate = this.model.get('titleTemplate'), noImage = !!this.model.get('noImage'),
-                getClasses = _.partial(_.getBEMClasses, 'section', [sectionLabel, 'contents', noImage ? 'no-image' : 'image']),
+                getClasses = _.partial(_.getBEMClasses, 'section', [sectionLabel, 'contents', noImage? 'no-image' : 'image']),
                 $contents, $text, $title, $titleContainer, $imgFigure;
 
             this.$el.addBEMSuffix(sectionLabel);

@@ -75,7 +75,7 @@
             var blockOptions = [], elementOptions = [];
 
             // accepts null, a single item, or an array
-            blockModifiers = _.toArray(blockModifiers);
+            blockModifiers = _.isArray(blockModifiers) ? blockModifiers : blockModifiers == null ? [] : [blockModifiers];
             blockModifiers.push('');
             
             _.each(blockModifiers, function (curModifier) {
@@ -84,7 +84,7 @@
 
 
             // accepts null, a single item, or an array
-            elementModifiers = _.toArray(elementModifiers);
+            elementModifiers = _.isArray(elementModifiers) ? elementModifiers : elementModifiers == null ? [] : [elementModifiers];
             if (!onlyWithElementModifiers) {
                 elementModifiers.push('');
             }

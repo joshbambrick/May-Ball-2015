@@ -77,6 +77,7 @@ define([
             this.collection.each(function (curSection, curSectionIndex) {
                 var curSectionLabel = curSection.get('label'),
                     curSectionTitle = curSection.get('title'),
+                    curSectionImportant = curSection.get('important'),
                     firstNavLink = curSectionIndex === 0;
 
                 if (!this.$sectionLink[curSectionLabel] && curSectionTitle != null) {
@@ -84,7 +85,7 @@ define([
 
                     this.$sectionLink[curSectionLabel] = this.getSectionHyperlink(curSectionLabel)
                         .addBEMClass('nav__list-link')
-                        .addBEMSuffix(curSectionLabel + (firstNavLink ? ' selected' : ''))
+                        .addBEMSuffix(curSectionLabel + (firstNavLink ? ' selected' : '') + (curSectionImportant ? ' important' : ''))
                         .text(curSectionTitle)
                         .appendTo($('<li>').appendTo(this.$navList));
                 }

@@ -16,26 +16,38 @@ define([
     'text!templates/night.html',
     'text!templates/entertainment.html',
     'text!templates/ticket-info.html',
-    'text!templates/sponsors.html'
+    'text!templates/sponsors.html',
+    'text!templates/charities.html',
+    'text!templates/work.html',
+    'text!templates/committee.html'
 ], function (
     nightTemplate,
     entsTemplate,
     ticketInfoTemplate,
-    sponsorsTemplate
+    sponsorsTemplate,
+    charitiesTemplate,
+    workTemplate,
+    committeeTemplate
 ) {
     return [{
         // identifier-friendly label
         label: 'hero',
+        // second is important
+        // given special styling in locations (eg navigation links)
+        important: true,
         // title (defaults to `label` if undefined)
         // used to refer to this section with user  (eg navigation links)
         title: 'Wildcard',
         titleTemplate: 'WILD<wbr>CARD',
+        titleShowTime: 0,
         subheadings: [{
             text: 'JESUS COLLEGE MAY BALL',
-            label: 'subtitle'
+            label: 'subtitle',
+            showTime: 750
         }, {
             text: '15 - 06 -15',
-            label: 'date'
+            label: 'date',
+            showTime: 1250
         }],
         jumpArrow: false,
         type: 'hero'
@@ -56,7 +68,7 @@ define([
     }, {
         label: 'entertainment',
         title: 'Entertainment',
-        titleTemplate: 'Entertainment',
+        titleTemplate: 'Enter<wbr>tain<wbr>ment',
         type: 'content',
         template: entsTemplate
     }, {
@@ -66,7 +78,7 @@ define([
     }, {
         label: 'ticket-info',
         title: 'Tickets',
-        titleTemplate: 'Tickets',
+        titleTemplate: 'Tick<wbr>ets',
         type: 'content',
         template: ticketInfoTemplate
     }, {
@@ -88,7 +100,7 @@ define([
         title: 'Charities',
         titleTemplate: 'Char<wbr>ities',
         type: 'content',
-        template: '<p>' + 'hello' + '</p>',
+        template: charitiesTemplate,
         noImage: true
     }, {
         label: 'section-gap-5',
@@ -99,7 +111,7 @@ define([
         title: 'Work',
         titleTemplate: 'Work',
         type: 'content',
-        template: '<p>' + 'hello' + '</p><a href="work/apply" class="section--work__apply-button">Apply to work</a>'
+        template: workTemplate
     }, {
         label: 'section-gap-6',
         type: 'section-gap',
@@ -109,7 +121,7 @@ define([
         title: 'Committee',
         titleTemplate: 'Commi<wbr>ttee',
         type: 'content',
-        template: '<p>' + 'hello' + '</p>',
+        template: committeeTemplate,
         noImage: true
     }, {
         label: 'section-gap-7',

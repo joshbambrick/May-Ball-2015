@@ -64,6 +64,19 @@
         }
     }
 
+    &--important {
+        font-weight: bold;
+
+        &,
+        &:link,
+        &:visited,
+        &.nav__list-link--selected,
+        &.nav__list-link--selected:link,
+        &.nav__list-link--selected:visited {
+            color: colour(subtitle-text);
+        }
+    }
+
     text-transform: uppercase;
 
     @include respond(palm) {

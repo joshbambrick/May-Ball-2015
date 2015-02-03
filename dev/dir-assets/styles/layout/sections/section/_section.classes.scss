@@ -20,11 +20,7 @@
 %content-section {
     @extend %section-background;
 
-    padding: $lib-spacing-unit--large;
-    
-    @include respond(palm) {
-        padding: $lib-spacing-unit;
-    }
+    padding: $lib-spacing-unit;
 }
 
 %parallax-content-section {

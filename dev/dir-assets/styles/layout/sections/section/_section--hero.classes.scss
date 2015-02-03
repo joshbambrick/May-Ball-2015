@@ -72,20 +72,52 @@ $hero-logo-image-max-height: 440px;
 
     color: colour(title-text);
     letter-spacing: 0.3em;
+    opacity: 1;
+
+    transition: opacity 750ms, letter-spacing 750ms;
+
+    &--unshown {
+        opacity: 0;
+        
+        @include respond(lap-and-up) {
+            letter-spacing: 2.5em;
+        }
+    }
 }
 
 .section--hero__subheading {
     font-weight: normal;
     margin-bottom: $lib-spacing-unit;
     color: colour(subtitle-text);
+    opacity: 1;
+    transition: opacity 500ms;
+
+    &--unshown {
+        opacity: 0;
+    }
 }
 
 /* h3 */ .section--hero__subheading--subtitle {
     @extend .typl8-epsilon;
+    
+    transform: matrix(1, 0, 0, 1, 0, 0);
+    transition: opacity 500ms, transform 500ms;
+
+    &.section--hero__subheading--unshown {
+        transform: matrix(1, 0, 0, 1, 0, -24);
+    }
 }
 
 /* span */ .section--hero__subheading--date {
     @extend .typl8-delta;
+
+    margin-bottom: $lib-spacing-unit--huge;
+
+    &.section--hero__subheading--unshown {
+        &:before, &:after {
+            width: 0em;
+        }
+    }
 
     &:before, &:after {
         transition: width 0.5s;
@@ -96,5 +128,16 @@ $hero-logo-image-max-height: 440px;
         height: 2px;
         vertical-align: middle;
         margin: 0 1em;
+        transition: width 1000ms;
+
+        @include respond(palm) {
+            width: 1em;
+            margin: 0.5em;
+        }
+    }
+
+    @include respond(palm) {
+        white-space: nowrap;
+        letter-spacing: normal;
     }
 }

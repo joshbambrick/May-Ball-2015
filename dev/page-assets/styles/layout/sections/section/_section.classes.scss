@@ -4,8 +4,11 @@
 
         /* span */.section--#{$cur-section-label}__img {
             background-image: url(#{"../img/" + $cur-section-label + ".jpg"});
-            // override aspect ratio
-            padding-top: 100% * map-get($cur-section-image, height) / map-get($cur-section-image, width);
+
+            @include respond(palm) {
+	            // aspect ratio
+	            padding-top: 100% * map-get($cur-section-image, height) / map-get($cur-section-image, width);
+	        }
         }
     }
 }

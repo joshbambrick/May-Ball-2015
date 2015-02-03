@@ -1,55 +1,67 @@
+$section-image-width: 30%;
+$section-image-padding: 5%;
+
 /* div */.section--contents__text {
     @extend %palm-one-whole;
     
-    width: 50%;
+    width: 100% - $section-image-width - $section-image-padding;
+    text-align: justify;
 
     &.section--no-image__text {
         width: auto;
     }
 }
 
+
 /* figure */.section--contents__img-figure {
-    @extend %palm-one-whole;
-
-    display: block;
+    // 5% padding on the text
+    width: $section-image-width;
     
-    width: 45%;
-    margin: 0 5% 0 0;
-    
-    .section--odd & {
-        margin: 0 0 0 5%;
-    }
-
     @include respond(palm) {
         &, .section--odd & {
+            width: auto;
             max-width: 300px;
             margin: 0 auto $lib-spacing-unit;
         }
+    }
+
+    .section--even & {
+        left: 0;
+    }
+
+    .section--odd & {
+        right: 0;
     }
 }
 
 /* span */.section--contents__img {
     display: block;
-    
-    // aspect ratio of set by varying
-    // `padding-top` on a per-image basis
-    height: 0;
-    
-    // background-size: cover;
 
-    // could replace that with the below to ensure that
-    // all of image is shown (if image aspect ratio not 2:1)
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+
+    width: 100%;
 }
 
-.section--contents__text,
-.section--contents__img-figure {
-    float: left;
+/* figure */.section--contents__img-figure,
+/* span */.section--contents__img {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+
+    @include respond(palm) {
+        &, .section--odd & {
+            position: relative;
+        }
+    }
+}
+
+.section--contents__text.section--image__text {
+    float: right;
 
     .section--odd & {
-        float: right;
+        float: left;
     }
 
     @include respond(palm) {
@@ -57,4 +69,18 @@
             float: none;
         }
     }
+}
+
+.section--contents dl {
+    margin: 0;
+}
+
+.section--contents dt {
+    margin: $lib-spacing-unit--small 0;
+    font-weight: bold;
+    text-align: center;
+}
+
+.section--contents dd {
+    margin: $lib-spacing-unit--tiny 0;
 }

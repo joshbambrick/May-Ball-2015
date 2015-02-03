@@ -12191,6 +12191,32 @@ return jQuery;
         },
         bindDefer: function () {
             _.defer(_.bind.apply(_, arguments));
+        },
+        getBEMClasses: function (blockLabel, blockModifiers, elementLabel, elementModifiers, onlyWithElementModifiers) {
+            var blockOptions = [], elementOptions = [];
+
+            // accepts null, a single item, or an array
+            blockModifiers = _.isArray(blockModifiers) ? blockModifiers : blockModifiers == null ? [] : [blockModifiers];
+            blockModifiers.push('');
+            
+            _.each(blockModifiers, function (curModifier) {
+                blockOptions.push(blockLabel + (curModifier ? '--' + curModifier : ''));
+            });
+
+
+            // accepts null, a single item, or an array
+            elementModifiers = _.isArray(elementModifiers) ? elementModifiers : elementModifiers == null ? [] : [elementModifiers];
+            if (!onlyWithElementModifiers) {
+                elementModifiers.push('');
+            }
+
+            _.each(elementModifiers, function (curModifier) {
+                _.each(blockOptions, function (curBlockOpt) {
+                    elementOptions.push(curBlockOpt + '__' + elementLabel + (curModifier ? '--' + curModifier : ''));
+                });
+            });
+
+            return elementOptions.join(' ');
         }
     });
 }));
@@ -13924,6 +13950,335 @@ define('collections/sections',[
 ) {
     return Backbone.Collection.extend();
 });
+/**
+ * @license RequireJS text 2.0.3 Copyright (c) 2010-2012, The Dojo Foundation All Rights Reserved.
+ * Available via the MIT or new BSD license.
+ * see: http://github.com/requirejs/text for details
+ */
+/*jslint regexp: true */
+/*global require: false, XMLHttpRequest: false, ActiveXObject: false,
+  define: false, window: false, process: false, Packages: false,
+  java: false, location: false */
+
+define('text',['module'], function (module) {
+    
+
+    var text, fs,
+        progIds = ['Msxml2.XMLHTTP', 'Microsoft.XMLHTTP', 'Msxml2.XMLHTTP.4.0'],
+        xmlRegExp = /^\s*<\?xml(\s)+version=[\'\"](\d)*.(\d)*[\'\"](\s)*\?>/im,
+        bodyRegExp = /<body[^>]*>\s*([\s\S]+)\s*<\/body>/im,
+        hasLocation = typeof location !== 'undefined' && location.href,
+        defaultProtocol = hasLocation && location.protocol && location.protocol.replace(/\:/, ''),
+        defaultHostName = hasLocation && location.hostname,
+        defaultPort = hasLocation && (location.port || undefined),
+        buildMap = [],
+        masterConfig = (module.config && module.config()) || {};
+
+    text = {
+        version: '2.0.3',
+
+        strip: function (content) {
+            //Strips <?xml ...?> declarations so that external SVG and XML
+            //documents can be added to a document without worry. Also, if the string
+            //is an HTML document, only the part inside the body tag is returned.
+            if (content) {
+                content = content.replace(xmlRegExp, "");
+                var matches = content.match(bodyRegExp);
+                if (matches) {
+                    content = matches[1];
+                }
+            } else {
+                content = "";
+            }
+            return content;
+        },
+
+        jsEscape: function (content) {
+            return content.replace(/(['\\])/g, '\\$1')
+                .replace(/[\f]/g, "\\f")
+                .replace(/[\b]/g, "\\b")
+                .replace(/[\n]/g, "\\n")
+                .replace(/[\t]/g, "\\t")
+                .replace(/[\r]/g, "\\r")
+                .replace(/[\u2028]/g, "\\u2028")
+                .replace(/[\u2029]/g, "\\u2029");
+        },
+
+        createXhr: masterConfig.createXhr || function () {
+            //Would love to dump the ActiveX crap in here. Need IE 6 to die first.
+            var xhr, i, progId;
+            if (typeof XMLHttpRequest !== "undefined") {
+                return new XMLHttpRequest();
+            } else if (typeof ActiveXObject !== "undefined") {
+                for (i = 0; i < 3; i += 1) {
+                    progId = progIds[i];
+                    try {
+                        xhr = new ActiveXObject(progId);
+                    } catch (e) {}
+
+                    if (xhr) {
+                        progIds = [progId];  // so faster next time
+                        break;
+                    }
+                }
+            }
+
+            return xhr;
+        },
+
+        /**
+         * Parses a resource name into its component parts. Resource names
+         * look like: module/name.ext!strip, where the !strip part is
+         * optional.
+         * @param {String} name the resource name
+         * @returns {Object} with properties "moduleName", "ext" and "strip"
+         * where strip is a boolean.
+         */
+        parseName: function (name) {
+            var strip = false, index = name.indexOf("."),
+                modName = name.substring(0, index),
+                ext = name.substring(index + 1, name.length);
+
+            index = ext.indexOf("!");
+            if (index !== -1) {
+                //Pull off the strip arg.
+                strip = ext.substring(index + 1, ext.length);
+                strip = strip === "strip";
+                ext = ext.substring(0, index);
+            }
+
+            return {
+                moduleName: modName,
+                ext: ext,
+                strip: strip
+            };
+        },
+
+        xdRegExp: /^((\w+)\:)?\/\/([^\/\\]+)/,
+
+        /**
+         * Is an URL on another domain. Only works for browser use, returns
+         * false in non-browser environments. Only used to know if an
+         * optimized .js version of a text resource should be loaded
+         * instead.
+         * @param {String} url
+         * @returns Boolean
+         */
+        useXhr: function (url, protocol, hostname, port) {
+            var uProtocol, uHostName, uPort,
+                match = text.xdRegExp.exec(url);
+            if (!match) {
+                return true;
+            }
+            uProtocol = match[2];
+            uHostName = match[3];
+
+            uHostName = uHostName.split(':');
+            uPort = uHostName[1];
+            uHostName = uHostName[0];
+
+            return (!uProtocol || uProtocol === protocol) &&
+                   (!uHostName || uHostName.toLowerCase() === hostname.toLowerCase()) &&
+                   ((!uPort && !uHostName) || uPort === port);
+        },
+
+        finishLoad: function (name, strip, content, onLoad) {
+            content = strip ? text.strip(content) : content;
+            if (masterConfig.isBuild) {
+                buildMap[name] = content;
+            }
+            onLoad(content);
+        },
+
+        load: function (name, req, onLoad, config) {
+            //Name has format: some.module.filext!strip
+            //The strip part is optional.
+            //if strip is present, then that means only get the string contents
+            //inside a body tag in an HTML string. For XML/SVG content it means
+            //removing the <?xml ...?> declarations so the content can be inserted
+            //into the current doc without problems.
+
+            // Do not bother with the work if a build and text will
+            // not be inlined.
+            if (config.isBuild && !config.inlineText) {
+                onLoad();
+                return;
+            }
+
+            masterConfig.isBuild = config.isBuild;
+
+            var parsed = text.parseName(name),
+                nonStripName = parsed.moduleName + '.' + parsed.ext,
+                url = req.toUrl(nonStripName),
+                useXhr = (masterConfig.useXhr) ||
+                         text.useXhr;
+
+            //Load the text. Use XHR if possible and in a browser.
+            if (!hasLocation || useXhr(url, defaultProtocol, defaultHostName, defaultPort)) {
+                text.get(url, function (content) {
+                    text.finishLoad(name, parsed.strip, content, onLoad);
+                }, function (err) {
+                    if (onLoad.error) {
+                        onLoad.error(err);
+                    }
+                });
+            } else {
+                //Need to fetch the resource across domains. Assume
+                //the resource has been optimized into a JS module. Fetch
+                //by the module name + extension, but do not include the
+                //!strip part to avoid file system issues.
+                req([nonStripName], function (content) {
+                    text.finishLoad(parsed.moduleName + '.' + parsed.ext,
+                                    parsed.strip, content, onLoad);
+                });
+            }
+        },
+
+        write: function (pluginName, moduleName, write, config) {
+            if (buildMap.hasOwnProperty(moduleName)) {
+                var content = text.jsEscape(buildMap[moduleName]);
+                write.asModule(pluginName + "!" + moduleName,
+                               "define(function () { return '" +
+                                   content +
+                               "';});\n");
+            }
+        },
+
+        writeFile: function (pluginName, moduleName, req, write, config) {
+            var parsed = text.parseName(moduleName),
+                nonStripName = parsed.moduleName + '.' + parsed.ext,
+                //Use a '.js' file name so that it indicates it is a
+                //script that can be loaded across domains.
+                fileName = req.toUrl(parsed.moduleName + '.' +
+                                     parsed.ext) + '.js';
+
+            //Leverage own load() method to load plugin value, but only
+            //write out values that do not have the strip argument,
+            //to avoid any potential issues with ! in file names.
+            text.load(nonStripName, req, function (value) {
+                //Use own write() method to construct full module value.
+                //But need to create shell that translates writeFile's
+                //write() to the right interface.
+                var textWrite = function (contents) {
+                    return write(fileName, contents);
+                };
+                textWrite.asModule = function (moduleName, contents) {
+                    return write.asModule(moduleName, fileName, contents);
+                };
+
+                text.write(pluginName, nonStripName, textWrite, config);
+            }, config);
+        }
+    };
+
+    if (masterConfig.env === 'node' || (!masterConfig.env &&
+            typeof process !== "undefined" &&
+            process.versions &&
+            !!process.versions.node)) {
+        //Using special require.nodeRequire, something added by r.js.
+        fs = require.nodeRequire('fs');
+
+        text.get = function (url, callback) {
+            var file = fs.readFileSync(url, 'utf8');
+            //Remove BOM (Byte Mark Order) from utf8 files if it is there.
+            if (file.indexOf('\uFEFF') === 0) {
+                file = file.substring(1);
+            }
+            callback(file);
+        };
+    } else if (masterConfig.env === 'xhr' || (!masterConfig.env &&
+            text.createXhr())) {
+        text.get = function (url, callback, errback) {
+            var xhr = text.createXhr();
+            xhr.open('GET', url, true);
+
+            //Allow overrides specified in config
+            if (masterConfig.onXhr) {
+                masterConfig.onXhr(xhr, url);
+            }
+
+            xhr.onreadystatechange = function (evt) {
+                var status, err;
+                //Do not explicitly handle errors, those should be
+                //visible via console output in the browser.
+                if (xhr.readyState === 4) {
+                    status = xhr.status;
+                    if (status > 399 && status < 600) {
+                        //An http 4xx or 5xx error. Signal an error.
+                        err = new Error(url + ' HTTP status: ' + status);
+                        err.xhr = xhr;
+                        errback(err);
+                    } else {
+                        callback(xhr.responseText);
+                    }
+                }
+            };
+            xhr.send(null);
+        };
+    } else if (masterConfig.env === 'rhino' || (!masterConfig.env &&
+            typeof Packages !== 'undefined' && typeof java !== 'undefined')) {
+        //Why Java, why is this so awkward?
+        text.get = function (url, callback) {
+            var stringBuffer, line,
+                encoding = "utf-8",
+                file = new java.io.File(url),
+                lineSeparator = java.lang.System.getProperty("line.separator"),
+                input = new java.io.BufferedReader(new java.io.InputStreamReader(new java.io.FileInputStream(file), encoding)),
+                content = '';
+            try {
+                stringBuffer = new java.lang.StringBuffer();
+                line = input.readLine();
+
+                // Byte Order Mark (BOM) - The Unicode Standard, version 3.0, page 324
+                // http://www.unicode.org/faq/utf_bom.html
+
+                // Note that when we use utf-8, the BOM should appear as "EF BB BF", but it doesn't due to this bug in the JDK:
+                // http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=4508058
+                if (line && line.length() && line.charAt(0) === 0xfeff) {
+                    // Eat the BOM, since we've already found the encoding on this file,
+                    // and we plan to concatenating this buffer with others; the BOM should
+                    // only appear at the top of a file.
+                    line = line.substring(1);
+                }
+
+                stringBuffer.append(line);
+
+                while ((line = input.readLine()) !== null) {
+                    stringBuffer.append(lineSeparator);
+                    stringBuffer.append(line);
+                }
+                //Make sure we return a JavaScript string and not a Java string.
+                content = String(stringBuffer.toString()); //String
+            } finally {
+                input.close();
+            }
+            callback(content);
+        };
+    }
+
+    return text;
+});
+
+define('text!templates/night.html',[],function () { return '<!--\r\n--><p>The Jesus May Ball Committee is delighted to invite you to pick a Wildcard and join us at this year\'s May Ball. Become entranced by Diamonds, kneel at the thrones of the King and Queen, and avoid any tricks by the Joker as you explore this years\' spectacular.</p><!--\r\n--><p>Prepare to experience a night like no other. As the sun sets on Jesus College on the 15<sup>th</sup> June, and you stroll across the ancient courts. Here you can sample a wide range of food from across the world, help yourself to a delicious cocktail or grab a glass of fizz, before settling down to catch some of our carefully selected musicians, magicians, and comedians. Or, if you desire a different pace, hurtle around in the dodgems and dance the night away in our DJ tent.</p><!--\r\n--><p>However you wish to spend your night, Jesus May Ball has something for you.</p>';});
+
+
+define('text!templates/entertainment.html',[],function () { return '<!--\r\n--><p>The entertainment at Jesus May Ball rarely disappoints. Previous balls have played host to such illustrious talent as: Scouting for Girls, Rizzle Kicks, Maverick Sabre, Clean Bandit, and even David Bowie, once upon a time.</p><!--\r\n--><p>Our team are hard at work putting together an impressive line up for our main stage, where well known names will be joined by perennially popular tribute acts, as well as the very best of Cambridge musicians.</p><!--\r\n--><p>Helping ease the stress of a difficult term with some comedy has traditionally been another strength of Jesus Ball. Past performers have included Simon Amstell, Russell Kane, and James Acaster, who are always bolstered by a strong line up of local and student acts. We are confident that you will enjoy what we have in store this year.</p><!--\r\n--><p><small>Applications for student acts have now closed, please contact <a href="mailto:student-ents@jesusmayball.com">student-ents<wbr>@jesusmayball<wbr>.com</a> with any queries.</small></p>';});
+
+
+define('text!templates/ticket-info.html',[],function () { return '<!--\r\n--><p>Tickets are now available to members of Jesus College and their guests. Three types are available: standard, priority, and dining, priced at £137, £153, and £174 respectively. \r\n</p><!--\r\n--><p>Standard tickets allow you to enjoy the ball from 8pm, while priority tickets give you the chance to skip the queue and enjoy a champagne reception in the cloisters, and entrance to the ball before everyone else. If you are looking for an exclusive experience, our exclusive dining package includes a champagne reception, followed by a 3-course dinner in the college hall, accompanied by fine wines. \r\n</p><!--\r\n--><p>Tickets are available through our online system, exclusively to Jesuans until the 27<sup>th</sup> February. If any tickets remain after this initial round, they will go on sale to all members of the University.</p><!--\r\n--><a href="http://jesusmayball.com/tickets/" class="section--ticket-info__buy-button">Click Here to Purchase Tickets</a>';});
+
+
+define('text!templates/sponsors.html',[],function () { return '<!--\r\n--><p>We are grateful to the following sponsors for helping us to deliver a fantastic event:</p><!--\r\n--><p>If you are interested in hearing how a partnership with Jesus May Ball could add value to your brand, please contact Charlie Benson (<a href="mailto:sponsorship@jesusmayball.com">sponsorship<wbr>@jesusmayball<wbr>.com</a>). We can offer a range of bespoke packages.</p>';});
+
+
+define('text!templates/charities.html',[],function () { return '<!--\r\n--><p>There is the option to add a £2 charity donation to the price of your ticket, which we hope you will consider. This year, the Committee is supporting three charities.<!--\r\n\t--><dl><!--\r\n\t\t--><dt>Jimmy\'s Night Shelter</dt><!--\r\n\t\t--><dd>Jimmy\'s provides emergency accommodation 365 days a year for people in Cambridge who would otherwise have no place to stay. It provides a warm, welcoming environment and supports guests in the longer term as they move into permanent accommodation.</dd><!--\r\n\t\t--><dt>Afrinspire</dt><!--\r\n\t\t--><dd>Afrinspire supports development initiatives across East Africa, working with local community leaders to understand development needs and working to fulfil these. The May Ball Presidents\' Committee has committed to support Afrinspire in an ongoing capacity from year to year.</dd><!--\r\n\t\t--><dt>Student Minds</dt><!--\r\n\t\t--><dd>Student Minds believes that the best way to improve mental health in students is through the support of their peers. They offer training and support to equip students across the UK.</dd><!--\r\n\t--></dl><!--\r\n--></p>';});
+
+
+define('text!templates/work.html',[],function () { return '<!--\r\n--><p>Jesus May Ball is currently looking for motivated and enthusiastic workers to help make this year\'s Ball a success. There are a variety of roles available, including food and drink workers, security stewards, and entertainment runners, as well as the opportunity to take on a leadership position in the capacity of a Team Leader or Court Supervisor.\r\n</p><!--\r\n--><p>We do not operate a \'half-on, half-off\' employment policy like many May Balls, and workers are offered a competitive rate which starts at £65 for the night and increases for certain roles.\r\n</p><!--\r\n--><p>Applicants must be willing to work as part of a team and should demonstrate charisma and enthusiasm in order to make the 15<sup>th</sup> of June a spectacular night. Previous experience in hospitality or May Balls is not essential, and training will be given in the week preceding the Ball.\r\n</p><!--\r\n--><p>This is a great opportunity to be a part of one of the most exciting events of the year whilst earning some money. Applications close on the 27<sup>th</sup> February, with interviews being held on the 7<sup>th</sup> or 8<sup>th</sup> of March. To apply, please complete our online application form, or email us for more information at <a href="mailto:staffing@jesusmayball.com">staffing<wbr>@jesusmayball<wbr>.com</a>.</p><!--\r\n--><a href="work/apply" class="section--work__apply-button">Apply to work</a>';});
+
+
+define('text!templates/committee.html',[],function () { return '<%\r\n\tvar rows = [[\r\n\t\t{\r\n\t\t\tname: \'Alessandra Bittante\',\r\n\t\t\tposition: \'President\'\r\n\t\t}, {\r\n\t\t\tname: \'George Bryan\',\r\n\t\t\tposition: \'President\'\r\n\t\t}\r\n\t], [{\r\n\t\t\tname: \'Chris Brown\',\r\n\t\t\tposition: \'Treasurer\'\r\n\t\t}, {\r\n\t\t\tname: \'Isobel MacAuslan\',\r\n\t\t\tposition: \'Secretary\'\r\n\t\t}, {\r\n\t\t\tname: \'Elka Humphrys\',\r\n\t\t\tposition: \'Food\'\r\n\t\t}, {\r\n\t\t\tname: \'Fred Richards\',\r\n\t\t\tposition: \'Drinks\'\r\n\t\t}\r\n\t], [{\r\n\t\t\tname: \'Rob Cronshaw\',\r\n\t\t\tposition: \'Main Ents\'\r\n\t\t}, {\r\n\t\t\tname: \'Bethany Hutchison\',\r\n\t\t\tposition: \'Student Ents\'\r\n\t\t}, {\r\n\t\t\tname: \'Lare Erogbogbo\',\r\n\t\t\tposition: \'Non-Music Ents\'\r\n\t\t}, {\r\n\t\t\tname: \'Chris Stuart\',\r\n\t\t\tposition: \'Tech\'\r\n\t\t}\r\n\t], [{\r\n\t\t\tname: \'Charlie Benson\',\r\n\t\t\tposition: \'Staffing\'\r\n\t\t}, {\r\n\t\t\tname: \'Kate Gerhard\',\r\n\t\t\tposition: \'Buildings\'\r\n\t\t}, {\r\n\t\t\tname: \'Claire Nichols\',\r\n\t\t\tposition: \'Security\'\r\n\t\t}, {\r\n\t\t\tname: \'Helen Broadbridge\',\r\n\t\t\tposition: \'Head of Design\'\r\n\t\t}\r\n\t], [{\r\n\t\t\tname: \'Rachel Rees Middleton\',\r\n\t\t\tposition: \'Design\'\r\n\t\t}, {\r\n\t\t\tname: \'Rory Luscombe\',\r\n\t\t\tposition: \'Design\'\r\n\t\t}, {\r\n\t\t\tname: \'Julia Cabanas\',\r\n\t\t\tposition: \'Design\'\r\n\t\t}, {\r\n\t\t\tname: \'Jen Sutherland\',\r\n\t\t\tposition: \'Design\'\r\n\t\t}\r\n\t], [{\r\n\t\t\tname: \'Anthony Graff\',\r\n\t\t\tposition: \'Ticketing\'\r\n\t\t}, {\r\n\t\t\tname: \'Josh Bambrick\',\r\n\t\t\tposition: \'Webmaster\'\r\n\t\t}\r\n\t]];\r\n\r\n\t_.each(rows, function (curRow) {\r\n\t%><!--\r\n\t\t--><div class="section--committee__member-row"><!--\r\n\t\t--><%\r\n\t\t\t_.each(curRow, function (curMember) {\r\n\t\t\t\tvar curMemberFirstName = curMember.name.split(" ")[0],\r\n\t\t\t\t\tcurMemberLabel = curMemberFirstName.toLowerCase();\r\n\t\t\t%><!--\r\n\t\t\t\t--><figure\r\n\t\t\t\t\tclass="\r\n\t\t\t\t\t\tsection--committee__member-item\r\n\t\t\t\t\t\tsection--committee__member-item--<%= curMemberLabel %>\r\n\t\t\t\t\t"\r\n\r\n\t\t\t\t\ttitle="<%= curMember.name %>"\r\n\t\t\t\t><!--\r\n\t\t\t\t\t--><span\r\n\t\t\t\t\t\tclass="\r\n\t\t\t\t\t\t\tsection--committee__member-img\r\n\t\t\t\t\t\t\tsection--committee__member-img--<%= curMemberLabel %>\r\n\t\t\t\t\t\t"\r\n\t\t\t\t\t></span><!--\r\n\t\t\t\t\t--><span\r\n\t\t\t\t\t\tclass="\r\n\t\t\t\t\t\t\tsection--committee__member-label\r\n\t\t\t\t\t\t\tsection--committee__member-label--<%= curMemberLabel %>\r\n\t\t\t\t\t\t"\r\n\t\t\t\t\t><%= curMemberFirstName %> - <%= curMember.position %></span><!--\r\n\t\t\t\t--></figure><!--\r\n\t\t\t--><%\r\n\t\t\t});\r\n\t\t%><!--\r\n\t\t--></div><!--\r\n\t--><%\r\n\t});\r\n%>';});
+
 /*
 |-------------------------------------------
 | sections
@@ -13938,64 +14293,108 @@ define('collections/sections',[
 |
 */
 
-define('content/sections',[], function () {
-    var filler1 = "Williamsburg keffiyeh hashtag, 90's irony kogi narwhal pickled mustache sustainable wolf raw denim Odd Future. Biodiesel 90's bitters paleo, organic cardigan selvage craft beer Brooklyn post-ironic. Small batch post-ironic food truck mlkshk tousled, stumptown next level fixie butcher Portland viral photo booth banjo tote bag.",
-        filler2 = "Selvage Pitchfork fingerstache fanny pack, Cosby sweater pug Echo Park 90's cray dreamcatcher mumblecore Bushwick craft beer. Marfa Brooklyn aesthetic irony. Marfa scenester stumptown, fingerstache cornhole XOXO PBRB. Lomo pour-over tote bag, Neutra artisan direct trade wolf street art roof party cray chambray meggings pug quinoa freegan.";
-        // filler3 = "\n\nTumblr meh sriracha Odd Future Marfa messenger bag, small batch cray Godard plaid. Kickstarter locavore normcore post-ironic. Brooklyn single-origin coffee meh whatever ethnic, biodiesel fap Godard gentrify banjo. Chillwave sustainable you probably haven't heard of them viral keytar. Brunch pop-up cardigan McSweeney's freegan, locavore sriracha selfies 8-bit next level blog keytar. Freegan aesthetic sartorial, Blue Bottle chillwave iPhone Thundercats wolf craft beer meggings salvia direct trade mlkshk Tumblr fap. Post-ironic tote bag ethnic gluten-free Truffaut.\n\nMlkshk letterpress Intelligentsia vegan mumblecore fanny pack, sriracha master cleanse small batch irony YOLO kale chips squid. Scenester hoodie gentrify, polaroid pour-over readymade Blue Bottle selvage art party ugh Cosby sweater kitsch Tonx wayfarers. Brunch try-hard Schlitz raw denim. Pour-over cornhole Echo Park, Tumblr seitan raw denim slow-carb. Squid crucifix DIY mixtape Portland selvage Pitchfork 90's scenester art party trust fund messenger bag banjo stumptown Tonx. Banksy cornhole craft beer art party selvage fixie. Tote bag tattooed semiotics selfies";
-
+define('content/sections',[
+    'text!templates/night.html',
+    'text!templates/entertainment.html',
+    'text!templates/ticket-info.html',
+    'text!templates/sponsors.html',
+    'text!templates/charities.html',
+    'text!templates/work.html',
+    'text!templates/committee.html'
+], function (
+    nightTemplate,
+    entsTemplate,
+    ticketInfoTemplate,
+    sponsorsTemplate,
+    charitiesTemplate,
+    workTemplate,
+    committeeTemplate
+) {
     return [{
         // identifier-friendly label
         label: 'hero',
-        // url-friendly label (defaults to `label` if undefined)
-        title: 'ThemeName',
-        // title: 'Wildcard',
-        titleTemplate: 'Theme<wbr>Name',
-        // titleTemplate: 'Wild<wbr>card',
-        subtitle: 'Jesus College May Ball 2015',
-        jumpArrow: true,
+        // second is important
+        // given special styling in locations (eg navigation links)
+        important: true,
+        // title (defaults to `label` if undefined)
+        // used to refer to this section with user  (eg navigation links)
+        title: 'Wildcard',
+        titleTemplate: 'WILD<wbr>CARD',
+        titleShowTime: 0,
+        subheadings: [{
+            text: 'JESUS COLLEGE MAY BALL',
+            label: 'subtitle',
+            showTime: 750
+        }, {
+            text: '15 - 06 -15',
+            label: 'date',
+            showTime: 1250
+        }],
+        jumpArrow: false,
         type: 'hero'
     }, {
         label: 'section-gap-0',
         type: 'section-gap',
         layers: ['parallax']
     }, {
-        label: 'tickets',
-        title: 'Tickets',
-        titleTemplate: 'Tickets',
+        label: 'night',
+        title: 'The Night',
+        titleTemplate: 'The Night',
         type: 'content',
-        template: '<p>' + filler1 + '</p><p>' + filler2 + '</p>'
+        template: nightTemplate
     }, {
         label: 'section-gap-1',
-        type: 'section-gap',
-        layers: ['parallax', 'rotate']
-    }, {
-        label: 'charities',
-        title: 'Charities',
-        titleTemplate: 'Char<wbr>ities',
-        type: 'content',
-        template: '<p>' + filler1 + '</p><p>' + filler2 + '</p>'
-    }, {
-        label: 'section-gap-2',
-        type: 'section-gap',
-        layers: ['parallax']
-    }, {
-        label: 'staffing',
-        title: 'Staffing',
-        titleTemplate: 'Staff<wbr>ing',
-        type: 'content',
-        template: '<p>' + filler1 + '</p><a href="staffing/apply" class="section--staffing__apply-button">Apply to work</a>'
-    }, {
-        label: 'section-gap-3',
         type: 'section-gap',
         layers: ['parallax']
     }, {
         label: 'entertainment',
         title: 'Entertainment',
-        titleTemplate: 'Entertain<wbr>ment',
+        titleTemplate: 'Enter<wbr>tain<wbr>ment',
         type: 'content',
-        template: '<p>' + filler2 + '</p><a href="entertainment/apply" class="section--entertainment__apply-button">Apply to perform</a>'
+        template: entsTemplate
+    }, {
+        label: 'section-gap-2',
+        type: 'section-gap',
+        layers: ['parallax']
+    }, {
+        label: 'ticket-info',
+        title: 'Tickets',
+        titleTemplate: 'Tick<wbr>ets',
+        type: 'content',
+        template: ticketInfoTemplate
+    }, {
+        label: 'section-gap-3',
+        type: 'section-gap',
+        layers: ['parallax', 'rotate']
+    }, {
+        label: 'sponsors',
+        title: 'Sponsors',
+        titleTemplate: 'Spon<wbr>sors',
+        type: 'content',
+        template: sponsorsTemplate
     }, {
         label: 'section-gap-4',
+        type: 'section-gap',
+        layers: ['parallax']
+    }, {
+        label: 'charities',
+        title: 'Charities',
+        titleTemplate: 'Char<wbr>ities',
+        type: 'content',
+        template: charitiesTemplate,
+        noImage: true
+    }, {
+        label: 'section-gap-5',
+        type: 'section-gap',
+        layers: ['parallax', 'rotate']
+    }, {
+        label: 'work',
+        title: 'Work',
+        titleTemplate: 'Work',
+        type: 'content',
+        template: workTemplate
+    }, {
+        label: 'section-gap-6',
         type: 'section-gap',
         layers: ['parallax']
     }, {
@@ -14003,9 +14402,10 @@ define('content/sections',[], function () {
         title: 'Committee',
         titleTemplate: 'Commi<wbr>ttee',
         type: 'content',
-        template: '<p>' + filler1 + '</p><p>' + filler2 + '</p>'
+        template: committeeTemplate,
+        noImage: true
     }, {
-        label: 'section-gap-5',
+        label: 'section-gap-7',
         type: 'section-gap',
         layers: ['parallax']
     }, {
@@ -14116,6 +14516,7 @@ define('views/nav',[
             this.collection.each(function (curSection, curSectionIndex) {
                 var curSectionLabel = curSection.get('label'),
                     curSectionTitle = curSection.get('title'),
+                    curSectionImportant = curSection.get('important'),
                     firstNavLink = curSectionIndex === 0;
 
                 if (!this.$sectionLink[curSectionLabel] && curSectionTitle != null) {
@@ -14123,7 +14524,7 @@ define('views/nav',[
 
                     this.$sectionLink[curSectionLabel] = this.getSectionHyperlink(curSectionLabel)
                         .addBEMClass('nav__list-link')
-                        .addBEMSuffix(curSectionLabel + (firstNavLink ? ' selected' : ''))
+                        .addBEMSuffix(curSectionLabel + (firstNavLink ? ' selected' : '') + (curSectionImportant ? ' important' : ''))
                         .text(curSectionTitle)
                         .appendTo($('<li>').appendTo(this.$navList));
                 }
@@ -14175,36 +14576,59 @@ define('views/hero-section',[
         render: function () {
             var sectionLabel = this.model.get('label'),
                 sectionTitleTemplate = this.model.get('titleTemplate'),
-                sectionSubtitle = this.model.get('subtitle'),
-                $title, $subtitle, $figure, $arrowRow;
+                sectionTitleShowTime = this.model.get('titleShowTime'),
+                sectionSubheadings = this.model.get('subheadings'),
+                getClasses = _.partial(_.getBEMClasses, 'section', [sectionLabel, 'hero']),
+                $title, $subheadings, $figure, $arrowRow;
 
             this.$el.addBEMSuffix(sectionLabel);
             
-            $figure = $('<figure>').addClass('section--' + sectionLabel + '__figure section--hero__figure section__figure').appendTo(this.$el);
-            $('<span>').addClass('section--' + sectionLabel + '__img section--hero__img section__img').appendTo($figure);
+            $figure = $('<figure>').addClass(getClasses('figure')).appendTo(this.$el);
+            $('<span>').addClass(getClasses('img')).appendTo($figure);
 
-            $title = $('<h1>').addClass('section--' + sectionLabel + '__title section--hero__title section__title').html(_.render(sectionTitleTemplate)).appendTo(this.$el);
-            
-            $subtitle = $('<h3>').addClass('section--' + sectionLabel + '__subtitle section--hero__subtitle section__subtitle').text(sectionSubtitle).appendTo(this.$el);
+            $title = $('<h1>').addClass(getClasses('title', 'unshown')).html(_.render(sectionTitleTemplate)).appendTo(this.$el);
+
+            $(function () {
+                setTimeout(function () {
+                    $title.removeClass(getClasses('title', 'unshown', true));
+                }, sectionTitleShowTime);
+            });
+
+            $subheadings = $();
+
+            _.each(sectionSubheadings, function (curSubheading) {
+                var $curSubheading = $('<h3>').addClass(getClasses('subheading', [curSubheading.label, 'unshown'])).text(curSubheading.text).appendTo(this.$el);
+
+                $subheadings.add($curSubheading);
+
+                $(function () {
+                    setTimeout(function () {
+                        $curSubheading.removeClass(getClasses('subheading', 'unshown', true));
+                    }, curSubheading.showTime);
+                });
+            }, this);
 
             if (this.model.get('jumpArrow')) {
-                $arrowRow = $('<div>').addClass('section--' + sectionLabel + '__arrow-row section--hero__arrow-row section__arrow-row').appendTo(this.$el);
+                $arrowRow = $('<div>').addClass(
+                    getClasses('arrow-row')
+                ).appendTo(this.$el);
+
                 this.getSectionHyperLink(this.firstContentSectionLabel)
-                    .addClass('section--' + sectionLabel + '__arrow section--hero__arrow section__arrow')
+                    .addClass(getClasses('arrow'))
                     .appendTo($arrowRow);
             }
 
             _.bindDefer(function () {
                 $.breakpoint.on(['palm'], function (breakpoint) {
-                    var titlePalmClass = 'section--' + sectionLabel + '__title--palm section--hero__title--palm section__title--palm',
-                        subtitlePalmClass = 'section--' + sectionLabel + '__subtitle--palm section--hero__subtitle--palm section__title--palm';
+                    var titlePalmClass = getClasses('title', 'palm', true),
+                        subheadingPalmClass = getClasses('subheading', 'palm', true);
                     
                     if (breakpoint === 'palm') {
                         $title.addClass(titlePalmClass);
-                        $subtitle.addClass(subtitlePalmClass);
+                        $subheadings.addClass(subheadingPalmClass);
                     } else {
                         $title.removeClass(titlePalmClass);
-                        $subtitle.removeClass(subtitlePalmClass);
+                        $subheadings.removeClass(subheadingPalmClass);
                     }
                 }, true);
             }, this);
@@ -14247,23 +14671,32 @@ define('views/content-section',[
             this.render();
         },
         render: function () {
-            var sectionLabel = this.model.get('label'), titleTemplate = this.model.get('titleTemplate'), $contents, $title, $imgFigure;
+            var sectionLabel = this.model.get('label'), titleTemplate = this.model.get('titleTemplate'), noImage = !!this.model.get('noImage'),
+                getClasses = _.partial(_.getBEMClasses, 'section', [sectionLabel, 'contents', noImage? 'no-image' : 'image']),
+                $contents, $text, $title, $titleContainer, $imgFigure;
 
             this.$el.addBEMSuffix(sectionLabel);
 
-            $contents = $('<div>').addClass('section__contents section--' + sectionLabel + '__contents').appendTo(this.$el);
+            $contents = $('<div>').addClass(getClasses('contents')).appendTo(this.$el);
 
-            $title = $('<h4>').addClass('section--' + sectionLabel + '__title section--contents__title section__title').html(_.render(titleTemplate)).appendTo($contents);
-
-            $imgFigure = $('<figure>').addClass('section--' + sectionLabel + '__img-figure section--contents__img-figure section__img-figure').appendTo($contents);
-            $('<span>').addClass('section--' + sectionLabel + '__img section--contents__img section__img').appendTo($imgFigure);
+            this.$el.addBEMSuffix(noImage ? 'no-image' : 'image');
             
-            $('<div>').addClass('section--' + sectionLabel + '__text section--contents__text section__text').appendTo($contents).html(_.render(this.model.get('template')));
+            if (!noImage) {
+                $imgFigure = $('<figure>').addClass(getClasses('img-figure')).appendTo($contents);
+                $('<span>').addClass(getClasses('img')).appendTo($imgFigure);
+            }
+            
+            $text = $('<div>').addClass(getClasses('text')).html(_.render(this.model.get('template'))).appendTo($contents);
+            
+
+            $titleContainer = $('<div>').addClass(getClasses('title-container')).prependTo($text);
+            $title = $('<h4>').addClass(getClasses('title')).html(_.render(titleTemplate)).appendTo($titleContainer);
+            $('<div>').addClass(getClasses('title-underline')).appendTo($titleContainer);
 
 
             $.breakpoint.on(['thumb', 'palm'], _.bind(function (breakpoint) {
-                var palmClass = 'section--' + sectionLabel + '__title--palm section--contents__title--palm section__title--palm',
-                    thumbClass = 'section--' + sectionLabel + '__title--thumb section--contents__title--thumb section__title--thumb';
+                var palmClass = getClasses('title', 'palm', true),
+                    thumbClass = getClasses('title', 'thumb', true);
 
                 if (breakpoint === 'palm') {
                     $title.addClass(palmClass);
@@ -14677,6 +15110,7 @@ require.config({
     },
     paths: {
         // NOTE: must also keep GRUNTFILE.JS up to date
+        text:                   'lib/requirejs/text',
         jquery:                 'lib/jquery/jquery',
         jqueryBem:              'lib/jquery/jquery-bem',
         jqueryMayBall:          'lib/jquery/jquery-breakpoint',

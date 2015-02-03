@@ -1,0 +1,31 @@
+/* div */.section--committee__member-row {
+	text-align: center;
+	margin-top: $lib-spacing-unit--small;
+
+	&:first-childe {
+		margin-top: 0;
+	}
+}
+
+/* figure */.section--committee__member-item {
+	width: 25%;
+	padding: 0 2.5%;
+    display: inline-block;
+    // images should line up, not the labels
+    vertical-align: top;
+
+    @include respond(palm) {
+    	width: 50%;
+    }
+}
+
+/* span */.section--committee__member-img {
+    display: block;
+	height: 0;
+	padding-top: 110%;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* span */.section--committee__member-label {
+	display: block;
+}

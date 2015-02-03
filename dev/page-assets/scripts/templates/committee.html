@@ -1,0 +1,106 @@
+<%
+	var rows = [[
+		{
+			name: 'Alessandra Bittante',
+			position: 'President'
+		}, {
+			name: 'George Bryan',
+			position: 'President'
+		}
+	], [{
+			name: 'Chris Brown',
+			position: 'Treasurer'
+		}, {
+			name: 'Isobel MacAuslan',
+			position: 'Secretary'
+		}, {
+			name: 'Elka Humphrys',
+			position: 'Food'
+		}, {
+			name: 'Fred Richards',
+			position: 'Drinks'
+		}
+	], [{
+			name: 'Rob Cronshaw',
+			position: 'Main Ents'
+		}, {
+			name: 'Bethany Hutchison',
+			position: 'Student Ents'
+		}, {
+			name: 'Lare Erogbogbo',
+			position: 'Non-Music Ents'
+		}, {
+			name: 'Chris Stuart',
+			position: 'Tech'
+		}
+	], [{
+			name: 'Charlie Benson',
+			position: 'Staffing'
+		}, {
+			name: 'Kate Gerhard',
+			position: 'Buildings'
+		}, {
+			name: 'Claire Nichols',
+			position: 'Security'
+		}, {
+			name: 'Helen Broadbridge',
+			position: 'Head of Design'
+		}
+	], [{
+			name: 'Rachel Rees Middleton',
+			position: 'Design'
+		}, {
+			name: 'Rory Luscombe',
+			position: 'Design'
+		}, {
+			name: 'Julia Cabanas',
+			position: 'Design'
+		}, {
+			name: 'Jen Sutherland',
+			position: 'Design'
+		}
+	], [{
+			name: 'Anthony Graff',
+			position: 'Ticketing'
+		}, {
+			name: 'Josh Bambrick',
+			position: 'Webmaster'
+		}
+	]];
+
+	_.each(rows, function (curRow) {
+	%><!--
+		--><div class="section--committee__member-row"><!--
+		--><%
+			_.each(curRow, function (curMember) {
+				var curMemberFirstName = curMember.name.split(" ")[0],
+					curMemberLabel = curMemberFirstName.toLowerCase();
+			%><!--
+				--><figure
+					class="
+						section--committee__member-item
+						section--committee__member-item--<%= curMemberLabel %>
+					"
+
+					title="<%= curMember.name %>"
+				><!--
+					--><span
+						class="
+							section--committee__member-img
+							section--committee__member-img--<%= curMemberLabel %>
+						"
+					></span><!--
+					--><span
+						class="
+							section--committee__member-label
+							section--committee__member-label--<%= curMemberLabel %>
+						"
+					><%= curMemberFirstName %> - <%= curMember.position %></span><!--
+				--></figure><!--
+			--><%
+			});
+		%><!--
+		--></div><!--
+	--><%
+	});
+%>
