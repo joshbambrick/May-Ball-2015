@@ -519,9 +519,7 @@ html {
  * Extend the clearfix class with Sass to avoid the `.clearfix` class appearing
  * over and over in your markup.
  */
-.clearfix:after,
-.section:after,
-.section__contents:after {
+.clearfix:after {
   content: "";
   display: table;
   clear: both;
@@ -682,7 +680,7 @@ License URL ... https://github.com/typeplate/starter-kit/blob/master/license.txt
   src: local("Georgia");
   unicode-range: U+270C;
 }
-.typl8-tera, .typl8-giga, .typl8-mega, h1, .typl8-alpha, h2, .section--contents__title, .typl8-beta, h3, .section--hero__title, .typl8-gamma, h4, .section--contents__title--palm, .typl8-delta, h5, .section--hero__subheading--date, .typl8-epsilon, .section--hero__subheading--subtitle, .typl8-zeta, h6, .section--contents__title--thumb {
+.typl8-tera, .typl8-giga, .typl8-mega, h1, .typl8-alpha, h2, .typl8-beta, h3, .section--hero__title, .typl8-gamma, h4, .section--hero__title--thumb, .section--contents__title, .section--contents__title--palm, .typl8-delta, h5, .section--hero__subheading--date, .typl8-epsilon, .section--hero__subheading--subtitle, .typl8-zeta, h6, .section--contents__title--thumb {
   text-rendering: optimizeLegibility;
   line-height: 1;
   margin-top: 0;
@@ -704,7 +702,7 @@ pre code {
 }
 
 html {
-  font: normal 112.5%/1.65 Garamond, "Times New Roman", serif;
+  font: normal 112.5%/1.65 "Times New Roman", serif;
 }
 
 body {
@@ -736,7 +734,7 @@ body {
   margin-bottom: 0.4125rem;
 }
 
-.typl8-alpha, h2, .section--contents__title {
+.typl8-alpha, h2 {
   font-size: 60px;
   font-size: 3.33333rem;
   margin-bottom: 8.91px;
@@ -750,7 +748,7 @@ body {
   margin-bottom: 0.61875rem;
 }
 
-.typl8-gamma, h4, .section--contents__title--palm {
+.typl8-gamma, h4, .section--hero__title--thumb, .section--contents__title, .section--contents__title--palm {
   font-size: 36px;
   font-size: 2rem;
   margin-bottom: 14.85px;
@@ -3543,7 +3541,9 @@ body.unselectable {
   color: inherit;
 }
 .nav__list-link:hover {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(15, 15, 15, 0.25)), color-stop(50%, rgba(0, 0, 0, 0.75)), to(rgba(15, 15, 15, 0.25)));
+  background-image: -webkit-linear-gradient(top, rgba(15, 15, 15, 0.25) 0%, rgba(0, 0, 0, 0.75) 50%, rgba(15, 15, 15, 0.25) 100%);
+  background-image: linear-gradient(to bottom, rgba(15, 15, 15, 0.25) 0%, rgba(0, 0, 0, 0.75) 50%, rgba(15, 15, 15, 0.25) 100%);
   -webkit-box-shadow: 0 1px 7px 0px rgba(255, 255, 255, 0.25);
   box-shadow: 0 1px 7px 0px rgba(255, 255, 255, 0.25);
   border-radius: 3px;
@@ -3575,11 +3575,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 ::-moz-selection {
-  background-color: #aaaaaa;
+  background-color: #a00000;
 }
 
 ::selection {
-  background-color: #aaaaaa;
+  background-color: #a00000;
 }
 
 /* nav */
@@ -3626,10 +3626,9 @@ h1, h2, h3, h4, h5, h6 {
 .nav__list-link:hover, .nav__list-link:link:hover, .nav__list-link:visited:hover {
   color: #d7cba8;
 }
-.nav__list-link--selected, .nav__list-link--selected:hover, .nav__list-link--selected:link, .nav__list-link--selected:link:hover, .nav__list-link--selected:visited, .nav__list-link--selected:visited:hover {
-  color: #d7cba8;
-}
 .nav__list-link--selected:hover, .nav__list-link--selected:link:hover, .nav__list-link--selected:visited:hover {
+  color: #ae9751;
+  background-image: none;
   background-color: transparent;
   -webkit-box-shadow: none;
   box-shadow: none;
@@ -3637,6 +3636,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .nav__list-link--important {
   font-weight: bold;
+  letter-spacing: 0.25em;
 }
 .nav__list-link--important, .nav__list-link--important:link, .nav__list-link--important:visited, .nav__list-link--important.nav__list-link--selected, .nav__list-link--important.nav__list-link--selected:link, .nav__list-link--important.nav__list-link--selected:visited {
   color: #a00000;
@@ -3649,13 +3649,23 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-.nav, .section--hero, .section--contents, .section--footer {
-  background-image: url(../img/section-background.jpg);
-  -webkit-background-size: cover;
-  background-size: cover;
+/* span */
+.nav__link-underline {
+  display: block;
+  height: 1px;
+  background-color: transparent;
+  margin-left: 25%;
+  margin-right: 25%;
+}
+.nav__list-link--selected .nav__link-underline {
+  background-color: #ae9751;
 }
 
-/* article */
+.nav, .section--hero, .section--contents, .section--footer {
+  background-color: #121212;
+  background-image: url(../img/section-background.jpg);
+}
+
 .section__contents {
   width: 80%;
   margin: 0 auto;
@@ -3664,6 +3674,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .section--hero, .section--contents, .section--footer {
   padding: 29.7px;
+  text-align: justify;
 }
 
 .section--parallax-hero, .section--parallax-contents, .section--parallax-footer {
@@ -3741,16 +3752,28 @@ h1, h2, h3, h4, h5, h6 {
   color: black;
   letter-spacing: 0.3em;
   opacity: 1;
-  -webkit-transition: opacity 750ms, letter-spacing 750ms;
-  transition: opacity 750ms, letter-spacing 750ms;
+  -webkit-transform: matrix(1, 0, 0, 1, 0, 0);
+  -ms-transform: matrix(1, 0, 0, 1, 0, 0);
+  transform: matrix(1, 0, 0, 1, 0, 0);
+  -webkit-transition: -webkit-transform 750ms, opacity 750ms, letter-spacing 750ms;
+  transition: transform 750ms, opacity 750ms, letter-spacing 750ms;
 }
 .section--hero__title--unshown {
   opacity: 0;
+  -webkit-transform: matrix(3, 0, 0, 3, 0, 0);
+  -ms-transform: matrix(3, 0, 0, 3, 0, 0);
+  transform: matrix(3, 0, 0, 3, 0, 0);
 }
 @media screen and (min-width: 720px) {
   .section--hero__title--unshown {
     letter-spacing: 2.5em;
   }
+}
+.section--hero__title--palm {
+  letter-spacing: 0.1em;
+}
+.section--hero__title--thumb {
+  letter-spacing: 0.05em;
 }
 
 .section--hero__subheading {
@@ -3809,7 +3832,15 @@ h1, h2, h3, h4, h5, h6 {
   .section--hero__subheading--date {
     white-space: nowrap;
     letter-spacing: normal;
+    margin-bottom: 59px;
   }
+}
+
+.section--hero__background-layer {
+  position: absolute;
+  -webkit-background-size: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 /* div */
@@ -3819,8 +3850,10 @@ h1, h2, h3, h4, h5, h6 {
 
 /* hN */
 .section--contents__title {
+  text-transform: uppercase;
   display: inline-block;
   margin-bottom: 29.7px;
+  letter-spacing: 0.3em;
 }
 .section--contents__title--subpage-title {
   display: block;

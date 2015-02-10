@@ -1,31 +1,83 @@
 /* div */.section--committee__member-row {
-	text-align: center;
-	margin-top: $lib-spacing-unit--small;
+    text-align: center;
+    margin-top: $lib-spacing-unit--small;
 
-	&:first-childe {
-		margin-top: 0;
-	}
+    &:first-child {
+        margin-top: 0;
+    }
+    
+    @include respond(palm) {
+        margin-top: 0;
+    }
 }
 
 /* figure */.section--committee__member-item {
-	width: 25%;
-	padding: 0 2.5%;
+    width: 25%;
+    padding: 0 2.5%;
     display: inline-block;
     // images should line up, not the labels
     vertical-align: top;
 
     @include respond(palm) {
-    	width: 50%;
+        width: 50%;
+
+        // apply margin to items directly, not rows
+        // because on smaller screens, rows are cut in half
+        margin-top: $lib-spacing-unit--small;
+
+        .section--committee__member-row:first-child & {
+            margin-top: 0;
+        }
     }
 }
 
 /* span */.section--committee__member-img {
+    $image-width-ratio: 960px / 678px;
+
+    $committee-members: (
+        alessandra,
+        anthony,
+        helen,
+        julia,
+        charlie,
+        chris-stuart,
+        fred,
+        george,
+        josh,
+        kate,
+        lare,
+        rachel,
+        rob,
+        rory,
+        chris-brown,
+        isobel,
+        bethany,
+        jen
+    );
+
+    // subtract one from `$number-of-committee-images` because of how
+    // percentage background positions work (may need to google again to understand)
+    $committee-image-height-percentage: (100% / (length($committee-members) - 1));
+
     display: block;
-	height: 0;
-	padding-top: 110%;
+    height: 0;
+    // subtract 1% to make sure that the entire image actually fits in
+    padding-top: $image-width-ratio * 100% - 1%;
     background-color: rgba(255, 255, 255, 0.3);
+    // sprite generatred using http://css.spritegen.com/
+    background-image: url(../img/committee.png);
+    background-size: cover;
+
+    @for $i from 1 through length($committee-members) {
+        $cur-member-name: nth($committee-members, $i);
+        
+        &--#{$cur-member-name} {
+            background-position: 0% ($i - 1) * $committee-image-height-percentage;
+        }
+    }
 }
 
 /* span */.section--committee__member-label {
-	display: block;
+    display: block;
 }
+ 

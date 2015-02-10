@@ -9,7 +9,8 @@
 		}
 	], [{
 			name: 'Chris Brown',
-			position: 'Treasurer'
+			position: 'Treasurer',
+			duplicateName: true
 		}, {
 			name: 'Isobel MacAuslan',
 			position: 'Secretary'
@@ -31,7 +32,8 @@
 			position: 'Non-Music Ents'
 		}, {
 			name: 'Chris Stuart',
-			position: 'Tech'
+			position: 'Tech',
+			duplicateName: true
 		}
 	], [{
 			name: 'Charlie Benson',
@@ -73,8 +75,8 @@
 		--><div class="section--committee__member-row"><!--
 		--><%
 			_.each(curRow, function (curMember) {
-				var curMemberFirstName = curMember.name.split(" ")[0],
-					curMemberLabel = curMemberFirstName.toLowerCase();
+				var curMemberNames = curMember.name.split(" ");
+					curMemberLabel = (curMemberNames[0] + (curMember.duplicateName ? "-" + curMemberNames[1] : "")).toLowerCase();
 			%><!--
 				--><figure
 					class="
@@ -95,7 +97,7 @@
 							section--committee__member-label
 							section--committee__member-label--<%= curMemberLabel %>
 						"
-					><%= curMemberFirstName %> - <%= curMember.position %></span><!--
+					><%= curMemberNames[0] %> - <%= curMember.position %></span><!--
 				--></figure><!--
 			--><%
 			});

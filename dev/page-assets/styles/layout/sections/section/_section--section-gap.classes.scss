@@ -32,7 +32,7 @@
         @if (not map-get($cur-parallax-layer, "ignore")) {
             .section--section-gap-#{$cur-parallax-image-i}__img--layer-#{$cur-parallax-layer-i} {
                 @each $device-width in (palm, lap, desk) {
-                    @include respond($device-width) {
+                    @include respond($device-width + "-device") {
                         @if (map-get($cur-parallax-layer, "png")) {
                             background-image: url("../img/section-gap-" + $cur-parallax-image-i + "-layer-" + $cur-parallax-layer-i + "-" + $device-width + ".png");
                         } @else {

@@ -1,19 +1,51 @@
+@import "../layout/sections/section/section--section-gap.declarations";
+
+$hero-image-layers: (
+    (
+        // forms a circle
+        width: $parallax-image-container-height-width-ratio * 100%,
+        height: 100%,
+
+        // position the item from
+        left: null,
+        top: null,
+        bottom: null,
+        right: null,
+        
+        scroll-animation: (
+            // start and end rotation values
+            rotate-start: -32deg,
+            rotate-end: 4deg,
+
+            // the start and end positions
+            top-start: 20%,
+            left-start: -20%,
+            top-end: 100%,
+            left-end: -20%,
+
+            // origin for transformations (omit for default)
+            origin-x: 0%,
+            origin-y: 100%,
+        ),
+
+
+        // info about the animation to occur whenever this element has the
+        // 'unshown' modifier removed from its class
+        shown-animation: (
+            left: 0px
+        )
+    )
+);
+
 $parallax-image-layers: (
     (
-        // the first (and only) layer of the first parallax image
+        // the first layer of the first parallax image
         (rotate: false),
-        // this is only here so that sass interprets the above line as the
+        // can add the (ignore: true) so that sass interprets the above line as the
         // first element of a list, instead of just one map (no list)
         // you must explicitly ignore these lists in any loops
-        (ignore: true)
-    ), (
-        // the first layer of the second parallax image
-        (rotate: false),
-        // the second layer of the second parallax image
-        // (rotate: -100deg, rotate-x: 6.94 / 55.84 * 100%, rotate-y: 11.08 / 28.45 * 100%)
-        // (rotate: -100deg, width: 200px, height: 200px, top: 50px, left: 100px)
         
-        // should be less of a shift than the normal ones
+        // rotating patten
         (
             rotate: true,
 
@@ -21,42 +53,416 @@ $parallax-image-layers: (
             png: true,
             
             // the start and end positions
-            rotate-start: -0deg,
-            rotate-end: -360deg,
+            rotate-start: -32deg,
+            rotate-end: 4deg,
 
             // forms a circle
-            // width: 15%,
-            width: 7.5%,
-            height: 75%,
+            width: $parallax-image-container-height-width-ratio * 100%,
+            height: 100%,
             
-            top-start: -100%,
-            left-start: 5%,
-            top-end: 95%,
-            left-end: 5%,
+            top-start: 20%,
+            left-start: -20%,
+            top-end: 100%,
+            left-end: -20%,
 
             origin-x: 0%,
-            origin-y: 50%
+            origin-y: 100%
+        ),
+
+        // king card
+        (
+            rotate: true,
+
+            // the image file is a png, not a jpg
+            png: true,
+            
+            // the start and end positions
+            rotate-start: -24deg,
+            rotate-end: -40deg,
+
+            // width the height ratio
+            width: $parallax-image-container-height-width-ratio * 65.2219873% * 1.5,
+            height: 100% * 1.5,
+            
+            top-start: 0%,
+            left-start: 280%,
+            top-end: 70%,
+            left-end: 280%,
+
+            // bottom left corner
+            origin-x: 10%,
+            origin-y: 95%
+        ),
+
+        // queen card
+        (
+            rotate: true,
+
+            // the image file is a png, not a jpg
+            png: true,
+            
+            // the start and end positions
+            rotate-start: -24deg,
+            rotate-end: -10deg,
+
+            // width the height ratio
+            width: $parallax-image-container-height-width-ratio * 65.2219873% * 1.5,
+            height: 100% * 1.5,
+            
+            top-start: -15%,
+            left-start: 280%,
+            top-end: 55%,
+            left-end: 280%,
+
+            // bottom left corner
+            origin-x: 10%,
+            origin-y: 95%
+        )
+    ), (
+        // the first layer of the second parallax image
+        (rotate: false),
+        
+        // rotating patten
+        (
+            rotate: true,
+
+            // the image file is a png, not a jpg
+            png: true,
+            
+            // the start and end positions
+            rotate-start: -30deg,
+            rotate-end: 16deg,
+
+            // forms a circle
+            width: $parallax-image-container-height-width-ratio * 100%,
+            height: 100%,
+            
+            top-start: -50%,
+            left-start: 250%,
+            top-end: 20%,
+            left-end: 250%,
+
+            origin-x: 100%,
+            origin-y: 0%
+        ),
+
+        // jack
+        (
+            rotate: true,
+
+            // the image file is a png, not a jpg
+            png: true,
+            
+            // the start and end positions
+            rotate-start: -10deg,
+            rotate-end: 0deg,
+
+            // width the height ratio
+            // consider aspect ratio of image
+            width: $parallax-image-container-height-width-ratio * (618px / 815px) * 100% * 1.5,
+            height: 100% * 1.5,
+            
+            top-start: 10%,
+            left-start: 0%,
+            top-end: -10%,
+            left-end: 0%,
+
+            // bottom left corner
+            origin-x: 10%,
+            origin-y: 95%
+        ),
+
+        // queen
+        (
+            rotate: true,
+
+            // the image file is a png, not a jpg
+            png: true,
+            
+            // the start and end positions
+            rotate-start: -5deg,
+            rotate-end: 0deg,
+
+            // width the height ratio
+            width: $parallax-image-container-height-width-ratio * (566px / 823px) * 100% * 1.5,
+            height: 100% * 1.5,
+            
+            top-start: 10%,
+            left-start: 0%,
+            top-end: 20%,
+            left-end: 0%,
+
+            // bottom left corner
+            origin-x: 10%,
+            origin-y: 95%
+        ),
+
+        // king
+        (
+            rotate: true,
+
+            // the image file is a png, not a jpg
+            png: true,
+            
+            // the start and end positions
+            rotate-start: 0deg,
+            rotate-end: 0deg,
+
+            // width the height ratio
+            width: $parallax-image-container-height-width-ratio * (643px / 802px) * 100% * 1.5,
+            height: 100% * 1.5,
+            
+            top-start: 10%,
+            left-start: 0%,
+            top-end: 50%,
+            left-end: 0%,
+
+            // bottom left corner
+            origin-x: 10%,
+            origin-y: 95%
         )
     ), (
         (rotate: false),
-        (ignore: true)
+        
+        // clock hand
+        (
+            rotate: true,
+
+            // the image file is a png, not a jpg
+            png: true,
+            
+            // the start and end positions
+            rotate-start: -50deg,
+            rotate-end: 50deg,
+
+            width: $parallax-image-container-height-width-ratio * (817px / 836px) * 1.5 * 100%,
+            height: 1.5 * 100%,
+            
+            top-start: -20%,
+            left-start: 145%,
+            top-end: 50%,
+            left-end: 145%,
+
+            // about 2/3 along hand
+            origin-x: 63.5%,
+            origin-y: 63.5%
+        ),
+        
+        // cog
+        (
+            rotate: true,
+
+            // the image file is a png, not a jpg
+            png: true,
+            
+            // the start and end positions
+            rotate-start: -42deg,
+            rotate-end: 33deg,
+
+            width: $parallax-image-container-height-width-ratio * (1306px / 1080px) * 1.5 * 100%,
+            height: 1.5 * 100%,
+            
+            top-start: -70%,
+            left-start: -15%,
+            top-end: 0%,
+            left-end: -15%,
+
+            origin-x: 42.4196018%,
+            origin-y: 30.3703704%
+        ),
+        
+        // foreground
+        (
+            rotate: true,
+
+            // the image file is a png, not a jpg
+            png: true,
+            
+            // the start and end positions
+            rotate-start: 0deg,
+            rotate-end: 0deg,
+
+            width: 100%,
+            height: (1 / $parallax-image-container-height-width-ratio) * (1080px / 1920px) * 100%,
+            
+            top-start: -($parallax-image-container-height-width-ratio * (1920px / 1080px) * 100%),
+            left-start: 0%,
+            top-end: 0%,
+            left-end: 0%
+        )
     ), (
         (rotate: false),
-        (ignore: true)
+        
+        // rotating patten
+        (
+            rotate: true,
+
+            // the image file is a png, not a jpg
+            png: true,
+            
+            // the start and end positions
+            rotate-start: 20deg,
+            rotate-end: -21deg,
+
+            width: $parallax-image-container-height-width-ratio * (1350px / 993px) * 100%,
+            height: 100%,
+            
+            top-start: -65%,
+            left-start: -30%,
+            top-end: 5%,
+            left-end: -30%,
+
+            origin-x: 0%,
+            origin-y: 0%
+        ),
+
+        // joker
+        (
+            rotate: true,
+
+            // the image file is a png, not a jpg
+            png: true,
+            
+            // the start and end positions
+            rotate-start: 0deg,
+            rotate-end: 0deg,
+
+            width: $parallax-image-container-height-width-ratio * (599px / 1017px) * 100%,
+            height: 100%,
+            
+            top-start: 80%,
+            left-start: 50%,
+            // anything less is off the screen
+            top-end: 0%,
+            left-end: 50%,
+
+            origin-x: 100%,
+            origin-y: 0%
+        ),
+
+        // rotating patten
+        (
+            rotate: true,
+
+            // the image file is a png, not a jpg
+            png: true,
+            
+            // the start and end positions
+            rotate-start: 6deg,
+            rotate-end: -16deg,
+
+            // forms a circle
+            width: $parallax-image-container-height-width-ratio * (1004px / 962px) * 100%,
+            height: 100%,
+            
+            top-start: -5%,
+            left-start: 260%,
+            top-end: 65%,
+            left-end: 260%,
+
+            origin-x: 100%,
+            origin-y: 100%
+        )
     ), (
         (rotate: false),
-        (ignore: true)
+        
+        // cog
+        (
+            rotate: true,
+
+            // the image file is a png, not a jpg
+            png: true,
+            
+            // the start and end positions
+            rotate-start: -42deg,
+            rotate-end: 40deg,
+
+            width: $parallax-image-container-height-width-ratio * (1327px / 1022px) * 1.5 * 100%,
+            height: 1.5 * 100%,
+            
+            top-start: -50%,
+            left-start: 90%,
+            top-end: 20%,
+            left-end: 90%,
+
+            origin-x: 50%,
+            origin-y: (364px / 1327px) * 100%
+        ),
+        
+        // foreground
+        (
+            rotate: true,
+
+            // the image file is a png, not a jpg
+            png: true,
+            
+            // the start and end positions
+            rotate-start: 0deg,
+            rotate-end: 0deg,
+
+            width: 100%,
+            height: (1 / $parallax-image-container-height-width-ratio) * (1080px / 1920px) * 100%,
+            
+            top-start: -($parallax-image-container-height-width-ratio * (1920px / 1080px) * 100%),
+            left-start: 0%,
+            top-end: 0%,
+            left-end: 0%
+        )
     ), (
         (rotate: false),
-        (ignore: true)
+        
+        // cog
+        (
+            rotate: true,
+
+            // the image file is a png, not a jpg
+            png: true,
+            
+            // the start and end positions
+            rotate-start: 213deg,
+            rotate-end: 140deg,
+
+            width: $parallax-image-container-height-width-ratio * (1080px / 1825px) * 1.5 * 100%,
+            height: 1.5 * 100%,
+            
+            top-start: -50%,
+            left-start: 370%,
+            top-end: 20%,
+            left-end: 370%,
+
+            origin-x: (180px / 1080px) * 100%,
+            origin-y: (925px / 1825px) * 100%
+        )
     ), (
         (rotate: false),
-        (ignore: true)
+
+        // cog
+        (
+            rotate: true,
+
+            // the image file is a png, not a jpg
+            png: true,
+            
+            // the start and end positions
+            rotate-start: -25deg,
+            rotate-end: 55deg,
+
+            width: $parallax-image-container-height-width-ratio * (1274px / 1039px) * 1.5 * 100%,
+            height: 1.5 * 100%,
+            
+            top-start: -10%,
+            left-start: 40%,
+            top-end: 40%,
+            left-end: 40%,
+
+            origin-x: 50%,
+            origin-y: (636px / 1039px) * 100%
+        )
     ), (
         (rotate: false),
+        // include the following so sass enterprets this as a list of lists
+        // items with `ignore: true` are explicitly ignored in relevant code
         (ignore: true)
     )
 );
 $number-of-parallax-images: length($parallax-image-layers);
-$parallax-image-file-width: 960px;
-$parallax-image-file-height: 488px;

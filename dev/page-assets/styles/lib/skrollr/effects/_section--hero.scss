@@ -1,21 +1,7 @@
-.section--hero__subtitle {
-    -skrollr-animation-name: subtitle-rise;
-}
-
 .section--hero__arrow {
+	// introduced this to force hardware acceleration (not sure if it was effective or not)
+	transform: translate3d(0, 0, 0);
     -skrollr-animation-name: arrow-appear;
-}
-
-@-skrollr-keyframes subtitle-rise {
-    bottom-top {
-        opacity: 0;
-        transform: translate(0px, 20px);
-    }
-
-    -400-bottom-top {
-        opacity: 1;
-        transform: translate(0px, 0px);
-    }
 }
 
 @-skrollr-keyframes arrow-appear {

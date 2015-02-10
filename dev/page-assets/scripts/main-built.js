@@ -14262,22 +14262,22 @@ define('text',['module'], function (module) {
 define('text!templates/night.html',[],function () { return '<!--\r\n--><p>The Jesus May Ball Committee is delighted to invite you to pick a Wildcard and join us at this year\'s May Ball. Become entranced by Diamonds, kneel at the thrones of the King and Queen, and avoid any tricks by the Joker as you explore this years\' spectacular.</p><!--\r\n--><p>Prepare to experience a night like no other. As the sun sets on Jesus College on the 15<sup>th</sup> June, and you stroll across the ancient courts. Here you can sample a wide range of food from across the world, help yourself to a delicious cocktail or grab a glass of fizz, before settling down to catch some of our carefully selected musicians, magicians, and comedians. Or, if you desire a different pace, hurtle around in the dodgems and dance the night away in our DJ tent.</p><!--\r\n--><p>However you wish to spend your night, Jesus May Ball has something for you.</p>';});
 
 
-define('text!templates/entertainment.html',[],function () { return '<!--\r\n--><p>The entertainment at Jesus May Ball rarely disappoints. Previous balls have played host to such illustrious talent as: Scouting for Girls, Rizzle Kicks, Maverick Sabre, Clean Bandit, and even David Bowie, once upon a time.</p><!--\r\n--><p>Our team are hard at work putting together an impressive line up for our main stage, where well known names will be joined by perennially popular tribute acts, as well as the very best of Cambridge musicians.</p><!--\r\n--><p>Helping ease the stress of a difficult term with some comedy has traditionally been another strength of Jesus Ball. Past performers have included Simon Amstell, Russell Kane, and James Acaster, who are always bolstered by a strong line up of local and student acts. We are confident that you will enjoy what we have in store this year.</p><!--\r\n--><p><small>Applications for student acts have now closed, please contact <a href="mailto:student-ents@jesusmayball.com">student-ents<wbr>@jesusmayball<wbr>.com</a> with any queries.</small></p>';});
+define('text!templates/entertainment.html',[],function () { return '<!--\r\n--><p>The entertainment at Jesus May Ball rarely disappoints. Previous balls have played host to such illustrious talent as: Scouting for Girls, Rizzle Kicks, Maverick Sabre, Clean Bandit, and even David Bowie, once upon a time.</p><!--\r\n--><p>Our team are hard at work putting together an impressive line up for our main stage, where well-known names will be joined by perennially popular tribute acts, as well as the very best of Cambridge musicians.</p><!--\r\n--><p>Helping ease the stress of a difficult term with some comedy has traditionally been another strength of Jesus Ball. Past performers have included Simon Amstell, Russell Kane, and James Acaster, who are always bolstered by a strong line up of local and student acts. We are confident that you will enjoy what we have in store this year.</p><!--\r\n--><p><small>Applications for student acts have now closed, please contact <a href="mailto:student-ents@jesusmayball.com">student-ents<wbr>@jesusmayball<wbr>.com</a> with any queries.</small></p>';});
 
 
-define('text!templates/ticket-info.html',[],function () { return '<!--\r\n--><p>Tickets are now available to members of Jesus College and their guests. Three types are available: standard, priority, and dining, priced at £137, £153, and £174 respectively. \r\n</p><!--\r\n--><p>Standard tickets allow you to enjoy the ball from 8pm, while priority tickets give you the chance to skip the queue and enjoy a champagne reception in the cloisters, and entrance to the ball before everyone else. If you are looking for an exclusive experience, our exclusive dining package includes a champagne reception, followed by a 3-course dinner in the college hall, accompanied by fine wines. \r\n</p><!--\r\n--><p>Tickets are available through our online system, exclusively to Jesuans until the 27<sup>th</sup> February. If any tickets remain after this initial round, they will go on sale to all members of the University.</p><!--\r\n--><a href="http://jesusmayball.com/tickets/" class="section--ticket-info__buy-button">Click Here to Purchase Tickets</a>';});
+define('text!templates/ticket-info.html',[],function () { return '<!--\r\n--><p>Tickets are now available to members of Jesus College and their guests. Three types are available: standard, priority, and dining, priced at £137, £153, and £174 respectively. \r\n</p><!--\r\n--><p>Standard tickets allow you to enjoy the ball from 8pm, while priority tickets give you the chance to skip the queue and enjoy a champagne reception in the cloisters, and entrance to the ball before everyone else. If you are looking for an exclusive experience, our exclusive dining package includes a champagne reception, followed by a three-course dinner in the college hall, accompanied by fine wines. \r\n</p><!--\r\n--><p>Tickets are available through our online system, exclusively to Jesuans until the 27<sup>th</sup> February. If any tickets remain after this initial round, they will go on sale to all members of the University.</p><!--\r\n--><a href="http://jesusmayball.com/tickets/" class="section--ticket-info__buy-button">Click Here to Purchase Tickets</a>';});
 
 
 define('text!templates/sponsors.html',[],function () { return '<!--\r\n--><p>We are grateful to the following sponsors for helping us to deliver a fantastic event:</p><!--\r\n--><p>If you are interested in hearing how a partnership with Jesus May Ball could add value to your brand, please contact Charlie Benson (<a href="mailto:sponsorship@jesusmayball.com">sponsorship<wbr>@jesusmayball<wbr>.com</a>). We can offer a range of bespoke packages.</p>';});
 
 
-define('text!templates/charities.html',[],function () { return '<!--\r\n--><p>There is the option to add a £2 charity donation to the price of your ticket, which we hope you will consider. This year, the Committee is supporting three charities.<!--\r\n\t--><dl><!--\r\n\t\t--><dt>Jimmy\'s Night Shelter</dt><!--\r\n\t\t--><dd>Jimmy\'s provides emergency accommodation 365 days a year for people in Cambridge who would otherwise have no place to stay. It provides a warm, welcoming environment and supports guests in the longer term as they move into permanent accommodation.</dd><!--\r\n\t\t--><dt>Afrinspire</dt><!--\r\n\t\t--><dd>Afrinspire supports development initiatives across East Africa, working with local community leaders to understand development needs and working to fulfil these. The May Ball Presidents\' Committee has committed to support Afrinspire in an ongoing capacity from year to year.</dd><!--\r\n\t\t--><dt>Student Minds</dt><!--\r\n\t\t--><dd>Student Minds believes that the best way to improve mental health in students is through the support of their peers. They offer training and support to equip students across the UK.</dd><!--\r\n\t--></dl><!--\r\n--></p>';});
+define('text!templates/charities.html',[],function () { return '<!--\r\n--><p>There is the option to add a £2 charity donation to the price of your ticket, which we hope you will consider. This year, the Committee is supporting three charities.<!--\r\n\t--><dl><!--\r\n\t\t--><dt>Jimmy\'s Night Shelter</dt><!--\r\n\t\t--><dd>Jimmy\'s provides emergency accommodation 365 days a year for people in Cambridge who would otherwise have no place to stay. It provides a warm, welcoming environment and supports guests in the longer term as they move into permanent accommodation.</dd><!--\r\n\t\t--><dt>Afrinspire</dt><!--\r\n\t\t--><dd>Afrinspire supports development initiatives across East Africa, working with local community leaders to understand development needs and working to fulfil these. The May Ball Presidents\' Committee has committed to support Afrinspire in an ongoing capacity from year to year.</dd><!--\r\n\t\t--><dt>Student Minds</dt><!--\r\n\t\t--><dd>Student Minds believes that the best way to improve mental health in students is through the support of their peers. They offer training and support to equip students across the United Kingdom.</dd><!--\r\n\t--></dl><!--\r\n--></p>';});
 
 
 define('text!templates/work.html',[],function () { return '<!--\r\n--><p>Jesus May Ball is currently looking for motivated and enthusiastic workers to help make this year\'s Ball a success. There are a variety of roles available, including food and drink workers, security stewards, and entertainment runners, as well as the opportunity to take on a leadership position in the capacity of a Team Leader or Court Supervisor.\r\n</p><!--\r\n--><p>We do not operate a \'half-on, half-off\' employment policy like many May Balls, and workers are offered a competitive rate which starts at £65 for the night and increases for certain roles.\r\n</p><!--\r\n--><p>Applicants must be willing to work as part of a team and should demonstrate charisma and enthusiasm in order to make the 15<sup>th</sup> of June a spectacular night. Previous experience in hospitality or May Balls is not essential, and training will be given in the week preceding the Ball.\r\n</p><!--\r\n--><p>This is a great opportunity to be a part of one of the most exciting events of the year whilst earning some money. Applications close on the 27<sup>th</sup> February, with interviews being held on the 7<sup>th</sup> or 8<sup>th</sup> of March. To apply, please complete our online application form, or email us for more information at <a href="mailto:staffing@jesusmayball.com">staffing<wbr>@jesusmayball<wbr>.com</a>.</p><!--\r\n--><a href="work/apply" class="section--work__apply-button">Apply to work</a>';});
 
 
-define('text!templates/committee.html',[],function () { return '<%\r\n\tvar rows = [[\r\n\t\t{\r\n\t\t\tname: \'Alessandra Bittante\',\r\n\t\t\tposition: \'President\'\r\n\t\t}, {\r\n\t\t\tname: \'George Bryan\',\r\n\t\t\tposition: \'President\'\r\n\t\t}\r\n\t], [{\r\n\t\t\tname: \'Chris Brown\',\r\n\t\t\tposition: \'Treasurer\'\r\n\t\t}, {\r\n\t\t\tname: \'Isobel MacAuslan\',\r\n\t\t\tposition: \'Secretary\'\r\n\t\t}, {\r\n\t\t\tname: \'Elka Humphrys\',\r\n\t\t\tposition: \'Food\'\r\n\t\t}, {\r\n\t\t\tname: \'Fred Richards\',\r\n\t\t\tposition: \'Drinks\'\r\n\t\t}\r\n\t], [{\r\n\t\t\tname: \'Rob Cronshaw\',\r\n\t\t\tposition: \'Main Ents\'\r\n\t\t}, {\r\n\t\t\tname: \'Bethany Hutchison\',\r\n\t\t\tposition: \'Student Ents\'\r\n\t\t}, {\r\n\t\t\tname: \'Lare Erogbogbo\',\r\n\t\t\tposition: \'Non-Music Ents\'\r\n\t\t}, {\r\n\t\t\tname: \'Chris Stuart\',\r\n\t\t\tposition: \'Tech\'\r\n\t\t}\r\n\t], [{\r\n\t\t\tname: \'Charlie Benson\',\r\n\t\t\tposition: \'Staffing\'\r\n\t\t}, {\r\n\t\t\tname: \'Kate Gerhard\',\r\n\t\t\tposition: \'Buildings\'\r\n\t\t}, {\r\n\t\t\tname: \'Claire Nichols\',\r\n\t\t\tposition: \'Security\'\r\n\t\t}, {\r\n\t\t\tname: \'Helen Broadbridge\',\r\n\t\t\tposition: \'Head of Design\'\r\n\t\t}\r\n\t], [{\r\n\t\t\tname: \'Rachel Rees Middleton\',\r\n\t\t\tposition: \'Design\'\r\n\t\t}, {\r\n\t\t\tname: \'Rory Luscombe\',\r\n\t\t\tposition: \'Design\'\r\n\t\t}, {\r\n\t\t\tname: \'Julia Cabanas\',\r\n\t\t\tposition: \'Design\'\r\n\t\t}, {\r\n\t\t\tname: \'Jen Sutherland\',\r\n\t\t\tposition: \'Design\'\r\n\t\t}\r\n\t], [{\r\n\t\t\tname: \'Anthony Graff\',\r\n\t\t\tposition: \'Ticketing\'\r\n\t\t}, {\r\n\t\t\tname: \'Josh Bambrick\',\r\n\t\t\tposition: \'Webmaster\'\r\n\t\t}\r\n\t]];\r\n\r\n\t_.each(rows, function (curRow) {\r\n\t%><!--\r\n\t\t--><div class="section--committee__member-row"><!--\r\n\t\t--><%\r\n\t\t\t_.each(curRow, function (curMember) {\r\n\t\t\t\tvar curMemberFirstName = curMember.name.split(" ")[0],\r\n\t\t\t\t\tcurMemberLabel = curMemberFirstName.toLowerCase();\r\n\t\t\t%><!--\r\n\t\t\t\t--><figure\r\n\t\t\t\t\tclass="\r\n\t\t\t\t\t\tsection--committee__member-item\r\n\t\t\t\t\t\tsection--committee__member-item--<%= curMemberLabel %>\r\n\t\t\t\t\t"\r\n\r\n\t\t\t\t\ttitle="<%= curMember.name %>"\r\n\t\t\t\t><!--\r\n\t\t\t\t\t--><span\r\n\t\t\t\t\t\tclass="\r\n\t\t\t\t\t\t\tsection--committee__member-img\r\n\t\t\t\t\t\t\tsection--committee__member-img--<%= curMemberLabel %>\r\n\t\t\t\t\t\t"\r\n\t\t\t\t\t></span><!--\r\n\t\t\t\t\t--><span\r\n\t\t\t\t\t\tclass="\r\n\t\t\t\t\t\t\tsection--committee__member-label\r\n\t\t\t\t\t\t\tsection--committee__member-label--<%= curMemberLabel %>\r\n\t\t\t\t\t\t"\r\n\t\t\t\t\t><%= curMemberFirstName %> - <%= curMember.position %></span><!--\r\n\t\t\t\t--></figure><!--\r\n\t\t\t--><%\r\n\t\t\t});\r\n\t\t%><!--\r\n\t\t--></div><!--\r\n\t--><%\r\n\t});\r\n%>';});
+define('text!templates/committee.html',[],function () { return '<%\r\n\tvar rows = [[\r\n\t\t{\r\n\t\t\tname: \'Alessandra Bittante\',\r\n\t\t\tposition: \'President\'\r\n\t\t}, {\r\n\t\t\tname: \'George Bryan\',\r\n\t\t\tposition: \'President\'\r\n\t\t}\r\n\t], [{\r\n\t\t\tname: \'Chris Brown\',\r\n\t\t\tposition: \'Treasurer\',\r\n\t\t\tduplicateName: true\r\n\t\t}, {\r\n\t\t\tname: \'Isobel MacAuslan\',\r\n\t\t\tposition: \'Secretary\'\r\n\t\t}, {\r\n\t\t\tname: \'Elka Humphrys\',\r\n\t\t\tposition: \'Food\'\r\n\t\t}, {\r\n\t\t\tname: \'Fred Richards\',\r\n\t\t\tposition: \'Drinks\'\r\n\t\t}\r\n\t], [{\r\n\t\t\tname: \'Rob Cronshaw\',\r\n\t\t\tposition: \'Main Ents\'\r\n\t\t}, {\r\n\t\t\tname: \'Bethany Hutchison\',\r\n\t\t\tposition: \'Student Ents\'\r\n\t\t}, {\r\n\t\t\tname: \'Lare Erogbogbo\',\r\n\t\t\tposition: \'Non-Music Ents\'\r\n\t\t}, {\r\n\t\t\tname: \'Chris Stuart\',\r\n\t\t\tposition: \'Tech\',\r\n\t\t\tduplicateName: true\r\n\t\t}\r\n\t], [{\r\n\t\t\tname: \'Charlie Benson\',\r\n\t\t\tposition: \'Staffing\'\r\n\t\t}, {\r\n\t\t\tname: \'Kate Gerhard\',\r\n\t\t\tposition: \'Buildings\'\r\n\t\t}, {\r\n\t\t\tname: \'Claire Nichols\',\r\n\t\t\tposition: \'Security\'\r\n\t\t}, {\r\n\t\t\tname: \'Helen Broadbridge\',\r\n\t\t\tposition: \'Head of Design\'\r\n\t\t}\r\n\t], [{\r\n\t\t\tname: \'Rachel Rees Middleton\',\r\n\t\t\tposition: \'Design\'\r\n\t\t}, {\r\n\t\t\tname: \'Rory Luscombe\',\r\n\t\t\tposition: \'Design\'\r\n\t\t}, {\r\n\t\t\tname: \'Julia Cabanas\',\r\n\t\t\tposition: \'Design\'\r\n\t\t}, {\r\n\t\t\tname: \'Jen Sutherland\',\r\n\t\t\tposition: \'Design\'\r\n\t\t}\r\n\t], [{\r\n\t\t\tname: \'Anthony Graff\',\r\n\t\t\tposition: \'Ticketing\'\r\n\t\t}, {\r\n\t\t\tname: \'Josh Bambrick\',\r\n\t\t\tposition: \'Webmaster\'\r\n\t\t}\r\n\t]];\r\n\r\n\t_.each(rows, function (curRow) {\r\n\t%><!--\r\n\t\t--><div class="section--committee__member-row"><!--\r\n\t\t--><%\r\n\t\t\t_.each(curRow, function (curMember) {\r\n\t\t\t\tvar curMemberNames = curMember.name.split(" ");\r\n\t\t\t\t\tcurMemberLabel = (curMemberNames[0] + (curMember.duplicateName ? "-" + curMemberNames[1] : "")).toLowerCase();\r\n\t\t\t%><!--\r\n\t\t\t\t--><figure\r\n\t\t\t\t\tclass="\r\n\t\t\t\t\t\tsection--committee__member-item\r\n\t\t\t\t\t\tsection--committee__member-item--<%= curMemberLabel %>\r\n\t\t\t\t\t"\r\n\r\n\t\t\t\t\ttitle="<%= curMember.name %>"\r\n\t\t\t\t><!--\r\n\t\t\t\t\t--><span\r\n\t\t\t\t\t\tclass="\r\n\t\t\t\t\t\t\tsection--committee__member-img\r\n\t\t\t\t\t\t\tsection--committee__member-img--<%= curMemberLabel %>\r\n\t\t\t\t\t\t"\r\n\t\t\t\t\t></span><!--\r\n\t\t\t\t\t--><span\r\n\t\t\t\t\t\tclass="\r\n\t\t\t\t\t\t\tsection--committee__member-label\r\n\t\t\t\t\t\t\tsection--committee__member-label--<%= curMemberLabel %>\r\n\t\t\t\t\t\t"\r\n\t\t\t\t\t><%= curMemberNames[0] %> - <%= curMember.position %></span><!--\r\n\t\t\t\t--></figure><!--\r\n\t\t\t--><%\r\n\t\t\t});\r\n\t\t%><!--\r\n\t\t--></div><!--\r\n\t--><%\r\n\t});\r\n%>';});
 
 /*
 |-------------------------------------------
@@ -14320,14 +14320,23 @@ define('content/sections',[
         // used to refer to this section with user  (eg navigation links)
         title: 'Wildcard',
         titleTemplate: 'WILD<wbr>CARD',
-        titleShowTime: 0,
+        titleShowTime: 250,
         subheadings: [{
             text: 'JESUS COLLEGE MAY BALL',
             label: 'subtitle',
-            showTime: 750
+            showTime: 1250
         }, {
-            text: '15 - 06 -15',
+            text: '15 - 06 - 15',
             label: 'date',
+            showTime: 1750
+        }],
+        backgroundLayers: [{
+            showTime: 1250
+        }, {
+            showTime: 1250
+        }, {
+            showTime: 1250
+        }, {
             showTime: 1250
         }],
         jumpArrow: false,
@@ -14335,52 +14344,57 @@ define('content/sections',[
     }, {
         label: 'section-gap-0',
         type: 'section-gap',
-        layers: ['parallax']
+        layers: ['parallax', 'rotate', 'rotate', 'rotate']
     }, {
         label: 'night',
         title: 'The Night',
         titleTemplate: 'The Night',
         type: 'content',
+        showNavUnderline: true,
         template: nightTemplate
     }, {
         label: 'section-gap-1',
         type: 'section-gap',
-        layers: ['parallax']
+        layers: ['parallax', 'rotate', 'rotate', 'rotate', 'rotate']
     }, {
         label: 'entertainment',
         title: 'Entertainment',
         titleTemplate: 'Enter<wbr>tain<wbr>ment',
         type: 'content',
+        showNavUnderline: true,
         template: entsTemplate
     }, {
         label: 'section-gap-2',
         type: 'section-gap',
-        layers: ['parallax']
+        layers: ['parallax', 'rotate', 'rotate', 'rotate']
     }, {
         label: 'ticket-info',
         title: 'Tickets',
         titleTemplate: 'Tick<wbr>ets',
         type: 'content',
+        showNavUnderline: true,
         template: ticketInfoTemplate
     }, {
         label: 'section-gap-3',
         type: 'section-gap',
-        layers: ['parallax', 'rotate']
+        layers: ['parallax', 'rotate', 'rotate', 'rotate']
     }, {
         label: 'sponsors',
         title: 'Sponsors',
         titleTemplate: 'Spon<wbr>sors',
         type: 'content',
+        showNavUnderline: true,
         template: sponsorsTemplate
     }, {
         label: 'section-gap-4',
         type: 'section-gap',
-        layers: ['parallax']
+        layers: ['parallax', 'rotate', 'rotate']
     }, {
         label: 'charities',
         title: 'Charities',
         titleTemplate: 'Char<wbr>ities',
         type: 'content',
+        showNavUnderline: true,
         template: charitiesTemplate,
         noImage: true
     }, {
@@ -14392,16 +14406,18 @@ define('content/sections',[
         title: 'Work',
         titleTemplate: 'Work',
         type: 'content',
+        showNavUnderline: true,
         template: workTemplate
     }, {
         label: 'section-gap-6',
         type: 'section-gap',
-        layers: ['parallax']
+        layers: ['parallax', 'rotate']
     }, {
         label: 'committee',
         title: 'Committee',
         titleTemplate: 'Commi<wbr>ttee',
         type: 'content',
+        showNavUnderline: true,
         template: committeeTemplate,
         noImage: true
     }, {
@@ -14516,6 +14532,7 @@ define('views/nav',[
             this.collection.each(function (curSection, curSectionIndex) {
                 var curSectionLabel = curSection.get('label'),
                     curSectionTitle = curSection.get('title'),
+                    curShowUnderline = curSection.get('showNavUnderline'),
                     curSectionImportant = curSection.get('important'),
                     firstNavLink = curSectionIndex === 0;
 
@@ -14527,6 +14544,10 @@ define('views/nav',[
                         .addBEMSuffix(curSectionLabel + (firstNavLink ? ' selected' : '') + (curSectionImportant ? ' important' : ''))
                         .text(curSectionTitle)
                         .appendTo($('<li>').appendTo(this.$navList));
+
+                    if (curShowUnderline) {
+                        $('<span>').addBEMClass('nav__link-underline').appendTo(this.$sectionLink[curSectionLabel]);
+                    }
                 }
             }, this);
 
@@ -14578,36 +14599,46 @@ define('views/hero-section',[
                 sectionTitleTemplate = this.model.get('titleTemplate'),
                 sectionTitleShowTime = this.model.get('titleShowTime'),
                 sectionSubheadings = this.model.get('subheadings'),
+                sectionBackgroundLayers = this.model.get('backgroundLayers'),
                 getClasses = _.partial(_.getBEMClasses, 'section', [sectionLabel, 'hero']),
                 $title, $subheadings, $figure, $arrowRow;
 
             this.$el.addBEMSuffix(sectionLabel);
-            
+
+            // add layers for background images
+            _.each(sectionBackgroundLayers, function (curLayer, curLayerIndex) {
+                var $curLayer = $('<div>').addClass(getClasses('background-layer', [curLayerIndex, 'unshown'])).appendTo(this.$el);
+                
+                setTimeout(function () {
+                    $curLayer.removeClass(getClasses('background-layer', 'unshown', true));
+                }, curLayer.showTime);
+            }, this);
+
             $figure = $('<figure>').addClass(getClasses('figure')).appendTo(this.$el);
             $('<span>').addClass(getClasses('img')).appendTo($figure);
 
             $title = $('<h1>').addClass(getClasses('title', 'unshown')).html(_.render(sectionTitleTemplate)).appendTo(this.$el);
 
-            $(function () {
-                setTimeout(function () {
-                    $title.removeClass(getClasses('title', 'unshown', true));
-                }, sectionTitleShowTime);
-            });
+            // remove 'unshown' class from title (start animation)
+            setTimeout(function () {
+                $title.removeClass(getClasses('title', 'unshown', true));
+            }, sectionTitleShowTime);
 
             $subheadings = $();
 
+            // create subheadings
             _.each(sectionSubheadings, function (curSubheading) {
                 var $curSubheading = $('<h3>').addClass(getClasses('subheading', [curSubheading.label, 'unshown'])).text(curSubheading.text).appendTo(this.$el);
 
                 $subheadings.add($curSubheading);
 
-                $(function () {
-                    setTimeout(function () {
-                        $curSubheading.removeClass(getClasses('subheading', 'unshown', true));
-                    }, curSubheading.showTime);
-                });
+                // remove 'unshown' class from subheading (start animation)
+                setTimeout(function () {
+                    $curSubheading.removeClass(getClasses('subheading', 'unshown', true));
+                }, curSubheading.showTime);
             }, this);
 
+            // include an arrow to jump to the first section, if necessary
             if (this.model.get('jumpArrow')) {
                 $arrowRow = $('<div>').addClass(
                     getClasses('arrow-row')
@@ -14618,16 +14649,25 @@ define('views/hero-section',[
                     .appendTo($arrowRow);
             }
 
+            // add/remove screen size based BEM modifiers
             _.bindDefer(function () {
-                $.breakpoint.on(['palm'], function (breakpoint) {
+                $.breakpoint.on(['thumb', 'palm'], function (breakpoint) {
                     var titlePalmClass = getClasses('title', 'palm', true),
+                        titleThumbClass = getClasses('title', 'thumb', true),
                         subheadingPalmClass = getClasses('subheading', 'palm', true);
                     
                     if (breakpoint === 'palm') {
+                        $title.removeClass(titleThumbClass);
                         $title.addClass(titlePalmClass);
                         $subheadings.addClass(subheadingPalmClass);
                     } else {
                         $title.removeClass(titlePalmClass);
+                        if (breakpoint === 'thumb') {
+                            $title.addClass(titleThumbClass);
+                        } else {
+                            $title.removeClass(titleThumbClass);
+                        }
+
                         $subheadings.removeClass(subheadingPalmClass);
                     }
                 }, true);

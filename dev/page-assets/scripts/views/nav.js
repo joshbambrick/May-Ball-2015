@@ -77,6 +77,7 @@ define([
             this.collection.each(function (curSection, curSectionIndex) {
                 var curSectionLabel = curSection.get('label'),
                     curSectionTitle = curSection.get('title'),
+                    curShowUnderline = curSection.get('showNavUnderline'),
                     curSectionImportant = curSection.get('important'),
                     firstNavLink = curSectionIndex === 0;
 
@@ -88,6 +89,10 @@ define([
                         .addBEMSuffix(curSectionLabel + (firstNavLink ? ' selected' : '') + (curSectionImportant ? ' important' : ''))
                         .text(curSectionTitle)
                         .appendTo($('<li>').appendTo(this.$navList));
+
+                    if (curShowUnderline) {
+                        $('<span>').addBEMClass('nav__link-underline').appendTo(this.$sectionLink[curSectionLabel]);
+                    }
                 }
             }, this);
 

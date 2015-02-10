@@ -1,4 +1,6 @@
 .section--section-gap__img--parallax {
+    // introduced this to force hardware acceleration (not sure if it was effective or not)
+    transform: translate3d(0, 0, 0);
     -skrollr-animation-name: gap-parallax;
 }
 
@@ -16,87 +18,21 @@
     }
 }
 
-// @for $cur-parallax-image-i from 0 through ($number-of-parallax-images - 1) {
-//     $cur-parallax-layers: nth($parallax-image-layers, $cur-parallax-image-i + 1);
-
-//     @for $cur-parallax-layer-i from 0 through (length($cur-parallax-layers) - 1) {
-//         $cur-parallax-layer: nth($cur-parallax-layers, $cur-parallax-layer-i + 1);
-
-//         @if (map-get($cur-parallax-layer, "rotate")) {
-//             @if (not map-get($cur-parallax-layer, "ignore")) {
-//                 .section--section-gap-#{$cur-parallax-image-i}__img--layer-#{$cur-parallax-layer-i} {
-//                     -skrollr-animation-name: gap-rotate;
-//                 }
-//             }
-//         }
-//     }
-// }
-//  @-skrollr-keyframes gap-rotate {
-//     // when the top of the image hits the bottom of the viewport
-//     bottom-top {
-//         transform: rotate(360deg);
-//     }
-
-//     // when the bottom of the image hits the top of the viewport
-//     top-bottom {
-//         transform: rotate(0deg);
-//     }
-// }
-
-
 @for $cur-parallax-image-i from 0 through ($number-of-parallax-images - 1) {
     $cur-parallax-layers: nth($parallax-image-layers, $cur-parallax-image-i + 1);
 
     @for $cur-parallax-layer-i from 0 through (length($cur-parallax-layers) - 1) {
         $cur-parallax-layer: nth($cur-parallax-layers, $cur-parallax-layer-i + 1);
-        $cur-paralax-layer-rotate: map-get($cur-parallax-layer, "rotate");
+        $cur-parallax-layer-rotate: map-get($cur-parallax-layer, "rotate");
 
-        @if ($cur-paralax-layer-rotate) {
+        @if ($cur-parallax-layer-rotate) {
             @if (not map-get($cur-parallax-layer, "ignore")) {
-                $cur-parallax-layer-animation-name: #{"gap-" + $cur-parallax-image-i + "-layer-" + $cur-parallax-layer-i + "-rotate"};
-
-                .section--section-gap-#{$cur-parallax-image-i}__img--layer-#{$cur-parallax-layer-i} {
-                    -skrollr-animation-name: $cur-parallax-layer-animation-name;
-                }
-
-                @-skrollr-keyframes $cur-parallax-layer-animation-name {
-                    // when the top of the image hits the bottom of the viewport
-                    bottom-top {
-                        $top-start: map-get($cur-parallax-layer, "top-start");
-                        $left-start: map-get($cur-parallax-layer, "left-start");
-                        $rotate-start: map-get($cur-parallax-layer, "rotate-start");
-                        transform: translateY($top-start) translateX($left-start) rotate($rotate-start);
-                    }
-
-                    // when the bottom of the image hits the top of the viewport
-                    top-bottom {
-                        $top-end: map-get($cur-parallax-layer, "top-end");
-                        $left-end: map-get($cur-parallax-layer, "left-end");
-                        $rotate-end: map-get($cur-parallax-layer, "rotate-end");
-                        transform: translateY($top-end) translateX($left-end) rotate($rotate-end);
-                    }
-                }
+                @include animated-item(
+                    "section--section-gap-" + $cur-parallax-image-i + "__img--layer-" + $cur-parallax-layer-i,
+                    "gap-" + $cur-parallax-image-i + "-layer-" + $cur-parallax-layer-i + "-rotate",
+                    $cur-parallax-layer
+                )
             }
         }
     }
 }
-
-// @for $cur-paralax-image-index from 1 through $number-of-parallax-images {
-//     .section--section-gap-#{$cur-paralax-image-index}__img {
-//         -skrollr-animation-name: gap-parallax + $cur-paralax-image-index;
-//     }
-
-//     @-skrollr-keyframes #{"gap-parallax" + $cur-paralax-image-index} {
-//         // this actually only runs from when bottom hits bottom of viewport to when bottom hits top
-
-//         // when the top of the image hits the bottom of the viewport
-//         bottom-top {
-//             background-position: 0 (100% / 6) * $cur-paralax-image-index;
-//         }
-
-//         // when the bottom of the image hits the top of the viewport
-//         top-bottom {
-//             background-position: 0 (100% / 6) * ($cur-paralax-image-index - 1);
-//         }
-//     }
-// }

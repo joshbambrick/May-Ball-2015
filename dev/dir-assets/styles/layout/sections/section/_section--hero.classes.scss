@@ -14,9 +14,6 @@
     @extend %parallax-content-section;
 }
 
-// the width and height of the image
-$hero-logo-image-max-width: 400px;
-$hero-logo-image-max-height: 440px;
 
 /* figure */.section--hero__figure {
     display: inline-block;
@@ -73,15 +70,26 @@ $hero-logo-image-max-height: 440px;
     color: colour(title-text);
     letter-spacing: 0.3em;
     opacity: 1;
+    transform: matrix(1, 0, 0, 1, 0, 0);
 
-    transition: opacity 750ms, letter-spacing 750ms;
+    transition: transform 750ms, opacity 750ms, letter-spacing 750ms;
 
     &--unshown {
         opacity: 0;
+        transform: matrix(3, 0, 0, 3, 0, 0);
         
         @include respond(lap-and-up) {
             letter-spacing: 2.5em;
         }
+    }
+
+    &--palm {
+        letter-spacing: 0.1em;
+    }
+
+    &--thumb {
+        @extend .typl8-gamma;
+        letter-spacing: 0.05em;
     }
 }
 
@@ -139,5 +147,12 @@ $hero-logo-image-max-height: 440px;
     @include respond(palm) {
         white-space: nowrap;
         letter-spacing: normal;
+        margin-bottom: $lib-spacing-unit--large;
     }
+}
+
+.section--hero__background-layer {
+    position: absolute;
+    background-size: cover;
+    background-repeat: no-repeat;
 }

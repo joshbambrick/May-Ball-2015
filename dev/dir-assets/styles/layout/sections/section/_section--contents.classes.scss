@@ -1,6 +1,5 @@
 .section--contents {
     @extend %content-section;
-
 }
 
 /* div */.section--contents__title-container {
@@ -8,10 +7,12 @@
 }
 
 /* hN */.section--contents__title {
-    @extend .typl8-alpha;
+    @extend .typl8-gamma;
 
+    text-transform: uppercase;
     display: inline-block;
     margin-bottom: $lib-spacing-unit;
+    letter-spacing: 0.3em;
 
     &--palm {
         @extend .typl8-gamma;

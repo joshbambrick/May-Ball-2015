@@ -1,15 +1,11 @@
 %section-background {
+    // this is now a repeating image so don't need to set it to cover
+    background-color: colour(section-background);
     background-image: url(../img/section-background.jpg);
-    background-size: cover;
-}
-
-/* article */.section {
-    @extend %clearfix;
 }
 
 .section__contents {
     @extend %palm-one-whole;
-    @extend %clearfix;
 
     width: 80%;
     margin: 0 auto;
@@ -21,6 +17,7 @@
     @extend %section-background;
 
     padding: $lib-spacing-unit;
+    text-align: justify;
 }
 
 %parallax-content-section {

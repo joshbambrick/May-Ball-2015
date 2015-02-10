@@ -39,14 +39,23 @@ define([
         // used to refer to this section with user  (eg navigation links)
         title: 'Wildcard',
         titleTemplate: 'WILD<wbr>CARD',
-        titleShowTime: 0,
+        titleShowTime: 250,
         subheadings: [{
             text: 'JESUS COLLEGE MAY BALL',
             label: 'subtitle',
-            showTime: 750
+            showTime: 1250
         }, {
-            text: '15 - 06 -15',
+            text: '15 - 06 - 15',
             label: 'date',
+            showTime: 1750
+        }],
+        backgroundLayers: [{
+            showTime: 1250
+        }, {
+            showTime: 1250
+        }, {
+            showTime: 1250
+        }, {
             showTime: 1250
         }],
         jumpArrow: false,
@@ -54,52 +63,57 @@ define([
     }, {
         label: 'section-gap-0',
         type: 'section-gap',
-        layers: ['parallax']
+        layers: ['parallax', 'rotate', 'rotate', 'rotate']
     }, {
         label: 'night',
         title: 'The Night',
         titleTemplate: 'The Night',
         type: 'content',
+        showNavUnderline: true,
         template: nightTemplate
     }, {
         label: 'section-gap-1',
         type: 'section-gap',
-        layers: ['parallax']
+        layers: ['parallax', 'rotate', 'rotate', 'rotate', 'rotate']
     }, {
         label: 'entertainment',
         title: 'Entertainment',
         titleTemplate: 'Enter<wbr>tain<wbr>ment',
         type: 'content',
+        showNavUnderline: true,
         template: entsTemplate
     }, {
         label: 'section-gap-2',
         type: 'section-gap',
-        layers: ['parallax']
+        layers: ['parallax', 'rotate', 'rotate', 'rotate']
     }, {
         label: 'ticket-info',
         title: 'Tickets',
         titleTemplate: 'Tick<wbr>ets',
         type: 'content',
+        showNavUnderline: true,
         template: ticketInfoTemplate
     }, {
         label: 'section-gap-3',
         type: 'section-gap',
-        layers: ['parallax', 'rotate']
+        layers: ['parallax', 'rotate', 'rotate', 'rotate']
     }, {
         label: 'sponsors',
         title: 'Sponsors',
         titleTemplate: 'Spon<wbr>sors',
         type: 'content',
+        showNavUnderline: true,
         template: sponsorsTemplate
     }, {
         label: 'section-gap-4',
         type: 'section-gap',
-        layers: ['parallax']
+        layers: ['parallax', 'rotate', 'rotate']
     }, {
         label: 'charities',
         title: 'Charities',
         titleTemplate: 'Char<wbr>ities',
         type: 'content',
+        showNavUnderline: true,
         template: charitiesTemplate,
         noImage: true
     }, {
@@ -111,16 +125,18 @@ define([
         title: 'Work',
         titleTemplate: 'Work',
         type: 'content',
+        showNavUnderline: true,
         template: workTemplate
     }, {
         label: 'section-gap-6',
         type: 'section-gap',
-        layers: ['parallax']
+        layers: ['parallax', 'rotate']
     }, {
         label: 'committee',
         title: 'Committee',
         titleTemplate: 'Commi<wbr>ttee',
         type: 'content',
+        showNavUnderline: true,
         template: committeeTemplate,
         noImage: true
     }, {
