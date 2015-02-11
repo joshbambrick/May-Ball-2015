@@ -28,6 +28,8 @@ define([
             '*request': 'browserNavigateRequest'
         },
         browserNavigateRequest: function (sectionName) {
+            sectionName = sectionName || '';
+            
             // ignore trailing forward slash
             sectionName = sectionName.replace(/\/$/, '');
 

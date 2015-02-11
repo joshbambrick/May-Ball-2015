@@ -23,38 +23,4 @@
     width: 100%;
 }
 
-@for $cur-parallax-image-i from 0 through ($number-of-parallax-images - 1) {
-    $cur-parallax-layers: nth($parallax-image-layers, $cur-parallax-image-i + 1);
-    
-    @for $cur-parallax-layer-i from 0 through (length($cur-parallax-layers) - 1) {
-        $cur-parallax-layer: nth($cur-parallax-layers, $cur-parallax-layer-i + 1);
-
-        @if (not map-get($cur-parallax-layer, "ignore")) {
-            .section--section-gap-#{$cur-parallax-image-i}__img--layer-#{$cur-parallax-layer-i} {
-                @each $device-width in (palm, lap, desk) {
-                    @include respond($device-width + "-device") {
-                        @if (map-get($cur-parallax-layer, "png")) {
-                            background-image: url("../img/section-gap-" + $cur-parallax-image-i + "-layer-" + $cur-parallax-layer-i + "-" + $device-width + ".png");
-                        } @else {
-                            background-image: url("../img/section-gap-" + $cur-parallax-image-i + "-layer-" + $cur-parallax-layer-i + "-" + $device-width + ".jpg");
-                        }
-                    }
-                }
-                
-                
-                @if (map-get($cur-parallax-layer, "rotate")) {
-                    @if (map-get($cur-parallax-layer, "origin-x") != null) {
-                        transform-origin: map-get($cur-parallax-layer, "origin-x") map-get($cur-parallax-layer, "origin-y");
-                    }
-
-                    width: map-get($cur-parallax-layer, "width");
-                    height: map-get($cur-parallax-layer, "height");
-                    // top: map-get($cur-parallax-layer, "top-start");
-                    top: 0;
-                    // left: map-get($cur-parallax-layer, "left-start");
-                    left: 0;
-                }
-            }
-        }
-    }
-}
+@include animatable-layers($parallax-image-layers, section--section-gap-, __img--layer-, "../img/section-gap-", -layer-);

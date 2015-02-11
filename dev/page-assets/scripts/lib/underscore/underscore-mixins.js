@@ -76,22 +76,22 @@
 
             // accepts null, a single item, or an array
             blockModifiers = _.isArray(blockModifiers) ? blockModifiers : blockModifiers == null ? [] : [blockModifiers];
-            blockModifiers.push('');
+            blockModifiers.push(null);
             
             _.each(blockModifiers, function (curModifier) {
-                blockOptions.push(blockLabel + (curModifier ? '--' + curModifier : ''));
+                blockOptions.push(blockLabel + (curModifier != null ? '--' + curModifier : ''));
             });
 
 
             // accepts null, a single item, or an array
             elementModifiers = _.isArray(elementModifiers) ? elementModifiers : elementModifiers == null ? [] : [elementModifiers];
             if (!onlyWithElementModifiers) {
-                elementModifiers.push('');
+                elementModifiers.push(null);
             }
 
             _.each(elementModifiers, function (curModifier) {
                 _.each(blockOptions, function (curBlockOpt) {
-                    elementOptions.push(curBlockOpt + '__' + elementLabel + (curModifier ? '--' + curModifier : ''));
+                    elementOptions.push(curBlockOpt + '__' + elementLabel + (curModifier != null ? '--' + curModifier : ''));
                 });
             });
 

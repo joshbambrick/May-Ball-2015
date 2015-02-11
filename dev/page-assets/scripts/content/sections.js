@@ -54,9 +54,9 @@ define([
         }, {
             showTime: 1250
         }, {
-            showTime: 1250
+            showFromStart: true
         }, {
-            showTime: 1250
+            showFromStart: true
         }],
         jumpArrow: false,
         type: 'hero'

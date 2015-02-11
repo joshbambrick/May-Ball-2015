@@ -31,6 +31,52 @@
     opacity: 1;
   }
 }
+.section--hero__background-layer--2 {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  -skrollr-animation-name: hero-0-layer-2-rotate;
+}
+
+@-skrollr-keyframes hero-0-layer-2-rotate {
+  bottom-top {
+    -webkit-transform: translateY(30%) translateX(-13%) rotate(-40deg);
+    -ms-transform: translateY(30%) translateX(-13%) rotate(-40deg);
+    transform: translateY(30%) translateX(-13%) rotate(-40deg);
+    -webkit-transform: translate3d(0, 0, 0) translateY(30%) translateX(-13%) rotate(-40deg);
+    transform: translate3d(0, 0, 0) translateY(30%) translateX(-13%) rotate(-40deg);
+  }
+
+  top-bottom {
+    -webkit-transform: translateY(30%) translateX(-13%) rotate(30deg);
+    -ms-transform: translateY(30%) translateX(-13%) rotate(30deg);
+    transform: translateY(30%) translateX(-13%) rotate(30deg);
+    -webkit-transform: translate3d(0, 0, 0) translateY(30%) translateX(-13%) rotate(30deg);
+    transform: translate3d(0, 0, 0) translateY(30%) translateX(-13%) rotate(30deg);
+  }
+}
+.section--hero__background-layer--3 {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  -skrollr-animation-name: hero-0-layer-3-rotate;
+}
+
+@-skrollr-keyframes hero-0-layer-3-rotate {
+  bottom-top {
+    -webkit-transform: translateY(-38%) translateX(26%) rotate(8deg);
+    -ms-transform: translateY(-38%) translateX(26%) rotate(8deg);
+    transform: translateY(-38%) translateX(26%) rotate(8deg);
+    -webkit-transform: translate3d(0, 0, 0) translateY(-38%) translateX(26%) rotate(8deg);
+    transform: translate3d(0, 0, 0) translateY(-38%) translateX(26%) rotate(8deg);
+  }
+
+  top-bottom {
+    -webkit-transform: translateY(-38%) translateX(26%) rotate(-35deg);
+    -ms-transform: translateY(-38%) translateX(26%) rotate(-35deg);
+    transform: translateY(-38%) translateX(26%) rotate(-35deg);
+    -webkit-transform: translate3d(0, 0, 0) translateY(-38%) translateX(26%) rotate(-35deg);
+    transform: translate3d(0, 0, 0) translateY(-38%) translateX(26%) rotate(-35deg);
+  }
+}
 .section--section-gap__img--parallax {
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);

@@ -1,0 +1,79 @@
+@mixin animatable-layers($layer-items, $class-prefix, $class-middle, $image-url-prefix, $image-url-middle, $animation-field : null, $multi-image: true, $position-layers: true) {
+    $image-count: 1;
+
+    @if ($multi-image) {
+        $image-count: length($layer-items);
+    }
+
+    @for $cur-image-i from 0 through ($image-count - 1) {
+        $cur-layers: $layer-items;
+
+        @if ($multi-image) {
+            $cur-layers: nth($layer-items, $cur-image-i + 1);
+        }
+        
+
+        @for $cur-layer-i from 0 through (length($cur-layers) - 1) {
+            $cur-layer: nth($cur-layers, $cur-layer-i + 1);
+            $cur-layer-animation: null;
+
+            @if ($animation-field == null) {
+                $cur-layer-animation: $cur-layer;
+            } @else {
+                $cur-layer-animation: map-get($cur-layer, $animation-field);
+            }
+
+            @if (not map-get($cur-layer, "ignore")) {
+                $cur-layer-class: $class-prefix + $cur-image-i + $class-middle + $cur-layer-i;
+
+                @if (not $class-middle) {
+                    $cur-layer-class: $class-prefix + $cur-layer-i;
+                }
+
+                .#{$cur-layer-class} {
+                    @each $device-width in (palm, lap, desk) {
+                        @include respond($device-width + "-device") {
+                            $cur-layer-image-extension: ".jpg";
+                            
+                            @if (map-get($cur-layer, "png")) {
+                                $cur-layer-image-extension: ".png";
+                            }
+
+                            // determine image url
+                            $cur-layer-image-url: $image-url-prefix;
+                            @if ($class-middle) {
+                                $cur-layer-image-url: $cur-layer-image-url + $cur-image-i + $image-url-middle;
+                            }
+                            $cur-layer-image-url: $cur-layer-image-url + $cur-layer-i + "-" + $device-width + $cur-layer-image-extension;
+
+                            background-image: url($cur-layer-image-url);
+                        }
+                    }
+                    
+                    $cur-layer-animate: false;
+
+                    @if ($animation-field) {
+                        $cur-layer-animate: $cur-layer-animation;
+                    } @else {
+                        $cur-layer-animate: map-get($cur-layer-animation, "rotate");
+                    }
+
+                    
+                    @if ($cur-layer-animate) {
+                        @if (map-get($cur-layer-animation, "origin-x") != null) {
+                            transform-origin: map-get($cur-layer-animation, "origin-x") map-get($cur-layer-animation, "origin-y");
+                        }
+
+                        width: map-get($cur-layer, "width");
+                        height: map-get($cur-layer, "height");
+
+                        @if ($position-layers) {
+                            top: 0;
+                            left: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

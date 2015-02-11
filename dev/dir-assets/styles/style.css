@@ -680,7 +680,7 @@ License URL ... https://github.com/typeplate/starter-kit/blob/master/license.txt
   src: local("Georgia");
   unicode-range: U+270C;
 }
-.typl8-tera, .typl8-giga, .typl8-mega, h1, .typl8-alpha, h2, .typl8-beta, h3, .section--hero__title, .typl8-gamma, h4, .section--hero__title--thumb, .section--contents__title, .section--contents__title--palm, .typl8-delta, h5, .section--hero__subheading--date, .typl8-epsilon, .section--hero__subheading--subtitle, .typl8-zeta, h6, .section--contents__title--thumb {
+.typl8-tera, .typl8-giga, .typl8-mega, h1, .typl8-alpha, h2, .typl8-beta, h3, .section--hero__title, .typl8-gamma, h4, .section--hero__title--palm, .section--contents__title, .section--contents__title--palm, .typl8-delta, h5, .section--hero__title--thumb, .section--hero__subheading--date, .typl8-epsilon, .section--hero__subheading--subtitle, .typl8-zeta, h6, .section--hero__subheading--subtitle.section--hero__subheading--thumb, .section--contents__title--thumb {
   text-rendering: optimizeLegibility;
   line-height: 1;
   margin-top: 0;
@@ -748,14 +748,14 @@ body {
   margin-bottom: 0.61875rem;
 }
 
-.typl8-gamma, h4, .section--hero__title--thumb, .section--contents__title, .section--contents__title--palm {
+.typl8-gamma, h4, .section--hero__title--palm, .section--contents__title, .section--contents__title--palm {
   font-size: 36px;
   font-size: 2rem;
   margin-bottom: 14.85px;
   margin-bottom: 0.825rem;
 }
 
-.typl8-delta, h5, .section--hero__subheading--date {
+.typl8-delta, h5, .section--hero__title--thumb, .section--hero__subheading--date {
   font-size: 24px;
   font-size: 1.33333rem;
   margin-bottom: 22.275px;
@@ -769,7 +769,7 @@ body {
   margin-bottom: 1.41429rem;
 }
 
-.typl8-zeta, h6, .section--contents__title--thumb {
+.typl8-zeta, h6, .section--hero__subheading--subtitle.section--hero__subheading--thumb, .section--contents__title--thumb {
   font-size: 18px;
   font-size: 1rem;
   margin-bottom: 29.7px;
@@ -3594,12 +3594,9 @@ h1, h2, h3, h4, h5, h6 {
     padding: 7px 29.7px;
   }
 }
-.nav--hero-nav {
-  margin: 0 -59px;
-}
-@media screen and (max-width: 719px) {
-  .nav--hero-nav {
-    margin: 0 -29.7px;
+@media screen and (max-width: 299px) {
+  .nav {
+    padding: 7px;
   }
 }
 .nav--fixed {
@@ -3684,14 +3681,22 @@ h1, h2, h3, h4, h5, h6 {
   z-index: 1000;
 }
 
+/* header */
 .section--hero {
-  background-image: url(../img/hero-background.png);
+  background-image: url(../img/hero-background.jpg);
   text-align: center;
-  padding: 29.7px 59px 0;
+  padding: 0;
+}
+
+/* div */
+.section--hero__main {
+  position: relative;
+  overflow: hidden;
+  padding: 29.7px 59px 119px;
 }
 @media screen and (max-width: 719px) {
-  .section--hero {
-    padding: 29.7px 29.7px 0;
+  .section--hero__main {
+    padding: 29.7px 29.7px 59px;
   }
 }
 
@@ -3769,11 +3774,8 @@ h1, h2, h3, h4, h5, h6 {
     letter-spacing: 2.5em;
   }
 }
-.section--hero__title--palm {
+.section--hero__title--palm, .section--hero__title--thumb {
   letter-spacing: 0.1em;
-}
-.section--hero__title--thumb {
-  letter-spacing: 0.05em;
 }
 
 .section--hero__subheading {
@@ -3801,11 +3803,11 @@ h1, h2, h3, h4, h5, h6 {
   -ms-transform: matrix(1, 0, 0, 1, 0, -24);
   transform: matrix(1, 0, 0, 1, 0, -24);
 }
+.section--hero__subheading--subtitle.section--hero__subheading--thumb {
+  color: #a00000;
+}
 
 /* span */
-.section--hero__subheading--date {
-  margin-bottom: 119px;
-}
 .section--hero__subheading--date.section--hero__subheading--unshown:before, .section--hero__subheading--date.section--hero__subheading--unshown:after {
   width: 0em;
 }
@@ -3832,15 +3834,7 @@ h1, h2, h3, h4, h5, h6 {
   .section--hero__subheading--date {
     white-space: nowrap;
     letter-spacing: normal;
-    margin-bottom: 59px;
   }
-}
-
-.section--hero__background-layer {
-  position: absolute;
-  -webkit-background-size: cover;
-  background-size: cover;
-  background-repeat: no-repeat;
 }
 
 /* div */

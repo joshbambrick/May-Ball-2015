@@ -10,12 +10,8 @@
         padding: $lib-spacing-unit--tiny $lib-spacing-unit;
     }
 
-    &--hero-nav {
-        margin: 0 (-$lib-spacing-unit--large);
-
-        @include respond(palm) {
-            margin: 0 (-$lib-spacing-unit);
-        }
+    @include respond(thumb) {
+        padding: $lib-spacing-unit--tiny;
     }
 
     &--hidden {

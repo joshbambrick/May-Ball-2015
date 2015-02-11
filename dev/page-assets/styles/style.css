@@ -3654,6 +3654,126 @@ body.unselectable {
   margin: 7px 0;
 }
 
+.section--hero__background-layer {
+  position: absolute;
+  -webkit-background-size: contain;
+  background-size: contain;
+  background-repeat: no-repeat;
+  -webkit-transition: left 750ms, bottom 750ms, right 750ms, top 750ms;
+  transition: left 750ms, bottom 750ms, right 750ms, top 750ms;
+}
+
+.section--hero__background-layer--0 {
+  width: 40%;
+  height: 40%;
+  left: 0%;
+  top: 0;
+}
+.section--hero__background-layer--0.section--hero__background-layer--unshown {
+  left: -40%;
+}
+
+.section--hero__background-layer--1 {
+  width: 40%;
+  height: 40%;
+  background-position: bottom right;
+  bottom: 0;
+  right: 0%;
+}
+.section--hero__background-layer--1.section--hero__background-layer--unshown {
+  right: -40%;
+}
+
+.section--hero__background-layer--2 {
+  width: 100%;
+  padding-top: 56.25%;
+  left: 0;
+  bottom: 0;
+}
+
+.section--hero__background-layer--3 {
+  width: 100%;
+  padding-top: 56.25%;
+  top: 0;
+  right: 0;
+}
+
+@media screen and (max-device-width: 719px) {
+  .section--hero__background-layer--0 {
+    background-image: url("../../dir-assets/img/hero-background-layer-0-palm.png");
+  }
+}
+@media screen and (min-device-width: 720px) and (max-device-width: 1023px) {
+  .section--hero__background-layer--0 {
+    background-image: url("../../dir-assets/img/hero-background-layer-0-lap.png");
+  }
+}
+@media screen and (min-device-width: 1024px) {
+  .section--hero__background-layer--0 {
+    background-image: url("../../dir-assets/img/hero-background-layer-0-desk.png");
+  }
+}
+
+@media screen and (max-device-width: 719px) {
+  .section--hero__background-layer--1 {
+    background-image: url("../../dir-assets/img/hero-background-layer-1-palm.png");
+  }
+}
+@media screen and (min-device-width: 720px) and (max-device-width: 1023px) {
+  .section--hero__background-layer--1 {
+    background-image: url("../../dir-assets/img/hero-background-layer-1-lap.png");
+  }
+}
+@media screen and (min-device-width: 1024px) {
+  .section--hero__background-layer--1 {
+    background-image: url("../../dir-assets/img/hero-background-layer-1-desk.png");
+  }
+}
+
+.section--hero__background-layer--2 {
+  -webkit-transform-origin: 21.25% 63.88889%;
+  -ms-transform-origin: 21.25% 63.88889%;
+  transform-origin: 21.25% 63.88889%;
+  width: 100%;
+}
+@media screen and (max-device-width: 719px) {
+  .section--hero__background-layer--2 {
+    background-image: url("../../dir-assets/img/hero-background-layer-2-palm.png");
+  }
+}
+@media screen and (min-device-width: 720px) and (max-device-width: 1023px) {
+  .section--hero__background-layer--2 {
+    background-image: url("../../dir-assets/img/hero-background-layer-2-lap.png");
+  }
+}
+@media screen and (min-device-width: 1024px) {
+  .section--hero__background-layer--2 {
+    background-image: url("../../dir-assets/img/hero-background-layer-2-desk.png");
+  }
+}
+
+.section--hero__background-layer--3 {
+  -webkit-transform-origin: 81.77083% 37.03704%;
+  -ms-transform-origin: 81.77083% 37.03704%;
+  transform-origin: 81.77083% 37.03704%;
+  width: 100%;
+}
+@media screen and (max-device-width: 719px) {
+  .section--hero__background-layer--3 {
+    background-image: url("../../dir-assets/img/hero-background-layer-3-palm.png");
+  }
+}
+@media screen and (min-device-width: 720px) and (max-device-width: 1023px) {
+  .section--hero__background-layer--3 {
+    background-image: url("../../dir-assets/img/hero-background-layer-3-lap.png");
+  }
+}
+@media screen and (min-device-width: 1024px) {
+  .section--hero__background-layer--3 {
+    background-image: url("../../dir-assets/img/hero-background-layer-3-desk.png");
+  }
+}
+
 .section--section-gap {
   height: 0;
   padding-top: 30%;
@@ -4222,9 +4342,10 @@ body.unselectable {
 }
 
 .section--ticket-info__buy-button:hover {
-  margin-top: -2px;
-  margin-bottom: 2px;
   text-decoration: none;
+  -webkit-transform: translateY(-2px);
+  -ms-transform: translateY(-2px);
+  transform: translateY(-2px);
 }
 
 /* div */

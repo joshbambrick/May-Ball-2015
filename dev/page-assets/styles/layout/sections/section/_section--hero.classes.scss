@@ -1,0 +1,72 @@
+.section--hero__background-layer {
+    position: absolute;
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    transition: left 750ms, bottom 750ms, right 750ms, top 750ms;
+}
+
+@for $cur-layer-i from 0 through (length($hero-image-layers) - 1) {
+    $cur-layer: nth($hero-image-layers, $cur-layer-i + 1);
+
+    .section--hero__background-layer--#{$cur-layer-i} {
+        width: map-get($cur-layer, width);
+
+        @if (map-get($cur-layer, height) != null) {
+            height: map-get($cur-layer, height);
+        }
+
+        @if (map-get($cur-layer, padding-top) != null) {
+            padding-top: map-get($cur-layer, padding-top);
+        }
+
+        @if (map-get($cur-layer, background-size) != null) {
+            background-size: map-get($cur-layer, background-size);
+        }
+
+        @if (map-get($cur-layer, background-position) != null) {
+            background-position: map-get($cur-layer, background-position);
+        }
+
+        @if (map-get($cur-layer, left) != null) {
+            left: map-get($cur-layer, left);
+        }
+
+        @if (map-get($cur-layer, top) != null) {
+            top: map-get($cur-layer, top);
+        }
+
+        @if (map-get($cur-layer, bottom) != null) {
+            bottom: map-get($cur-layer, bottom);
+        }
+
+        @if (map-get($cur-layer, right) != null) {
+            right: map-get($cur-layer, right);
+        }
+
+        $cur-layer-shown-animation: map-get($cur-layer, shown-animation);
+
+        @if ($cur-layer-shown-animation) {
+            &.section--hero__background-layer--unshown {
+                @if (map-get($cur-layer-shown-animation, left) != null) {
+                    left: map-get($cur-layer-shown-animation, left);
+                }
+
+                @if (map-get($cur-layer-shown-animation, top) != null) {
+                    top: map-get($cur-layer-shown-animation, top);
+                }
+
+                @if (map-get($cur-layer-shown-animation, bottom) != null) {
+                    bottom: map-get($cur-layer-shown-animation, bottom);
+                }
+
+                @if (map-get($cur-layer-shown-animation, right) != null) {
+                    right: map-get($cur-layer-shown-animation, right);
+                }
+            }
+        }
+    }
+}
+
+
+@include animatable-layers($hero-image-layers, section--hero__background-layer--, false, "../../dir-assets/img/hero-background-layer-", false, scroll-animation, false, false);

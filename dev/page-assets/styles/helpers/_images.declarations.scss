@@ -1,38 +1,125 @@
 @import "../layout/sections/section/section--section-gap.declarations";
 
 $hero-image-layers: (
-    (
-        // forms a circle
-        width: $parallax-image-container-height-width-ratio * 100%,
-        height: 100%,
+    // (
+    //     // forms a circle
+    //     width: $parallax-image-container-height-width-ratio * 100%,
+    //     height: 100%,
 
-        // position the item from
-        left: null,
-        top: null,
+    //     // position the item from its container
+    //     left: null,
+    //     top: null,
+    //     bottom: null,
+    //     right: null,
+        
+    //     scroll-animation: (
+    //         // start and end rotation values
+    //         rotate-start: -32deg,
+    //         rotate-end: 4deg,
+
+    //         // the start and end positions
+    //         top-start: 20%,
+    //         left-start: -20%,
+    //         top-end: 100%,
+    //         left-end: -20%,
+
+    //         // origin for transformations (omit for default)
+    //         origin-x: 0%,
+    //         origin-y: 100%,
+    //     ),
+
+
+    //     // info about the animation to occur whenever this element has the
+    //     // 'unshown' modifier removed from its class
+    //     shown-animation: (
+    //         left: 0px
+    //     )
+    // ),
+    (
+        png: true,
+
+        width: 40%,
+        height: 40%,
+
+        // position the item from its container
+        left: 0%,
+        top: 0,
         bottom: null,
         right: null,
-        
-        scroll-animation: (
-            // start and end rotation values
-            rotate-start: -32deg,
-            rotate-end: 4deg,
-
-            // the start and end positions
-            top-start: 20%,
-            left-start: -20%,
-            top-end: 100%,
-            left-end: -20%,
-
-            // origin for transformations (omit for default)
-            origin-x: 0%,
-            origin-y: 100%,
-        ),
-
 
         // info about the animation to occur whenever this element has the
         // 'unshown' modifier removed from its class
         shown-animation: (
-            left: 0px
+            left: -40%
+        )
+    ),
+    (
+        png: true,
+
+        background-position: bottom right,
+
+        width: 40%,
+        height: 40%,
+
+        // position the item from its container
+        bottom: 0,
+        right: 0%,
+
+        // info about the animation to occur whenever this element has the
+        // 'unshown' modifier removed from its class
+        shown-animation: (
+            right: -40%
+        )
+    ),
+    (
+        png: true,
+
+        width: 100%,
+        padding-top: (1080px / 1920px) * 100%,
+
+        bottom: 0,
+        left: 0,
+
+        scroll-animation: (
+            // start and end rotation values
+            rotate-start: -40deg,
+            rotate-end: 30deg,
+
+            // the start and end positions
+            top-start: 30%,
+            left-start: -13%,
+            top-end: 30%,
+            left-end: -13%,
+
+            // origin for transformations (omit for default)
+            origin-x: (408px / 1920px) * 100%,
+            origin-y: (690px / 1080px) * 100%,
+        )
+    ),
+    (
+        png: true,
+
+        width: 100%,
+        padding-top: (1080px / 1920px) * 100%,
+
+        top: 0,
+        right: 0,
+
+        scroll-animation: (
+            // start and end rotation values
+            rotate-start: 8deg,
+            // rotate-end: -27deg,
+            rotate-end: -35deg,
+
+            // the start and end positions
+            top-start: -38%,
+            left-start: 26%,
+            top-end: -38%,
+            left-end: 26%,
+
+            // origin for transformations (omit for default)
+            origin-x: (1570px / 1920px) * 100%,
+            origin-y: (400px / 1080px) * 100%,
         )
     )
 );
@@ -465,4 +552,3 @@ $parallax-image-layers: (
         (ignore: true)
     )
 );
-$number-of-parallax-images: length($parallax-image-layers);

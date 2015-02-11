@@ -1,19 +1,28 @@
-.section--hero {
+/* header */.section--hero {
     @extend %content-section;
 
-    background-image: url(../img/hero-background.png);
+    background-image: url(../img/hero-background.jpg);
     text-align: center;
-    padding: $lib-spacing-unit $lib-spacing-unit--large 0;
-
-    @include respond(palm) {
-        padding: $lib-spacing-unit $lib-spacing-unit 0;
-    }
+    padding: 0;
 }
 
 .section--parallax-hero { 
     @extend %parallax-content-section;
 }
 
+
+/* div */.section--hero__main {
+    // backgrounds positioned to this element
+    position: relative;
+    // any backgrounds outside this element will be clipped
+    overflow: hidden;
+
+    padding: $lib-spacing-unit $lib-spacing-unit--large $lib-spacing-unit--huge;
+
+    @include respond(palm) {
+        padding: $lib-spacing-unit $lib-spacing-unit $lib-spacing-unit--large;
+    }
+}
 
 /* figure */.section--hero__figure {
     display: inline-block;
@@ -84,12 +93,15 @@
     }
 
     &--palm {
+        @extend .typl8-gamma;
+    }
+
+    &--palm, &--thumb {
         letter-spacing: 0.1em;
     }
 
     &--thumb {
-        @extend .typl8-gamma;
-        letter-spacing: 0.05em;
+        @extend .typl8-delta;
     }
 }
 
@@ -103,6 +115,7 @@
     &--unshown {
         opacity: 0;
     }
+
 }
 
 /* h3 */ .section--hero__subheading--subtitle {
@@ -114,12 +127,15 @@
     &.section--hero__subheading--unshown {
         transform: matrix(1, 0, 0, 1, 0, -24);
     }
+
+    &.section--hero__subheading--thumb {
+        @extend .typl8-zeta;
+        color: colour(subtitle-text);
+    }
 }
 
 /* span */ .section--hero__subheading--date {
     @extend .typl8-delta;
-
-    margin-bottom: $lib-spacing-unit--huge;
 
     &.section--hero__subheading--unshown {
         &:before, &:after {
@@ -147,12 +163,5 @@
     @include respond(palm) {
         white-space: nowrap;
         letter-spacing: normal;
-        margin-bottom: $lib-spacing-unit--large;
     }
-}
-
-.section--hero__background-layer {
-    position: absolute;
-    background-size: cover;
-    background-repeat: no-repeat;
 }

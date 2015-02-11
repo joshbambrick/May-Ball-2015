@@ -90,7 +90,7 @@ require([
 
             initSkrollrStylesheets();
             skrollr = initSkrollr({
-                smoothScrolling: false,
+                smoothScrolling: true,
                 forceHeight: false
             });
 

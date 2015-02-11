@@ -13,3 +13,6 @@
         opacity: 1;
     }
 }
+
+// animation of backgrounds
+@include animated-layers($hero-image-layers, hero-, section--hero__background-layer--, false, scroll-animation, false);

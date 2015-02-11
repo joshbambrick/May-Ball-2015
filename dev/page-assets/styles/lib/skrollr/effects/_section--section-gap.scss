@@ -18,21 +18,4 @@
     }
 }
 
-@for $cur-parallax-image-i from 0 through ($number-of-parallax-images - 1) {
-    $cur-parallax-layers: nth($parallax-image-layers, $cur-parallax-image-i + 1);
-
-    @for $cur-parallax-layer-i from 0 through (length($cur-parallax-layers) - 1) {
-        $cur-parallax-layer: nth($cur-parallax-layers, $cur-parallax-layer-i + 1);
-        $cur-parallax-layer-rotate: map-get($cur-parallax-layer, "rotate");
-
-        @if ($cur-parallax-layer-rotate) {
-            @if (not map-get($cur-parallax-layer, "ignore")) {
-                @include animated-item(
-                    "section--section-gap-" + $cur-parallax-image-i + "__img--layer-" + $cur-parallax-layer-i,
-                    "gap-" + $cur-parallax-image-i + "-layer-" + $cur-parallax-layer-i + "-rotate",
-                    $cur-parallax-layer
-                )
-            }
-        }
-    }
-}
+@include animated-layers($parallax-image-layers, gap-, section--section-gap-, __img--layer-, $animation-field : null);

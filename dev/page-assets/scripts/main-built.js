@@ -12197,22 +12197,22 @@ return jQuery;
 
             // accepts null, a single item, or an array
             blockModifiers = _.isArray(blockModifiers) ? blockModifiers : blockModifiers == null ? [] : [blockModifiers];
-            blockModifiers.push('');
+            blockModifiers.push(null);
             
             _.each(blockModifiers, function (curModifier) {
-                blockOptions.push(blockLabel + (curModifier ? '--' + curModifier : ''));
+                blockOptions.push(blockLabel + (curModifier != null ? '--' + curModifier : ''));
             });
 
 
             // accepts null, a single item, or an array
             elementModifiers = _.isArray(elementModifiers) ? elementModifiers : elementModifiers == null ? [] : [elementModifiers];
             if (!onlyWithElementModifiers) {
-                elementModifiers.push('');
+                elementModifiers.push(null);
             }
 
             _.each(elementModifiers, function (curModifier) {
                 _.each(blockOptions, function (curBlockOpt) {
-                    elementOptions.push(curBlockOpt + '__' + elementLabel + (curModifier ? '--' + curModifier : ''));
+                    elementOptions.push(curBlockOpt + '__' + elementLabel + (curModifier != null ? '--' + curModifier : ''));
                 });
             });
 
@@ -13883,6 +13883,8 @@ define('routers/router',[
             '*request': 'browserNavigateRequest'
         },
         browserNavigateRequest: function (sectionName) {
+            sectionName = sectionName || '';
+            
             // ignore trailing forward slash
             sectionName = sectionName.replace(/\/$/, '');
 
@@ -14335,9 +14337,9 @@ define('content/sections',[
         }, {
             showTime: 1250
         }, {
-            showTime: 1250
+            showFromStart: true
         }, {
-            showTime: 1250
+            showFromStart: true
         }],
         jumpArrow: false,
         type: 'hero'
@@ -14601,23 +14603,28 @@ define('views/hero-section',[
                 sectionSubheadings = this.model.get('subheadings'),
                 sectionBackgroundLayers = this.model.get('backgroundLayers'),
                 getClasses = _.partial(_.getBEMClasses, 'section', [sectionLabel, 'hero']),
-                $title, $subheadings, $figure, $arrowRow;
+                $main, $title, $subheadings, $figure, $arrowRow;
 
             this.$el.addBEMSuffix(sectionLabel);
 
+            $main = $('<div>').addClass(getClasses('main')).appendTo(this.$el);
+
             // add layers for background images
             _.each(sectionBackgroundLayers, function (curLayer, curLayerIndex) {
-                var $curLayer = $('<div>').addClass(getClasses('background-layer', [curLayerIndex, 'unshown'])).appendTo(this.$el);
+                var curLayerModifiers = curLayer.showFromStart ? [curLayerIndex] : [curLayerIndex, 'unshown'],
+                    $curLayer = $('<div>').addClass(getClasses('background-layer', curLayerModifiers)).appendTo($main);
                 
-                setTimeout(function () {
-                    $curLayer.removeClass(getClasses('background-layer', 'unshown', true));
-                }, curLayer.showTime);
+                if (!curLayer.showFromStart) {
+                    setTimeout(function () {
+                        $curLayer.removeClass(getClasses('background-layer', 'unshown', true));
+                    }, curLayer.showTime);
+                }
             }, this);
 
-            $figure = $('<figure>').addClass(getClasses('figure')).appendTo(this.$el);
+            $figure = $('<figure>').addClass(getClasses('figure')).appendTo($main);
             $('<span>').addClass(getClasses('img')).appendTo($figure);
 
-            $title = $('<h1>').addClass(getClasses('title', 'unshown')).html(_.render(sectionTitleTemplate)).appendTo(this.$el);
+            $title = $('<h1>').addClass(getClasses('title', 'unshown')).html(_.render(sectionTitleTemplate)).appendTo($main);
 
             // remove 'unshown' class from title (start animation)
             setTimeout(function () {
@@ -14628,9 +14635,9 @@ define('views/hero-section',[
 
             // create subheadings
             _.each(sectionSubheadings, function (curSubheading) {
-                var $curSubheading = $('<h3>').addClass(getClasses('subheading', [curSubheading.label, 'unshown'])).text(curSubheading.text).appendTo(this.$el);
+                var $curSubheading = $('<h3>').addClass(getClasses('subheading', [curSubheading.label, 'unshown'])).text(curSubheading.text).appendTo($main);
 
-                $subheadings.add($curSubheading);
+                $subheadings = $subheadings.add($curSubheading);
 
                 // remove 'unshown' class from subheading (start animation)
                 setTimeout(function () {
@@ -14642,7 +14649,7 @@ define('views/hero-section',[
             if (this.model.get('jumpArrow')) {
                 $arrowRow = $('<div>').addClass(
                     getClasses('arrow-row')
-                ).appendTo(this.$el);
+                ).appendTo($main);
 
                 this.getSectionHyperLink(this.firstContentSectionLabel)
                     .addClass(getClasses('arrow'))
@@ -14651,25 +14658,34 @@ define('views/hero-section',[
 
             // add/remove screen size based BEM modifiers
             _.bindDefer(function () {
-                $.breakpoint.on(['thumb', 'palm'], function (breakpoint) {
-                    var titlePalmClass = getClasses('title', 'palm', true),
-                        titleThumbClass = getClasses('title', 'thumb', true),
-                        subheadingPalmClass = getClasses('subheading', 'palm', true);
-                    
-                    if (breakpoint === 'palm') {
-                        $title.removeClass(titleThumbClass);
-                        $title.addClass(titlePalmClass);
-                        $subheadings.addClass(subheadingPalmClass);
-                    } else {
-                        $title.removeClass(titlePalmClass);
-                        if (breakpoint === 'thumb') {
-                            $title.addClass(titleThumbClass);
-                        } else {
-                            $title.removeClass(titleThumbClass);
-                        }
+                var items = [{
+                    $el: $title,
+                    elementName: 'title'
+                }, {
+                    $el: $subheadings,
+                    elementName: 'subheading'
+                }];
 
-                        $subheadings.removeClass(subheadingPalmClass);
-                    }
+                $.breakpoint.on(['thumb', 'palm'], function (breakpoint) {
+                    _.each(items, function (curItem) {
+                        var palmClass = getClasses(curItem.elementName, 'palm', true),
+                            thumbClass = getClasses(curItem.elementName, 'thumb', true);
+                        
+                        switch (breakpoint) {
+                            case 'palm':
+                                curItem.$el.removeClass(thumbClass);
+                                curItem.$el.addClass(palmClass);
+                                break;
+                            case 'thumb':
+                                curItem.$el.removeClass(palmClass);
+                                curItem.$el.addClass(thumbClass);
+                                break;
+                            default:
+                                curItem.$el.removeClass(palmClass);
+                                curItem.$el.removeClass(thumbClass);
+                                break;
+                        }
+                    });
                 }, true);
             }, this);
 
@@ -15224,7 +15240,7 @@ require([
 
             initSkrollrStylesheets();
             skrollr = initSkrollr({
-                smoothScrolling: false,
+                smoothScrolling: true,
                 forceHeight: false
             });
 
