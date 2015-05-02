@@ -13,8 +13,6 @@ module.exports = function (grunt) {
                     eqeqeq: true,
                     undef: true,
                     unused: true,
-                    // NOTE: indent caused issues with how I do `switch` statements (I might change my approach)
-                    // indent: 4,
                     browser: true,
                     devel: true,
                     onevar: true,
@@ -75,6 +73,9 @@ module.exports = function (grunt) {
                         underscore: {
                             exports: '_'
                         },
+                        modernizr: {
+                            exports: 'Modernizr'
+                        },
                         backbone: {
                             deps: [
                                 'underscore',
@@ -86,10 +87,12 @@ module.exports = function (grunt) {
                     paths: {
                         // NOTE: must also keep GRUNTFILE.JS up to date
                         text:                   'lib/requirejs/text',
+                        analytics:              'lib/analytics/analytics',
                         jquery:                 'lib/jquery/jquery',
                         jqueryBem:              'lib/jquery/jquery-bem',
                         jqueryMayBall:          'lib/jquery/jquery-breakpoint',
                         jqueryBreakpoint:       'lib/jquery/jquery-may-ball',
+                        modernizr:              'lib/modernizr/modernizr',
                         underscore:             'lib/underscore/underscore',
                         'underscore-mixins':    'lib/underscore/underscore-mixins',
                         backbone:               'lib/backbone/backbone',

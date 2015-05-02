@@ -6,6 +6,9 @@ require.config({
         underscore: {
             exports: '_'
         },
+        modernizr: {
+            exports: 'Modernizr'
+        },
         backbone: {
             deps: [
                 'underscore',
@@ -17,10 +20,12 @@ require.config({
     paths: {
         // NOTE: must also keep GRUNTFILE.JS up to date
         text:                   'lib/requirejs/text',
+        analytics:              'lib/analytics/analytics',
         jquery:                 'lib/jquery/jquery',
         jqueryBem:              'lib/jquery/jquery-bem',
         jqueryMayBall:          'lib/jquery/jquery-breakpoint',
         jqueryBreakpoint:       'lib/jquery/jquery-may-ball',
+        modernizr:              'lib/modernizr/modernizr',
         underscore:             'lib/underscore/underscore',
         'underscore-mixins':    'lib/underscore/underscore-mixins',
         backbone:               'lib/backbone/backbone',
@@ -31,10 +36,12 @@ require.config({
 require([
     // force plugin-dependent plugins to run
     '../../dir-assets/scripts/lib/console/console',
+    'analytics',
     'jquery',
     'jqueryBem',
     'jqueryBreakpoint',
     'jqueryMayBall',
+    'modernizr',
     'underscore',
     'underscore-mixins',
     'backbone',
@@ -45,10 +52,12 @@ require([
     'lib/skrollr/init-skrollr-stylesheets'
 ], function (
     consoleFix,
+    ga,
     $,
     jqueryBem,
     jqueryBreakpoint,
     jqueryMayBall,
+    modernizr,
     _,
     underscoreMixins,
     backbone,
@@ -82,36 +91,46 @@ require([
         });
 
         app.setRouter(router);
-        app.setMain($('#skrollr-body'));
-        app.$el.prependTo('.main');
 
-        _.defer(function () {
-            var skrollr;
+        if (modernizr.touch) {
+            app.setMain($('.main'));
+            app.$el.prependTo('.main');
+        } else {
+            app.setMain($('#skrollr-body'));
 
-            initSkrollrStylesheets();
-            skrollr = initSkrollr({
-                smoothScrolling: true,
-                forceHeight: false
-            });
+            // is this necessary?
+            app.$el.prependTo('.main');
 
-            app.setCanChangeSectionPredicate(function () {
-                return !skrollr.isAnimatingTo();
-            });
+            _.defer(function () {
+                var skrollr;
 
-            // $.setScrollScreenFunction(skrollr.setScrollTop);
-            $.setScrollScreenFunction(function (top) {
-                skrollr.animateTo(top, {
-                    duration: 200
+                initSkrollrStylesheets();
+                skrollr = initSkrollr({
+                    smoothScrolling: true,
+                    forceHeight: false
+                });
+
+                app.setCanChangeSectionPredicate(function () {
+                    return !skrollr.isAnimatingTo();
+                });
+
+                // jump to section of page
+                $.setScrollScreenFunction(skrollr.setScrollTop);
+
+                // animate to section of page
+                // $.setScrollScreenFunction(function (top) {
+                //     skrollr.animateTo(top, {
+                //         duration: 200
+                //     });
+                // });
+                $.setGetElScrollPositionFunction(function ($el) {
+                    return skrollr.relativeToAbsolute($el.get(0), 'top', 'top');
+                });
+                $.setGetScreenScrollFunction(skrollr.getScrollTop);
+                $.setScreenScrollEventCreator(function (func) {
+                    skrollr.on('render', func);
                 });
             });
-            $.setGetElScrollPositionFunction(function ($el) {
-                return skrollr.relativeToAbsolute($el.get(0), 'top', 'top');
-            });
-            $.setGetScreenScrollFunction(skrollr.getScrollTop);
-            $.setScreenScrollEventCreator(function (func) {
-                skrollr.on('render', func);
-            });
-        });
-
+        }
     });
 });

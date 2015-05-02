@@ -43,10 +43,14 @@ define([
         setRouter: function (newRouter) {
             this.router = newRouter;
 
+            // scroll changes
             this.router.on('sectionHighlightChanged', this.fixedNav.sectionHighlightChanged, this.fixedNav);
             this.router.on('sectionHighlightChanged', this.sections.sectionHighlightChanged, this.sections);
-            this.router.on('sectionChanged', this.sections.jumpToSection, this.sections);
+            this.router.on('sectionHighlightChanged', this.updateViewedSection, this);
+
+            // clicked nav button
             this.router.on('sectionChanged', this.updateViewedSection, this);
+            this.router.on('sectionChanged', this.sections.jumpToSection, this.sections);
 
             _.defer(function () {
                 // Start monitoring url changes (including the initial url), this is dependent on the above so only call once they exist

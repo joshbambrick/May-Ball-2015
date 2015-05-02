@@ -46,12 +46,6 @@ define([
                     'section--' + sectionLabel + '__img--' + curLayerType
                 ].join(' ')).appendTo(this.$el);
             }, this);
-
-            _.bindDefer(function () {
-                this.$el.onScrollCoeffChange(function (/*coeff*/) {
-                    // use coeff to calculate the degree of rotation (or whatever else) in the img
-                }, true);
-            }, this);
         }
     });
 });

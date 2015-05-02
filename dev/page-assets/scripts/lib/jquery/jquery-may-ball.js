@@ -24,7 +24,8 @@
             scrollEventHandlers.push(handler);
         };
 
-    $window.on('scroll', callScreenScrollHandlers)
+    $window.on('scroll', callScreenScrollHandlers);
+    $window.on('resize', callScreenScrollHandlers);
 
     $.setScrollScreenFunction = function (func) {
         scrollScreen = func;
@@ -51,9 +52,10 @@
             var scrollTop = getScreenScroll();
 
             $.each(els, function (curElIndex, curEl) {
-                var elTop = getElScrollPosition(curEl.$el),
+                var elScrollTop = scrollTop + curEl.offset(),
+                    elTop = getElScrollPosition(curEl.$el),
                     elBottom = elTop + curEl.$el.outerHeight(),
-                    newHit = scrollTop >= elTop && scrollTop <= elBottom;
+                    newHit = elScrollTop >= elTop && elScrollTop <= elBottom;
 
                 if (newHit !== curEl.hit) {
                     curEl.callback(newHit);
@@ -63,10 +65,13 @@
             });
         });
 
-        $.fn.onScrollChange = function (callback) {
+        $.fn.onScrollChange = function (callback, offset) {
+            offset = offset != null ? offset : 0;
+
             els.push({
                 $el: this,
                 hit: false,
+                offset: $.isFunction(offset) ? offset : function () { return offset; },
                 callback: callback
             });
 
@@ -80,7 +85,7 @@
         testElWithKnownScroll = function (el, scrollTop) {
             var elTop = getElScrollPosition(el.$el),
                 newAbove = scrollTop >= elTop;
-
+            
             if (newAbove !== el.above) {
                 el.callback(newAbove);
 
@@ -94,12 +99,13 @@
 
         addScreenScrollEvent(function () {
             var scrollTop = getScreenScroll();
-
             $.each(els, function (curElIndex, curEl) {
                 testElWithKnownScroll(curEl, scrollTop);
             });
         });
 
+        // call a callback every time the users scrolls past the
+        // top of the element (in either direction)
         $.fn.onScrollTop = function (callback, init) {
             els.push({
                 $el: this,
@@ -124,6 +130,7 @@
     (function () {
         var els = [], testEl;
 
+        // how far the user has scrolled down the screen is known
         testElWithKnownScroll = function (el, scrollTop) {
             var elHeight = el.$el.outerHeight(),
                 elTop = getElScrollPosition(el.$el),
@@ -157,6 +164,8 @@
             });
         });
 
+        // calls a callback whenever the users scrolls over the element, passing
+        // a coeff (0 to 1), of how close to the bottom they are
         $.fn.onScrollCoeffChange = function (callback, testNow) {
             els.push({
                 $el: this,

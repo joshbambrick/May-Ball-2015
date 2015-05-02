@@ -74,10 +74,10 @@ define([
 
             this.$navList = $('<ul>').addBEMClass('nav__list').appendTo(this.$el);
 
+            // add the links to the appropriate sections
             this.collection.each(function (curSection, curSectionIndex) {
                 var curSectionLabel = curSection.get('label'),
                     curSectionTitle = curSection.get('title'),
-                    curShowUnderline = curSection.get('showNavUnderline'),
                     curSectionImportant = curSection.get('important'),
                     firstNavLink = curSectionIndex === 0;
 
@@ -89,13 +89,11 @@ define([
                         .addBEMSuffix(curSectionLabel + (firstNavLink ? ' selected' : '') + (curSectionImportant ? ' important' : ''))
                         .text(curSectionTitle)
                         .appendTo($('<li>').appendTo(this.$navList));
-
-                    if (curShowUnderline) {
-                        $('<span>').addBEMClass('nav__link-underline').appendTo(this.$sectionLink[curSectionLabel]);
-                    }
                 }
             }, this);
 
+            // call a callback if the user scrolls past the top of the nav in either direction
+            // the nav may, for example, be shown or hidden as a result
             _.bindDefer(function () {
                 this.$el.onScrollTop(this.notifyTopHit || _.noop, true);
             }, this);

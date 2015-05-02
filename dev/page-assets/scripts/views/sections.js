@@ -79,6 +79,7 @@ define([
                 return curSection.get('type') === 'content';
             }).get('label');
 
+            // build each section in turn
             this.collection.each(function (curSection) {
                 var curSectionLabel = curSection.get('label'),
                     curSectionType = curSection.get('type'),
@@ -117,6 +118,8 @@ define([
                             // may have other conditions elsewhere to update url to null
                             this.updateUrl(curSectionLabel);
                         }
+                    }, this), _.bind(function () {
+                        return -this.getScrollOffset();
                     }, this));
                 }
 

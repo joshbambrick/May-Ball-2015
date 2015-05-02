@@ -55,20 +55,27 @@ define([
             $('<div>').addClass(getClasses('title-underline')).appendTo($titleContainer);
 
 
-            $.breakpoint.on(['thumb', 'palm'], _.bind(function (breakpoint) {
+            $.breakpoint.on(['lap-and-up', 'thumb', 'palm'], _.bind(function (breakpoint) {
                 var palmClass = getClasses('title', 'palm', true),
+                    lapClass = getClasses('title', 'lap-and-up', true),
                     thumbClass = getClasses('title', 'thumb', true);
 
-                if (breakpoint === 'palm') {
-                    $title.addClass(palmClass);
-                }  else {
-                    $title.removeClass(palmClass);
-                }
-
-                if (breakpoint === 'thumb') {
-                    $title.addClass(thumbClass);
-                } else {
-                    $title.removeClass(thumbClass);
+                switch (breakpoint) {
+                    case 'lap-and-up':
+                        $title.addClass(lapClass);
+                        $title.removeClass(palmClass);
+                        $title.removeClass(thumbClass);
+                        break;
+                    case 'palm':
+                        $title.addClass(palmClass);
+                        $title.removeClass(thumbClass);
+                        $title.removeClass(lapClass);
+                        break;
+                    case 'thumb':
+                        $title.addClass(thumbClass);
+                        $title.removeClass(palmClass);
+                        $title.removeClass(lapClass);
+                        break;
                 }
             }, this), true);
         }

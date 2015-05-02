@@ -1,6 +1,7 @@
 /* header */.section--hero {
     @extend %content-section;
 
+    background-color: colour(hero-background);
     background-image: url(../img/hero-background.jpg);
     text-align: center;
     padding: 0;
@@ -75,11 +76,15 @@
     @extend .typl8-beta;
 
     font-family: 'Times New Roman', serif;
+    white-space: nowrap;
 
     color: colour(title-text);
-    letter-spacing: 0.3em;
     opacity: 1;
     transform: matrix(1, 0, 0, 1, 0, 0);
+    
+    letter-spacing: $hero-title-letter-spacing;
+    // move text to centre of line
+    text-indent: $hero-title-letter-spacing;
 
     transition: transform 750ms, opacity 750ms, letter-spacing 750ms;
 
@@ -97,7 +102,9 @@
     }
 
     &--palm, &--thumb {
-        letter-spacing: 0.1em;
+        letter-spacing: $hero-title-letter-spacing-palm;
+        // move text to centre of line
+        text-indent: $hero-title-letter-spacing-palm;
     }
 
     &--thumb {

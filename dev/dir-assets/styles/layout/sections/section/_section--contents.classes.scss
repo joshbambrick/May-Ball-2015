@@ -13,17 +13,31 @@
     display: inline-block;
     margin-bottom: $lib-spacing-unit;
     letter-spacing: 0.3em;
+    display: none;
+
+    &--lap-and-up {
+        @include respond(lap-and-up) {
+            display: block;
+        }
+    }
 
     &--palm {
-        @extend .typl8-gamma;
+        @extend .typl8-delta;
+
+        @include respond(palm) {
+            display: block;
+        }
     }
 
     &--thumb {
         @extend .typl8-zeta;
+
+        @include respond(thumb) {
+            display: block;
+        }
     }
 
     &--subpage-title {
-        display: block;
         text-align: right;
     }
 

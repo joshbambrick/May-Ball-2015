@@ -680,7 +680,7 @@ License URL ... https://github.com/typeplate/starter-kit/blob/master/license.txt
   src: local("Georgia");
   unicode-range: U+270C;
 }
-.typl8-tera, .typl8-giga, .typl8-mega, h1, .typl8-alpha, h2, .typl8-beta, h3, .section--hero__title, .typl8-gamma, h4, .section--hero__title--palm, .section--contents__title, .section--contents__title--palm, .typl8-delta, h5, .section--hero__title--thumb, .section--hero__subheading--date, .typl8-epsilon, .section--hero__subheading--subtitle, .typl8-zeta, h6, .section--hero__subheading--subtitle.section--hero__subheading--thumb, .section--contents__title--thumb {
+.typl8-tera, .typl8-giga, .typl8-mega, h1, .typl8-alpha, h2, .typl8-beta, h3, .section--hero__title, .typl8-gamma, h4, .section--hero__title--palm, .section--contents__title, .typl8-delta, h5, .section--hero__title--thumb, .section--hero__subheading--date, .section--contents__title--palm, .typl8-epsilon, .section--hero__subheading--subtitle, .typl8-zeta, h6, .section--hero__subheading--subtitle.section--hero__subheading--thumb, .section--contents__title--thumb {
   text-rendering: optimizeLegibility;
   line-height: 1;
   margin-top: 0;
@@ -702,7 +702,7 @@ pre code {
 }
 
 html {
-  font: normal 112.5%/1.65 "Times New Roman", serif;
+  font: normal 112.5%/1.65 Garamond, "Times New Roman", serif;
 }
 
 body {
@@ -748,14 +748,14 @@ body {
   margin-bottom: 0.61875rem;
 }
 
-.typl8-gamma, h4, .section--hero__title--palm, .section--contents__title, .section--contents__title--palm {
+.typl8-gamma, h4, .section--hero__title--palm, .section--contents__title {
   font-size: 36px;
   font-size: 2rem;
   margin-bottom: 14.85px;
   margin-bottom: 0.825rem;
 }
 
-.typl8-delta, h5, .section--hero__title--thumb, .section--hero__subheading--date {
+.typl8-delta, h5, .section--hero__title--thumb, .section--hero__subheading--date, .section--contents__title--palm {
   font-size: 24px;
   font-size: 1.33333rem;
   margin-bottom: 22.275px;
@@ -3557,6 +3557,8 @@ html {
   -ms-text-size-adjust: 100%;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
+  background-color: #121212;
+  background-image: url(../img/section-background.jpg);
 }
 
 a:link, a:visited {
@@ -3591,12 +3593,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 @media screen and (max-width: 719px) {
   .nav {
-    padding: 7px 29.7px;
-  }
-}
-@media screen and (max-width: 299px) {
-  .nav {
-    padding: 7px;
+    padding: 4px;
   }
 }
 .nav--fixed {
@@ -3639,26 +3636,32 @@ h1, h2, h3, h4, h5, h6 {
   color: #a00000;
 }
 @media screen and (max-width: 719px) {
-  .nav__list-link {
+  .nav__list-link, .nav__list-link:link, .nav__list-link:visited {
+    margin: 0 4px;
     padding: 4px;
-    margin: 0 7px;
     font-size: 65%;
   }
 }
 
 /* span */
-.nav__link-underline {
+.nav__list-link:after {
+  content: "";
   display: block;
   height: 1px;
-  background-color: transparent;
   margin-left: 25%;
   margin-right: 25%;
 }
-.nav__list-link--selected .nav__link-underline {
+
+.nav__list-link:after,
+.nav__list-link--important.nav__list-link--selected:after {
+  background-color: transparent;
+}
+
+.nav__list-link--selected:after {
   background-color: #ae9751;
 }
 
-.nav, .section--hero, .section--contents, .section--footer {
+.nav {
   background-color: #121212;
   background-image: url(../img/section-background.jpg);
 }
@@ -3683,6 +3686,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* header */
 .section--hero {
+  background-color: #f4eee1;
   background-image: url(../img/hero-background.jpg);
   text-align: center;
   padding: 0;
@@ -3754,12 +3758,14 @@ h1, h2, h3, h4, h5, h6 {
 /* h1 */
 .section--hero__title {
   font-family: 'Times New Roman', serif;
+  white-space: nowrap;
   color: black;
-  letter-spacing: 0.3em;
   opacity: 1;
   -webkit-transform: matrix(1, 0, 0, 1, 0, 0);
   -ms-transform: matrix(1, 0, 0, 1, 0, 0);
   transform: matrix(1, 0, 0, 1, 0, 0);
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
   -webkit-transition: -webkit-transform 750ms, opacity 750ms, letter-spacing 750ms;
   transition: transform 750ms, opacity 750ms, letter-spacing 750ms;
 }
@@ -3776,6 +3782,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .section--hero__title--palm, .section--hero__title--thumb {
   letter-spacing: 0.1em;
+  text-indent: 0.1em;
 }
 
 .section--hero__subheading {
@@ -3848,9 +3855,24 @@ h1, h2, h3, h4, h5, h6 {
   display: inline-block;
   margin-bottom: 29.7px;
   letter-spacing: 0.3em;
+  display: none;
+}
+@media screen and (min-width: 720px) {
+  .section--contents__title--lap-and-up {
+    display: block;
+  }
+}
+@media screen and (max-width: 719px) {
+  .section--contents__title--palm {
+    display: block;
+  }
+}
+@media screen and (max-width: 299px) {
+  .section--contents__title--thumb {
+    display: block;
+  }
 }
 .section--contents__title--subpage-title {
-  display: block;
   text-align: right;
 }
 @media screen and (max-width: 719px) {

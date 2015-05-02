@@ -1,4 +1,4 @@
-@mixin animatable-layers($layer-items, $class-prefix, $class-middle, $image-url-prefix, $image-url-middle, $animation-field : null, $multi-image: true, $position-layers: true) {
+@mixin animatable-layers($layer-items, $class-prefix, $class-middle, $image-url-prefix, $image-url-middle, $no-touch: false, $animation-field : null, $multi-image: true, $position-layers: true) {
     $image-count: 1;
 
     @if ($multi-image) {
@@ -31,22 +31,27 @@
                 }
 
                 .#{$cur-layer-class} {
+                    $cur-layer-image-extension: ".jpg";
+                    
+                    @if (map-get($cur-layer, "png")) {
+                        $cur-layer-image-extension: ".png";
+                    }
+                    
+                    // determine image url
+                    $cur-layer-image-start: $image-url-prefix;
+                    @if ($class-middle) {
+                        $cur-layer-image-start: $cur-layer-image-start + $cur-image-i + $image-url-middle;
+                    }
+
                     @each $device-width in (palm, lap, desk) {
                         @include respond($device-width + "-device") {
-                            $cur-layer-image-extension: ".jpg";
-                            
-                            @if (map-get($cur-layer, "png")) {
-                                $cur-layer-image-extension: ".png";
-                            }
+                            background-image: url($cur-layer-image-start + $cur-layer-i + "-" + $device-width + $cur-layer-image-extension);
+                        }
+                    }
 
-                            // determine image url
-                            $cur-layer-image-url: $image-url-prefix;
-                            @if ($class-middle) {
-                                $cur-layer-image-url: $cur-layer-image-url + $cur-image-i + $image-url-middle;
-                            }
-                            $cur-layer-image-url: $cur-layer-image-url + $cur-layer-i + "-" + $device-width + $cur-layer-image-extension;
-
-                            background-image: url($cur-layer-image-url);
+                    @if (not $no-touch) {
+                        .-mod-touch & {
+                            background-image: url($cur-layer-image-start + $cur-layer-i + "-touch" + $cur-layer-image-extension);
                         }
                     }
                     
@@ -66,6 +71,8 @@
 
                         width: map-get($cur-layer, "width");
                         height: map-get($cur-layer, "height");
+
+                        transform: translateX(map-get($cur-layer-animation, "left-start")) translateY(map-get($cur-layer-animation, "top-start"));
 
                         @if ($position-layers) {
                             top: 0;

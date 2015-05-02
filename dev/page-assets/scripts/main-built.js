@@ -53,6 +53,27 @@ define('lib/skrollr/init-skrollr',['require'],function (require) {
 }());
 define("../../dir-assets/scripts/lib/console/console", function(){});
 
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-38574442-3', 'auto');
+ga('send', 'pageview');
+
+var trackOutboundLink = function (url) {
+   ga("send", {
+        hitType: "event",
+        eventCategory: "outbound",
+        eventAction: "click",
+        eventLabel: url,
+        hitCallback: function () {
+            document.location = url;
+        }
+   });
+};
+define("analytics", function(){});
+
 /*!
  * jQuery JavaScript Library v1.11.1
  * http://jquery.com/
@@ -10497,7 +10518,8 @@ return jQuery;
             scrollEventHandlers.push(handler);
         };
 
-    $window.on('scroll', callScreenScrollHandlers)
+    $window.on('scroll', callScreenScrollHandlers);
+    $window.on('resize', callScreenScrollHandlers);
 
     $.setScrollScreenFunction = function (func) {
         scrollScreen = func;
@@ -10524,9 +10546,10 @@ return jQuery;
             var scrollTop = getScreenScroll();
 
             $.each(els, function (curElIndex, curEl) {
-                var elTop = getElScrollPosition(curEl.$el),
+                var elScrollTop = scrollTop + curEl.offset(),
+                    elTop = getElScrollPosition(curEl.$el),
                     elBottom = elTop + curEl.$el.outerHeight(),
-                    newHit = scrollTop >= elTop && scrollTop <= elBottom;
+                    newHit = elScrollTop >= elTop && elScrollTop <= elBottom;
 
                 if (newHit !== curEl.hit) {
                     curEl.callback(newHit);
@@ -10536,10 +10559,13 @@ return jQuery;
             });
         });
 
-        $.fn.onScrollChange = function (callback) {
+        $.fn.onScrollChange = function (callback, offset) {
+            offset = offset != null ? offset : 0;
+
             els.push({
                 $el: this,
                 hit: false,
+                offset: $.isFunction(offset) ? offset : function () { return offset; },
                 callback: callback
             });
 
@@ -10553,7 +10579,7 @@ return jQuery;
         testElWithKnownScroll = function (el, scrollTop) {
             var elTop = getElScrollPosition(el.$el),
                 newAbove = scrollTop >= elTop;
-
+            
             if (newAbove !== el.above) {
                 el.callback(newAbove);
 
@@ -10567,12 +10593,13 @@ return jQuery;
 
         addScreenScrollEvent(function () {
             var scrollTop = getScreenScroll();
-
             $.each(els, function (curElIndex, curEl) {
                 testElWithKnownScroll(curEl, scrollTop);
             });
         });
 
+        // call a callback every time the users scrolls past the
+        // top of the element (in either direction)
         $.fn.onScrollTop = function (callback, init) {
             els.push({
                 $el: this,
@@ -10597,6 +10624,7 @@ return jQuery;
     (function () {
         var els = [], testEl;
 
+        // how far the user has scrolled down the screen is known
         testElWithKnownScroll = function (el, scrollTop) {
             var elHeight = el.$el.outerHeight(),
                 elTop = getElScrollPosition(el.$el),
@@ -10630,6 +10658,8 @@ return jQuery;
             });
         });
 
+        // calls a callback whenever the users scrolls over the element, passing
+        // a coeff (0 to 1), of how close to the bottom they are
         $.fn.onScrollCoeffChange = function (callback, testNow) {
             els.push({
                 $el: this,
@@ -10776,6 +10806,17 @@ return jQuery;
         };
     })();
 }));
+/* Modernizr 2.8.3 (Custom Build) | MIT & BSD
+ * Build: http://modernizr.com/download/#-touch-cssclasses-teststyles-prefixes-cssclassprefix:!mod!
+ */
+;window.Modernizr=function(a,b,c){function w(a){j.cssText=a}function x(a,b){return w(m.join(a+";")+(b||""))}function y(a,b){return typeof a===b}function z(a,b){return!!~(""+a).indexOf(b)}function A(a,b,d){for(var e in a){var f=b[a[e]];if(f!==c)return d===!1?a[e]:y(f,"function")?f.bind(d||b):f}return!1}var d="2.8.3",e={},f=!0,g=b.documentElement,h="modernizr",i=b.createElement(h),j=i.style,k,l={}.toString,m=" -webkit- -moz- -o- -ms- ".split(" "),n={},o={},p={},q=[],r=q.slice,s,t=function(a,c,d,e){var f,i,j,k,l=b.createElement("div"),m=b.body,n=m||b.createElement("body");if(parseInt(d,10))while(d--)j=b.createElement("div"),j.id=e?e[d]:h+(d+1),l.appendChild(j);return f=["&#173;",'<style id="s',h,'">',a,"</style>"].join(""),l.id=h,(m?l:n).innerHTML+=f,n.appendChild(l),m||(n.style.background="",n.style.overflow="hidden",k=g.style.overflow,g.style.overflow="hidden",g.appendChild(n)),i=c(l,a),m?l.parentNode.removeChild(l):(n.parentNode.removeChild(n),g.style.overflow=k),!!i},u={}.hasOwnProperty,v;!y(u,"undefined")&&!y(u.call,"undefined")?v=function(a,b){return u.call(a,b)}:v=function(a,b){return b in a&&y(a.constructor.prototype[b],"undefined")},Function.prototype.bind||(Function.prototype.bind=function(b){var c=this;if(typeof c!="function")throw new TypeError;var d=r.call(arguments,1),e=function(){if(this instanceof e){var a=function(){};a.prototype=c.prototype;var f=new a,g=c.apply(f,d.concat(r.call(arguments)));return Object(g)===g?g:f}return c.apply(b,d.concat(r.call(arguments)))};return e}),n.touch=function(){var c;return"ontouchstart"in a||a.DocumentTouch&&b instanceof DocumentTouch?c=!0:t(["@media (",m.join("touch-enabled),("),h,")","{#modernizr{top:9px;position:absolute}}"].join(""),function(a){c=a.offsetTop===9}),c};for(var B in n)v(n,B)&&(s=B.toLowerCase(),e[s]=n[B](),q.push((e[s]?"":"no-")+s));return e.addTest=function(a,b){if(typeof a=="object")for(var d in a)v(a,d)&&e.addTest(d,a[d]);else{a=a.toLowerCase();if(e[a]!==c)return e;b=typeof b=="function"?b():b,typeof f!="undefined"&&f&&(g.className+=" -mod-"+(b?"":"no-")+a),e[a]=b}return e},w(""),i=k=null,e._version=d,e._prefixes=m,e.testStyles=t,g.className=g.className.replace(/(^|\s)no-js(\s|$)/,"$1$2")+(f?" -mod-js -mod-"+q.join(" -mod-"):""),e}(this,this.document);
+define("modernizr", (function (global) {
+    return function () {
+        var ret, fn;
+        return ret || global.Modernizr;
+    };
+}(this)));
+
 //     Underscore.js 1.6.0
 //     http://underscorejs.org
 //     (c) 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -13840,10 +13881,11 @@ return jQuery;
     var oldEnsureElement = Backbone.View.prototype._ensureElement;  
 
     // BEM class & suffix support for views
-    Backbone.View.prototype._ensureElement = function () {
-        var options = this.options || {};
+    Backbone.View.prototype._ensureElement = function (options) {
+        var options = options || {};
 
         oldEnsureElement.call(this);
+
         if (this.BEMClassName || options.BEMClassName) {
             this.$el.addBEMClass(this.BEMClassName || options.BEMClassName);
         }
@@ -13875,7 +13917,30 @@ define('routers/router',[
     _,
     Backbone
 ) {
-    var Router = Backbone.Router.extend({
+    var Router, sendSectionChange;
+
+    sendSectionChange = _.debounce(function () {
+        window.ga('set', 'location', window.location.protocol +
+            '//' + window.location.hostname +
+            window.location.pathname +
+            window.location.search);
+        
+        window.ga('send', {
+            hitType: 'pageview'
+        });
+
+        window.ga('send', {
+            hitType: 'event',
+            eventCategory: 'section',
+            eventAction: 'change',
+            eventLabel: window.location.pathname + window.location.search
+        });
+    }, 500);
+
+    Router = Backbone.Router.extend({
+        initialize: function () {
+            this.on('sectionHighlightChanged', sendSectionChange);
+        },
         routes: {
             // no page
             '': 'browserNavigateRequest',
@@ -13902,7 +13967,7 @@ define('routers/router',[
             if (!noUrlChange) {
                 this.changeUrl(sectionName);
             }
-            
+
             this.trigger('sectionChanged', sectionName);
         }
     });
@@ -14261,25 +14326,25 @@ define('text',['module'], function (module) {
     return text;
 });
 
-define('text!templates/night.html',[],function () { return '<!--\r\n--><p>The Jesus May Ball Committee is delighted to invite you to pick a Wildcard and join us at this year\'s May Ball. Become entranced by Diamonds, kneel at the thrones of the King and Queen, and avoid any tricks by the Joker as you explore this years\' spectacular.</p><!--\r\n--><p>Prepare to experience a night like no other. As the sun sets on Jesus College on the 15<sup>th</sup> June, and you stroll across the ancient courts. Here you can sample a wide range of food from across the world, help yourself to a delicious cocktail or grab a glass of fizz, before settling down to catch some of our carefully selected musicians, magicians, and comedians. Or, if you desire a different pace, hurtle around in the dodgems and dance the night away in our DJ tent.</p><!--\r\n--><p>However you wish to spend your night, Jesus May Ball has something for you.</p>';});
+define('text!templates/night.html',[],function () { return '<!--\r\n--><p>The Jesus May Ball Committee is delighted to invite you to pick a Wildcard and join us at the 2015 Jesus May Ball. Become entranced by Diamonds, kneel at the thrones of the King and Queen, and avoid any tricks by the Joker as you explore this year\'s spectacle.</p><!--\r\n--><p>Prepare to experience a night like no other. As the sun sets on Jesus College on the 15<sup>th</sup> June, stroll freely across the ancient courts. Here you can sample a wide range of food from across the world, help yourself to a delicious cocktail or grab a glass of fizz, before settling down to catch some of our carefully selected musicians, magicians, and comedians. Or, if you desire a different pace, hurtle around in the dodgems and dance the night away in our DJ tent.</p><!--\r\n--><p>However you wish to spend your night, Jesus May Ball has something for you.</p>';});
 
 
 define('text!templates/entertainment.html',[],function () { return '<!--\r\n--><p>The entertainment at Jesus May Ball rarely disappoints. Previous balls have played host to such illustrious talent as: Scouting for Girls, Rizzle Kicks, Maverick Sabre, Clean Bandit, and even David Bowie, once upon a time.</p><!--\r\n--><p>Our team are hard at work putting together an impressive line up for our main stage, where well-known names will be joined by perennially popular tribute acts, as well as the very best of Cambridge musicians.</p><!--\r\n--><p>Helping ease the stress of a difficult term with some comedy has traditionally been another strength of Jesus Ball. Past performers have included Simon Amstell, Russell Kane, and James Acaster, who are always bolstered by a strong line up of local and student acts. We are confident that you will enjoy what we have in store this year.</p><!--\r\n--><p><small>Applications for student acts have now closed, please contact <a href="mailto:student-ents@jesusmayball.com">student-ents<wbr>@jesusmayball<wbr>.com</a> with any queries.</small></p>';});
 
 
-define('text!templates/ticket-info.html',[],function () { return '<!--\r\n--><p>Tickets are now available to members of Jesus College and their guests. Three types are available: standard, priority, and dining, priced at £137, £153, and £174 respectively. \r\n</p><!--\r\n--><p>Standard tickets allow you to enjoy the ball from 8pm, while priority tickets give you the chance to skip the queue and enjoy a champagne reception in the cloisters, and entrance to the ball before everyone else. If you are looking for an exclusive experience, our exclusive dining package includes a champagne reception, followed by a three-course dinner in the college hall, accompanied by fine wines. \r\n</p><!--\r\n--><p>Tickets are available through our online system, exclusively to Jesuans until the 27<sup>th</sup> February. If any tickets remain after this initial round, they will go on sale to all members of the University.</p><!--\r\n--><a href="http://jesusmayball.com/tickets/" class="section--ticket-info__buy-button">Click Here to Purchase Tickets</a>';});
+define('text!templates/ticket-info.html',[],function () { return '<!--\r\n--><p><a href="tickets" class="section--ticket-info__ticket-link">Tickets</a> are now available to members of Jesus College and their guests. Three types are available: standard, priority, and dining, priced at £137, £153, and £174 respectively. \r\n</p><!--\r\n--><p>Standard tickets allow you to enjoy the ball from 8pm, while priority tickets give you the chance to skip the queue and enjoy a champagne reception in the cloisters, and entrance to the ball before everyone else. If you are looking for an exclusive experience, our exclusive dining package includes a champagne reception, followed by a three-course dinner in the college hall, accompanied by fine wines. \r\n</p><!--\r\n--><p>Tickets are available through our online system, exclusively to Jesuans until the 27<sup>th</sup> February. If any tickets remain after this initial round, they will go on sale to all members of the University. For more information on our ticketing structure and frequently asked questions, please visit the <a href="http://jesusmayball.com/tickets/details/">ticketing details page</a>.</p><!--\r\n--><a href="http://jesusmayball.com/tickets/" class="section--ticket-info__buy-button">Click Here to Purchase Tickets</a>';});
 
 
-define('text!templates/sponsors.html',[],function () { return '<!--\r\n--><p>We are grateful to the following sponsors for helping us to deliver a fantastic event:</p><!--\r\n--><p>If you are interested in hearing how a partnership with Jesus May Ball could add value to your brand, please contact Charlie Benson (<a href="mailto:sponsorship@jesusmayball.com">sponsorship<wbr>@jesusmayball<wbr>.com</a>). We can offer a range of bespoke packages.</p>';});
+define('text!templates/sponsors.html',[],function () { return '<%\r\n\tvar sponsors = _.shuffle([/*\r\n\t\t{\r\n\t\t\ttitle: "The Olive Grove",\r\n\t\t\tlabel: "the-olive-grove",\r\n\t\t\turl: "http://the-olivegrove.co.uk/"\r\n\t\t}, */\r\n\t\t{\r\n\t\t\ttitle: "Bloom",\r\n\t\t\tlabel: "bloom",\r\n\t\t\turl: "http://www.bloomgin.com/"\r\n\t\t},\r\n\t\t{\r\n\t\t\ttitle: "Brothers Cider",\r\n\t\t\tlabel: "brothers",\r\n\t\t\turl: "http://brotherscider.co.uk/"\r\n\t\t}, \r\n\t\t{\r\n\t\t\ttitle: "Corte Malgiacca",\r\n\t\t\tlabel: "corte-malgiacca",\r\n\t\t\turl: "http://www.cortemalgiacca.com/"\r\n\t\t}, {\r\n\t\t\ttitle: "Lafayette Photography",\r\n\t\t\tlabel: "lafayette-photography",\r\n\t\t\turl: "http://www.lafayettephotography.com/"\r\n\t\t}\r\n\t]);\r\n%><!--\r\n--><p>We are grateful to the following sponsors for helping us to deliver a fantastic event:</p><!--\r\n--><div class="section--sponsors__sponsor-link-container"><!--\r\n\t--><%\r\n\t\t_.each(sponsors, function (curSponsor) {\r\n\t\t\t%><!--\r\n\t\t\t--><a\r\n\t\t\t\thref="<%= curSponsor.url %>"\r\n\t\t\t\tclass="section--sponsors__sponsor-link section--sponsors__sponsor-link--<%= curSponsor.label %>"\r\n\t\t\t\ttitle="<%= curSponsor.title %>"\r\n\t\t\t\tonclick="window.trackOutboundLink(\'<%= curSponsor.url %>\'); return false;"\r\n\t\t\t></a><!--\r\n\t\t\t--><%\r\n\t\t});\r\n\t%><!--\r\n--></div><!--\r\n--><p>If you are interested in hearing how a partnership with Jesus May Ball could add value to your brand, please contact Charlie Benson (<a href="mailto:sponsorship@jesusmayball.com">sponsorship<wbr>@jesusmayball<wbr>.com</a>). We can offer a range of bespoke packages.</p>';});
 
 
 define('text!templates/charities.html',[],function () { return '<!--\r\n--><p>There is the option to add a £2 charity donation to the price of your ticket, which we hope you will consider. This year, the Committee is supporting three charities.<!--\r\n\t--><dl><!--\r\n\t\t--><dt>Jimmy\'s Night Shelter</dt><!--\r\n\t\t--><dd>Jimmy\'s provides emergency accommodation 365 days a year for people in Cambridge who would otherwise have no place to stay. It provides a warm, welcoming environment and supports guests in the longer term as they move into permanent accommodation.</dd><!--\r\n\t\t--><dt>Afrinspire</dt><!--\r\n\t\t--><dd>Afrinspire supports development initiatives across East Africa, working with local community leaders to understand development needs and working to fulfil these. The May Ball Presidents\' Committee has committed to support Afrinspire in an ongoing capacity from year to year.</dd><!--\r\n\t\t--><dt>Student Minds</dt><!--\r\n\t\t--><dd>Student Minds believes that the best way to improve mental health in students is through the support of their peers. They offer training and support to equip students across the United Kingdom.</dd><!--\r\n\t--></dl><!--\r\n--></p>';});
 
 
-define('text!templates/work.html',[],function () { return '<!--\r\n--><p>Jesus May Ball is currently looking for motivated and enthusiastic workers to help make this year\'s Ball a success. There are a variety of roles available, including food and drink workers, security stewards, and entertainment runners, as well as the opportunity to take on a leadership position in the capacity of a Team Leader or Court Supervisor.\r\n</p><!--\r\n--><p>We do not operate a \'half-on, half-off\' employment policy like many May Balls, and workers are offered a competitive rate which starts at £65 for the night and increases for certain roles.\r\n</p><!--\r\n--><p>Applicants must be willing to work as part of a team and should demonstrate charisma and enthusiasm in order to make the 15<sup>th</sup> of June a spectacular night. Previous experience in hospitality or May Balls is not essential, and training will be given in the week preceding the Ball.\r\n</p><!--\r\n--><p>This is a great opportunity to be a part of one of the most exciting events of the year whilst earning some money. Applications close on the 27<sup>th</sup> February, with interviews being held on the 7<sup>th</sup> or 8<sup>th</sup> of March. To apply, please complete our online application form, or email us for more information at <a href="mailto:staffing@jesusmayball.com">staffing<wbr>@jesusmayball<wbr>.com</a>.</p><!--\r\n--><a href="work/apply" class="section--work__apply-button">Apply to work</a>';});
+define('text!templates/work.html',[],function () { return '<!--\r\n--><p>Unfortunately, we cannot accept any more applications to work at Jesus May Ball.</p><!--\r\n--><p>If you have previsously made an application you should hear from us by the 7<sup>th</sup> March.</p><!--\r\n--><p>Should you have any queries, please contact us at <a href="mailto:staffing@jesusmayball.com">staffing<wbr>@jesusmayball<wbr>.com</a>.</p>';});
 
 
-define('text!templates/committee.html',[],function () { return '<%\r\n\tvar rows = [[\r\n\t\t{\r\n\t\t\tname: \'Alessandra Bittante\',\r\n\t\t\tposition: \'President\'\r\n\t\t}, {\r\n\t\t\tname: \'George Bryan\',\r\n\t\t\tposition: \'President\'\r\n\t\t}\r\n\t], [{\r\n\t\t\tname: \'Chris Brown\',\r\n\t\t\tposition: \'Treasurer\',\r\n\t\t\tduplicateName: true\r\n\t\t}, {\r\n\t\t\tname: \'Isobel MacAuslan\',\r\n\t\t\tposition: \'Secretary\'\r\n\t\t}, {\r\n\t\t\tname: \'Elka Humphrys\',\r\n\t\t\tposition: \'Food\'\r\n\t\t}, {\r\n\t\t\tname: \'Fred Richards\',\r\n\t\t\tposition: \'Drinks\'\r\n\t\t}\r\n\t], [{\r\n\t\t\tname: \'Rob Cronshaw\',\r\n\t\t\tposition: \'Main Ents\'\r\n\t\t}, {\r\n\t\t\tname: \'Bethany Hutchison\',\r\n\t\t\tposition: \'Student Ents\'\r\n\t\t}, {\r\n\t\t\tname: \'Lare Erogbogbo\',\r\n\t\t\tposition: \'Non-Music Ents\'\r\n\t\t}, {\r\n\t\t\tname: \'Chris Stuart\',\r\n\t\t\tposition: \'Tech\',\r\n\t\t\tduplicateName: true\r\n\t\t}\r\n\t], [{\r\n\t\t\tname: \'Charlie Benson\',\r\n\t\t\tposition: \'Staffing\'\r\n\t\t}, {\r\n\t\t\tname: \'Kate Gerhard\',\r\n\t\t\tposition: \'Buildings\'\r\n\t\t}, {\r\n\t\t\tname: \'Claire Nichols\',\r\n\t\t\tposition: \'Security\'\r\n\t\t}, {\r\n\t\t\tname: \'Helen Broadbridge\',\r\n\t\t\tposition: \'Head of Design\'\r\n\t\t}\r\n\t], [{\r\n\t\t\tname: \'Rachel Rees Middleton\',\r\n\t\t\tposition: \'Design\'\r\n\t\t}, {\r\n\t\t\tname: \'Rory Luscombe\',\r\n\t\t\tposition: \'Design\'\r\n\t\t}, {\r\n\t\t\tname: \'Julia Cabanas\',\r\n\t\t\tposition: \'Design\'\r\n\t\t}, {\r\n\t\t\tname: \'Jen Sutherland\',\r\n\t\t\tposition: \'Design\'\r\n\t\t}\r\n\t], [{\r\n\t\t\tname: \'Anthony Graff\',\r\n\t\t\tposition: \'Ticketing\'\r\n\t\t}, {\r\n\t\t\tname: \'Josh Bambrick\',\r\n\t\t\tposition: \'Webmaster\'\r\n\t\t}\r\n\t]];\r\n\r\n\t_.each(rows, function (curRow) {\r\n\t%><!--\r\n\t\t--><div class="section--committee__member-row"><!--\r\n\t\t--><%\r\n\t\t\t_.each(curRow, function (curMember) {\r\n\t\t\t\tvar curMemberNames = curMember.name.split(" ");\r\n\t\t\t\t\tcurMemberLabel = (curMemberNames[0] + (curMember.duplicateName ? "-" + curMemberNames[1] : "")).toLowerCase();\r\n\t\t\t%><!--\r\n\t\t\t\t--><figure\r\n\t\t\t\t\tclass="\r\n\t\t\t\t\t\tsection--committee__member-item\r\n\t\t\t\t\t\tsection--committee__member-item--<%= curMemberLabel %>\r\n\t\t\t\t\t"\r\n\r\n\t\t\t\t\ttitle="<%= curMember.name %>"\r\n\t\t\t\t><!--\r\n\t\t\t\t\t--><span\r\n\t\t\t\t\t\tclass="\r\n\t\t\t\t\t\t\tsection--committee__member-img\r\n\t\t\t\t\t\t\tsection--committee__member-img--<%= curMemberLabel %>\r\n\t\t\t\t\t\t"\r\n\t\t\t\t\t></span><!--\r\n\t\t\t\t\t--><span\r\n\t\t\t\t\t\tclass="\r\n\t\t\t\t\t\t\tsection--committee__member-label\r\n\t\t\t\t\t\t\tsection--committee__member-label--<%= curMemberLabel %>\r\n\t\t\t\t\t\t"\r\n\t\t\t\t\t><%= curMemberNames[0] %> - <%= curMember.position %></span><!--\r\n\t\t\t\t--></figure><!--\r\n\t\t\t--><%\r\n\t\t\t});\r\n\t\t%><!--\r\n\t\t--></div><!--\r\n\t--><%\r\n\t});\r\n%>';});
+define('text!templates/committee.html',[],function () { return '<%\r\n\tvar rows = [[\r\n\t\t{\r\n\t\t\tname: "Alessandra Bittante",\r\n\t\t\tposition: "President",\r\n\t\t\temail: "alessandra@jesusmayball.com"\r\n\t\t}, {\r\n\t\t\tname: "George Bryan",\r\n\t\t\tposition: "President",\r\n\t\t\temail: "george@jesusmayball.com"\r\n\t\t}\r\n\t], [{\r\n\t\t\tname: "Chris Brown",\r\n\t\t\tposition: "Treasurer",\r\n\t\t\temail: "treasurer@jesusmayball.com",\r\n\t\t\tduplicateName: true\r\n\t\t}, {\r\n\t\t\tname: "Isobel MacAuslan",\r\n\t\t\tposition: "Secretary",\r\n\t\t\temail: "secretary@jesusmayball.com"\r\n\t\t}, {\r\n\t\t\tname: "Elka Humphrys",\r\n\t\t\tposition: "Food",\r\n\t\t\temail: "food@jesusmayball.com"\r\n\t\t}, {\r\n\t\t\tname: "Fred Richards",\r\n\t\t\tposition: "Drinks",\r\n\t\t\temail: "drink@jesusmayball.com"\r\n\t\t}\r\n\t], [{\r\n\t\t\tname: "Robert Cronshaw",\r\n\t\t\tposition: "Main Ents",\r\n\t\t\t// email: "ents@jesusmayball.com,main-ents@jesusmayball.com"\r\n\t\t\temail: "main-ents@jesusmayball.com"\r\n\t\t}, {\r\n\t\t\tname: "Bethany Hutchison",\r\n\t\t\tposition: "Student Ents",\r\n\t\t\t// email: "ents@jesusmayball.com,student-ents@jesusmayball.com"\r\n\t\t\temail: "student-ents@jesusmayball.com"\r\n\t\t}, {\r\n\t\t\tname: "Lare Erogbogbo",\r\n\t\t\tposition: "Non-Music Ents",\r\n\t\t\t// email: "ents@jesusmayball.com,nonmusic-ents@jesusmayball.com"\r\n\t\t\temail: "nonmusic-ents@jesusmayball.com"\r\n\t\t}, {\r\n\t\t\tname: "Chris Stuart",\r\n\t\t\tposition: "Tech",\r\n\t\t\temail: "technical@jesusmayball.com",\r\n\t\t\tduplicateName: true\r\n\t\t}\r\n\t], [{\r\n\t\t\tname: "Charlie Benson",\r\n\t\t\tposition: "Staffing",\r\n\t\t\temail: "staffing@jesusmayball.com"\r\n\t\t}, {\r\n\t\t\tname: "Kate Gerhard",\r\n\t\t\tposition: "Buildings",\r\n\t\t\temail: "buildings@jesusmayball.com"\r\n\t\t}, {\r\n\t\t\tname: "Claire Nichols",\r\n\t\t\tposition: "Security",\r\n\t\t\temail: "security@jesusmayball.com"\r\n\t\t}, {\r\n\t\t\tname: "Helen Broadbridge",\r\n\t\t\tposition: "Head of Design",\r\n\t\t\temail: "design@jesusmayball.com"\r\n\t\t}\r\n\t], [{\r\n\t\t\tname: "Rachel Rees Middleton",\r\n\t\t\tposition: "Design",\r\n\t\t\temail: "design-rachel@jesusmayball.com"\r\n\t\t}, {\r\n\t\t\tname: "Rory Luscombe",\r\n\t\t\tposition: "Design",\r\n\t\t\temail: "design-rory@jesusmayball.com"\r\n\t\t}, {\r\n\t\t\tname: "Julia Cabanas",\r\n\t\t\tposition: "Design",\r\n\t\t\temail: "design-julia@jesusmayball.com"\r\n\t\t}, {\r\n\t\t\tname: "Jen Sutherland",\r\n\t\t\tposition: "Design",\r\n\t\t\temail: "design-jen@jesusmayball.com"\r\n\t\t}\r\n\t], [{\r\n\t\t\tname: "Anthony Graff",\r\n\t\t\tposition: "Ticketing",\r\n\t\t\temail: "tickets@jesusmayball.com"\r\n\t\t}, {\r\n\t\t\tname: "Josh Bambrick",\r\n\t\t\tposition: "Webmaster",\r\n\t\t\temail: "webmaster@jesusmayball.com"\r\n\t\t}\r\n\t]];\r\n\r\n\t_.each(rows, function (curRow) {\r\n\t%><!--\r\n\t\t--><div class="section--committee__member-row"><!--\r\n\t\t--><%\r\n\t\t\t_.each(curRow, function (curMember) {\r\n\t\t\t\tvar curMemberNames = curMember.name.split(" ");\r\n\t\t\t\t\tcurMemberLabel = (curMemberNames[0] + (curMember.duplicateName ? "-" + curMemberNames[1] : "")).toLowerCase();\r\n\t\t\t%><!--\r\n\t\t\t\t--><figure\r\n\t\t\t\t\tclass="\r\n\t\t\t\t\t\tsection--committee__member-item\r\n\t\t\t\t\t\tsection--committee__member-item--<%= curMemberLabel %>\r\n\t\t\t\t\t"\r\n\r\n\t\t\t\t\ttitle="<%= curMember.name %>"\r\n\t\t\t\t><!--\r\n\t\t\t\t\t--><span\r\n\t\t\t\t\t\tclass="\r\n\t\t\t\t\t\t\tsection--committee__member-img\r\n\t\t\t\t\t\t\tsection--committee__member-img--<%= curMemberLabel %>\r\n\t\t\t\t\t\t"\r\n\t\t\t\t\t></span><!--\r\n\t\t\t\t\t--><span\r\n\t\t\t\t\t\tclass="\r\n\t\t\t\t\t\t\tsection--committee__member-label\r\n\t\t\t\t\t\t\tsection--committee__member-label--<%= curMemberLabel %>\r\n\t\t\t\t\t\t"\r\n\t\t\t\t\t><%= curMemberNames[0] %> - <%= curMember.position %><br><!--\r\n\t\t\t\t\t\t--><a\r\n\t\t\t\t\t\t\tclass="\r\n\t\t\t\t\t\t\t\tsection--committee__member-email\r\n\t\t\t\t\t\t\t\tsection--committee__member-email--<%= curMemberLabel %>\r\n\t\t\t\t\t\t\t"\r\n\r\n\t\t\t\t\t\t\thref="mailto:<%= curMember.email %>"\r\n\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\ttitle="<%= curMember.email %>"\r\n\t\t\t\t\t\t><%= curMember.email %></a><!--\r\n\t\t\t\t\t--></span><!--\r\n\t\t\t\t--></figure><!--\r\n\t\t\t--><%\r\n\t\t\t});\r\n\t\t%><!--\r\n\t\t--></div><!--\r\n\t--><%\r\n\t});\r\n%>';});
 
 /*
 |-------------------------------------------
@@ -14321,7 +14386,7 @@ define('content/sections',[
         // title (defaults to `label` if undefined)
         // used to refer to this section with user  (eg navigation links)
         title: 'Wildcard',
-        titleTemplate: 'WILD<wbr>CARD',
+        titleTemplate: 'WILDCARD',
         titleShowTime: 250,
         subheadings: [{
             text: 'JESUS COLLEGE MAY BALL',
@@ -14333,9 +14398,9 @@ define('content/sections',[
             showTime: 1750
         }],
         backgroundLayers: [{
-            showTime: 1250
+            showTime: 2000
         }, {
-            showTime: 1250
+            showTime: 2000
         }, {
             showFromStart: true
         }, {
@@ -14352,7 +14417,6 @@ define('content/sections',[
         title: 'The Night',
         titleTemplate: 'The Night',
         type: 'content',
-        showNavUnderline: true,
         template: nightTemplate
     }, {
         label: 'section-gap-1',
@@ -14363,7 +14427,6 @@ define('content/sections',[
         title: 'Entertainment',
         titleTemplate: 'Enter<wbr>tain<wbr>ment',
         type: 'content',
-        showNavUnderline: true,
         template: entsTemplate
     }, {
         label: 'section-gap-2',
@@ -14374,7 +14437,6 @@ define('content/sections',[
         title: 'Tickets',
         titleTemplate: 'Tick<wbr>ets',
         type: 'content',
-        showNavUnderline: true,
         template: ticketInfoTemplate
     }, {
         label: 'section-gap-3',
@@ -14385,7 +14447,6 @@ define('content/sections',[
         title: 'Sponsors',
         titleTemplate: 'Spon<wbr>sors',
         type: 'content',
-        showNavUnderline: true,
         template: sponsorsTemplate
     }, {
         label: 'section-gap-4',
@@ -14396,9 +14457,8 @@ define('content/sections',[
         title: 'Charities',
         titleTemplate: 'Char<wbr>ities',
         type: 'content',
-        showNavUnderline: true,
-        template: charitiesTemplate,
-        noImage: true
+        noImage: true,
+        template: charitiesTemplate
     }, {
         label: 'section-gap-5',
         type: 'section-gap',
@@ -14408,7 +14468,6 @@ define('content/sections',[
         title: 'Work',
         titleTemplate: 'Work',
         type: 'content',
-        showNavUnderline: true,
         template: workTemplate
     }, {
         label: 'section-gap-6',
@@ -14419,7 +14478,6 @@ define('content/sections',[
         title: 'Committee',
         titleTemplate: 'Commi<wbr>ttee',
         type: 'content',
-        showNavUnderline: true,
         template: committeeTemplate,
         noImage: true
     }, {
@@ -14531,10 +14589,10 @@ define('views/nav',[
 
             this.$navList = $('<ul>').addBEMClass('nav__list').appendTo(this.$el);
 
+            // add the links to the appropriate sections
             this.collection.each(function (curSection, curSectionIndex) {
                 var curSectionLabel = curSection.get('label'),
                     curSectionTitle = curSection.get('title'),
-                    curShowUnderline = curSection.get('showNavUnderline'),
                     curSectionImportant = curSection.get('important'),
                     firstNavLink = curSectionIndex === 0;
 
@@ -14546,13 +14604,11 @@ define('views/nav',[
                         .addBEMSuffix(curSectionLabel + (firstNavLink ? ' selected' : '') + (curSectionImportant ? ' important' : ''))
                         .text(curSectionTitle)
                         .appendTo($('<li>').appendTo(this.$navList));
-
-                    if (curShowUnderline) {
-                        $('<span>').addBEMClass('nav__link-underline').appendTo(this.$sectionLink[curSectionLabel]);
-                    }
                 }
             }, this);
 
+            // call a callback if the user scrolls past the top of the nav in either direction
+            // the nav may, for example, be shown or hidden as a result
             _.bindDefer(function () {
                 this.$el.onScrollTop(this.notifyTopHit || _.noop, true);
             }, this);
@@ -14750,20 +14806,27 @@ define('views/content-section',[
             $('<div>').addClass(getClasses('title-underline')).appendTo($titleContainer);
 
 
-            $.breakpoint.on(['thumb', 'palm'], _.bind(function (breakpoint) {
+            $.breakpoint.on(['lap-and-up', 'thumb', 'palm'], _.bind(function (breakpoint) {
                 var palmClass = getClasses('title', 'palm', true),
+                    lapClass = getClasses('title', 'lap-and-up', true),
                     thumbClass = getClasses('title', 'thumb', true);
 
-                if (breakpoint === 'palm') {
-                    $title.addClass(palmClass);
-                }  else {
-                    $title.removeClass(palmClass);
-                }
-
-                if (breakpoint === 'thumb') {
-                    $title.addClass(thumbClass);
-                } else {
-                    $title.removeClass(thumbClass);
+                switch (breakpoint) {
+                    case 'lap-and-up':
+                        $title.addClass(lapClass);
+                        $title.removeClass(palmClass);
+                        $title.removeClass(thumbClass);
+                        break;
+                    case 'palm':
+                        $title.addClass(palmClass);
+                        $title.removeClass(thumbClass);
+                        $title.removeClass(lapClass);
+                        break;
+                    case 'thumb':
+                        $title.addClass(thumbClass);
+                        $title.removeClass(palmClass);
+                        $title.removeClass(lapClass);
+                        break;
                 }
             }, this), true);
         }
@@ -14816,12 +14879,6 @@ define('views/section-gap',[
                     'section--section-gap__img--' + curLayerType,
                     'section--' + sectionLabel + '__img--' + curLayerType
                 ].join(' ')).appendTo(this.$el);
-            }, this);
-
-            _.bindDefer(function () {
-                this.$el.onScrollCoeffChange(function (/*coeff*/) {
-                    // use coeff to calculate the degree of rotation (or whatever else) in the img
-                }, true);
             }, this);
         }
     });
@@ -14945,6 +15002,7 @@ define('views/sections',[
                 return curSection.get('type') === 'content';
             }).get('label');
 
+            // build each section in turn
             this.collection.each(function (curSection) {
                 var curSectionLabel = curSection.get('label'),
                     curSectionType = curSection.get('type'),
@@ -14983,6 +15041,8 @@ define('views/sections',[
                             // may have other conditions elsewhere to update url to null
                             this.updateUrl(curSectionLabel);
                         }
+                    }, this), _.bind(function () {
+                        return -this.getScrollOffset();
                     }, this));
                 }
 
@@ -15036,10 +15096,14 @@ define('views/app',[
         setRouter: function (newRouter) {
             this.router = newRouter;
 
+            // scroll changes
             this.router.on('sectionHighlightChanged', this.fixedNav.sectionHighlightChanged, this.fixedNav);
             this.router.on('sectionHighlightChanged', this.sections.sectionHighlightChanged, this.sections);
-            this.router.on('sectionChanged', this.sections.jumpToSection, this.sections);
+            this.router.on('sectionHighlightChanged', this.updateViewedSection, this);
+
+            // clicked nav button
             this.router.on('sectionChanged', this.updateViewedSection, this);
+            this.router.on('sectionChanged', this.sections.jumpToSection, this.sections);
 
             _.defer(function () {
                 // Start monitoring url changes (including the initial url), this is dependent on the above so only call once they exist
@@ -15156,6 +15220,9 @@ require.config({
         underscore: {
             exports: '_'
         },
+        modernizr: {
+            exports: 'Modernizr'
+        },
         backbone: {
             deps: [
                 'underscore',
@@ -15167,10 +15234,12 @@ require.config({
     paths: {
         // NOTE: must also keep GRUNTFILE.JS up to date
         text:                   'lib/requirejs/text',
+        analytics:              'lib/analytics/analytics',
         jquery:                 'lib/jquery/jquery',
         jqueryBem:              'lib/jquery/jquery-bem',
         jqueryMayBall:          'lib/jquery/jquery-breakpoint',
         jqueryBreakpoint:       'lib/jquery/jquery-may-ball',
+        modernizr:              'lib/modernizr/modernizr',
         underscore:             'lib/underscore/underscore',
         'underscore-mixins':    'lib/underscore/underscore-mixins',
         backbone:               'lib/backbone/backbone',
@@ -15181,10 +15250,12 @@ require.config({
 require([
     // force plugin-dependent plugins to run
     '../../dir-assets/scripts/lib/console/console',
+    'analytics',
     'jquery',
     'jqueryBem',
     'jqueryBreakpoint',
     'jqueryMayBall',
+    'modernizr',
     'underscore',
     'underscore-mixins',
     'backbone',
@@ -15195,10 +15266,12 @@ require([
     'lib/skrollr/init-skrollr-stylesheets'
 ], function (
     consoleFix,
+    ga,
     $,
     jqueryBem,
     jqueryBreakpoint,
     jqueryMayBall,
+    modernizr,
     _,
     underscoreMixins,
     backbone,
@@ -15232,37 +15305,47 @@ require([
         });
 
         app.setRouter(router);
-        app.setMain($('#skrollr-body'));
-        app.$el.prependTo('.main');
 
-        _.defer(function () {
-            var skrollr;
+        if (modernizr.touch) {
+            app.setMain($('.main'));
+            app.$el.prependTo('.main');
+        } else {
+            app.setMain($('#skrollr-body'));
 
-            initSkrollrStylesheets();
-            skrollr = initSkrollr({
-                smoothScrolling: true,
-                forceHeight: false
-            });
+            // is this necessary?
+            app.$el.prependTo('.main');
 
-            app.setCanChangeSectionPredicate(function () {
-                return !skrollr.isAnimatingTo();
-            });
+            _.defer(function () {
+                var skrollr;
 
-            // $.setScrollScreenFunction(skrollr.setScrollTop);
-            $.setScrollScreenFunction(function (top) {
-                skrollr.animateTo(top, {
-                    duration: 200
+                initSkrollrStylesheets();
+                skrollr = initSkrollr({
+                    smoothScrolling: true,
+                    forceHeight: false
+                });
+
+                app.setCanChangeSectionPredicate(function () {
+                    return !skrollr.isAnimatingTo();
+                });
+
+                // jump to section of page
+                $.setScrollScreenFunction(skrollr.setScrollTop);
+
+                // animate to section of page
+                // $.setScrollScreenFunction(function (top) {
+                //     skrollr.animateTo(top, {
+                //         duration: 200
+                //     });
+                // });
+                $.setGetElScrollPositionFunction(function ($el) {
+                    return skrollr.relativeToAbsolute($el.get(0), 'top', 'top');
+                });
+                $.setGetScreenScrollFunction(skrollr.getScrollTop);
+                $.setScreenScrollEventCreator(function (func) {
+                    skrollr.on('render', func);
                 });
             });
-            $.setGetElScrollPositionFunction(function ($el) {
-                return skrollr.relativeToAbsolute($el.get(0), 'top', 'top');
-            });
-            $.setGetScreenScrollFunction(skrollr.getScrollTop);
-            $.setScreenScrollEventCreator(function (func) {
-                skrollr.on('render', func);
-            });
-        });
-
+        }
     });
 });
 define("main", function(){});

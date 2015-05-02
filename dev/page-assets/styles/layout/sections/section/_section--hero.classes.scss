@@ -69,4 +69,4 @@
 }
 
 
-@include animatable-layers($hero-image-layers, section--hero__background-layer--, false, "../../dir-assets/img/hero-background-layer-", false, scroll-animation, false, false);
+@include animatable-layers($hero-image-layers, section--hero__background-layer--, false, "../../dir-assets/img/hero-background-layer-", false, true, scroll-animation, false, false);

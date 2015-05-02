@@ -1,72 +1,95 @@
 <%
 	var rows = [[
 		{
-			name: 'Alessandra Bittante',
-			position: 'President'
+			name: "Alessandra Bittante",
+			position: "President",
+			email: "alessandra@jesusmayball.com"
 		}, {
-			name: 'George Bryan',
-			position: 'President'
+			name: "George Bryan",
+			position: "President",
+			email: "george@jesusmayball.com"
 		}
 	], [{
-			name: 'Chris Brown',
-			position: 'Treasurer',
+			name: "Chris Brown",
+			position: "Treasurer",
+			email: "treasurer@jesusmayball.com",
 			duplicateName: true
 		}, {
-			name: 'Isobel MacAuslan',
-			position: 'Secretary'
+			name: "Isobel MacAuslan",
+			position: "Secretary",
+			email: "secretary@jesusmayball.com"
 		}, {
-			name: 'Elka Humphrys',
-			position: 'Food'
+			name: "Elka Humphrys",
+			position: "Food",
+			email: "food@jesusmayball.com"
 		}, {
-			name: 'Fred Richards',
-			position: 'Drinks'
+			name: "Fred Richards",
+			position: "Drinks",
+			email: "drink@jesusmayball.com"
 		}
 	], [{
-			name: 'Rob Cronshaw',
-			position: 'Main Ents'
+			name: "Robert Cronshaw",
+			position: "Main Ents",
+			// email: "ents@jesusmayball.com,main-ents@jesusmayball.com"
+			email: "main-ents@jesusmayball.com"
 		}, {
-			name: 'Bethany Hutchison',
-			position: 'Student Ents'
+			name: "Bethany Hutchison",
+			position: "Student Ents",
+			// email: "ents@jesusmayball.com,student-ents@jesusmayball.com"
+			email: "student-ents@jesusmayball.com"
 		}, {
-			name: 'Lare Erogbogbo',
-			position: 'Non-Music Ents'
+			name: "Lare Erogbogbo",
+			position: "Non-Music Ents",
+			// email: "ents@jesusmayball.com,nonmusic-ents@jesusmayball.com"
+			email: "nonmusic-ents@jesusmayball.com"
 		}, {
-			name: 'Chris Stuart',
-			position: 'Tech',
+			name: "Chris Stuart",
+			position: "Tech",
+			email: "technical@jesusmayball.com",
 			duplicateName: true
 		}
 	], [{
-			name: 'Charlie Benson',
-			position: 'Staffing'
+			name: "Charlie Benson",
+			position: "Staffing",
+			email: "staffing@jesusmayball.com"
 		}, {
-			name: 'Kate Gerhard',
-			position: 'Buildings'
+			name: "Kate Gerhard",
+			position: "Buildings",
+			email: "buildings@jesusmayball.com"
 		}, {
-			name: 'Claire Nichols',
-			position: 'Security'
+			name: "Claire Nichols",
+			position: "Security",
+			email: "security@jesusmayball.com"
 		}, {
-			name: 'Helen Broadbridge',
-			position: 'Head of Design'
+			name: "Helen Broadbridge",
+			position: "Head of Design",
+			email: "design@jesusmayball.com"
 		}
 	], [{
-			name: 'Rachel Rees Middleton',
-			position: 'Design'
+			name: "Rachel Rees Middleton",
+			position: "Design",
+			email: "design-rachel@jesusmayball.com"
 		}, {
-			name: 'Rory Luscombe',
-			position: 'Design'
+			name: "Rory Luscombe",
+			position: "Design",
+			email: "design-rory@jesusmayball.com"
 		}, {
-			name: 'Julia Cabanas',
-			position: 'Design'
+			name: "Julia Cabanas",
+			position: "Design",
+			email: "design-julia@jesusmayball.com"
 		}, {
-			name: 'Jen Sutherland',
-			position: 'Design'
+			name: "Jen Sutherland",
+			position: "Design",
+			email: "design-jen@jesusmayball.com"
 		}
 	], [{
-			name: 'Anthony Graff',
-			position: 'Ticketing'
+			name: "Anthony Graff",
+			position: "Ticketing",
+			email: "tickets@jesusmayball.com"
 		}, {
-			name: 'Josh Bambrick',
-			position: 'Webmaster'
+			name: "Josh Bambrick",
+			position: "Webmaster",
+			email: "webmaster@jesusmayball.com"
 		}
 	]];
 
@@ -97,7 +120,18 @@
 							section--committee__member-label
 							section--committee__member-label--<%= curMemberLabel %>
 						"
-					><%= curMemberNames[0] %> - <%= curMember.position %></span><!--
+					><%= curMemberNames[0] %> - <%= curMember.position %><br><!--
+						--><a
+							class="
+								section--committee__member-email
+								section--committee__member-email--<%= curMemberLabel %>
+							"
+
+							href="mailto:<%= curMember.email %>"
+							
+							title="<%= curMember.email %>"
+						><%= curMember.email %></a><!--
+					--></span><!--
 				--></figure><!--
 			--><%
 			});

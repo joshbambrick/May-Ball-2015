@@ -1,5 +1,5 @@
 /* nav */.nav {
-    @extend %section-background;
+    @extend %page-background;
 
     top: 0;
     text-align: center;
@@ -7,11 +7,7 @@
     border-bottom: solid 1px transparent;
     
     @include respond(palm) {
-        padding: $lib-spacing-unit--tiny $lib-spacing-unit;
-    }
-
-    @include respond(thumb) {
-        padding: $lib-spacing-unit--tiny;
+        padding: $lib-spacing-unit--mini;
     }
 
     &--hidden {
@@ -73,22 +69,29 @@
     }
 
     text-transform: uppercase;
-
-    @include respond(palm) {
-        padding: $lib-spacing-unit--mini;
-        margin: 0 $lib-spacing-unit--tiny;
-        font-size: $lib-small-print-size;
+    
+    &, &:link, &:visited {
+        @include respond(palm) {
+            margin: 0 $lib-spacing-unit--mini;
+            padding: $lib-spacing-unit--mini;
+            font-size: $lib-small-print-size;
+        }
     }
 }
 
-/* span */.nav__link-underline {
+/* span */.nav__list-link:after {
+    content: "";
     display: block;
     height: 1px;
-    background-color: transparent;
     margin-left: 25%;
     margin-right: 25%;
+}
 
-    .nav__list-link--selected  & {
-        background-color: colour(heading-text);
-    }
+.nav__list-link:after,
+.nav__list-link--important.nav__list-link--selected:after {
+    background-color: transparent;
+}
+
+.nav__list-link--selected:after {
+    background-color: colour(heading-text);
 }

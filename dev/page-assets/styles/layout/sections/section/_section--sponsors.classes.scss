@@ -1,0 +1,84 @@
+.section--sponsors__sponsor-link-container {
+    margin: $lib-spacing-unit 0;
+    text-align: center;
+}
+
+.section--sponsors__sponsor-link {
+    $sponsors-per-row: 2;
+    // sum of margins on either side of each link
+    $sponsor-link-side-margin: 5%;
+    // fit this number to row
+    $sponsor-link-width: (100% / $sponsors-per-row) - $sponsor-link-side-margin;
+    // just rectangular
+    $sponsor-link-height: $sponsor-link-width - 5%;
+
+    display: inline-block;
+    width: $sponsor-link-width;
+    padding-top: $sponsor-link-height;
+    margin-left: $sponsor-link-side-margin;
+
+    position: relative;
+    opacity: 0.75;
+    transition: opacity 500ms;
+
+    &:first-child {
+        margin-left: 0;
+    }
+
+    &:hover {
+        @extend %button:hover;
+
+        opacity: 1;
+    }
+
+    &:before {
+        content: "";
+
+        display: block;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+
+        position: absolute;
+        top: $lib-spacing-unit--small;
+        bottom: $lib-spacing-unit--small;
+        left: $lib-spacing-unit--small;
+        right: $lib-spacing-unit--small;
+    }
+
+    &--the-olive-grove {
+        &:before {
+            background-image: url(../img/the-olive-grove-logo.png);
+        }
+    }
+
+    &--bloom {
+        &:before {
+            background-image: url(../img/bloom-logo.png);
+        }
+    }
+
+    &--brothers {
+        &:before {
+            background-image: url(../img/brothers-logo.png);
+        }
+    }
+
+    &--lafayette-photography {
+        &:before {
+            background-image: url(../img/lafayette-photography-logo.jpg);
+        }
+    }
+
+    &--corte-malgiacca {
+        &:before {
+            background-image: url(../img/corte-malgiacca-logo.jpg);
+        }
+    }
+
+    @include respond(thumb) {
+        width: 100%;
+        padding-top: 95%;
+        margin-left: 0;
+    }
+}

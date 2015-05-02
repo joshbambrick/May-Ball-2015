@@ -38,7 +38,7 @@ define([
         // title (defaults to `label` if undefined)
         // used to refer to this section with user  (eg navigation links)
         title: 'Wildcard',
-        titleTemplate: 'WILD<wbr>CARD',
+        titleTemplate: 'WILDCARD',
         titleShowTime: 250,
         subheadings: [{
             text: 'JESUS COLLEGE MAY BALL',
@@ -50,9 +50,9 @@ define([
             showTime: 1750
         }],
         backgroundLayers: [{
-            showTime: 1250
+            showTime: 2000
         }, {
-            showTime: 1250
+            showTime: 2000
         }, {
             showFromStart: true
         }, {
@@ -69,7 +69,6 @@ define([
         title: 'The Night',
         titleTemplate: 'The Night',
         type: 'content',
-        showNavUnderline: true,
         template: nightTemplate
     }, {
         label: 'section-gap-1',
@@ -80,7 +79,6 @@ define([
         title: 'Entertainment',
         titleTemplate: 'Enter<wbr>tain<wbr>ment',
         type: 'content',
-        showNavUnderline: true,
         template: entsTemplate
     }, {
         label: 'section-gap-2',
@@ -91,7 +89,6 @@ define([
         title: 'Tickets',
         titleTemplate: 'Tick<wbr>ets',
         type: 'content',
-        showNavUnderline: true,
         template: ticketInfoTemplate
     }, {
         label: 'section-gap-3',
@@ -102,7 +99,6 @@ define([
         title: 'Sponsors',
         titleTemplate: 'Spon<wbr>sors',
         type: 'content',
-        showNavUnderline: true,
         template: sponsorsTemplate
     }, {
         label: 'section-gap-4',
@@ -113,9 +109,8 @@ define([
         title: 'Charities',
         titleTemplate: 'Char<wbr>ities',
         type: 'content',
-        showNavUnderline: true,
-        template: charitiesTemplate,
-        noImage: true
+        noImage: true,
+        template: charitiesTemplate
     }, {
         label: 'section-gap-5',
         type: 'section-gap',
@@ -125,7 +120,6 @@ define([
         title: 'Work',
         titleTemplate: 'Work',
         type: 'content',
-        showNavUnderline: true,
         template: workTemplate
     }, {
         label: 'section-gap-6',
@@ -136,7 +130,6 @@ define([
         title: 'Committee',
         titleTemplate: 'Commi<wbr>ttee',
         type: 'content',
-        showNavUnderline: true,
         template: committeeTemplate,
         noImage: true
     }, {

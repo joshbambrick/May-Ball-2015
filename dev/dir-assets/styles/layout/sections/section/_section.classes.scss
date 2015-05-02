@@ -1,4 +1,4 @@
-%section-background {
+%page-background {
     // this is now a repeating image so don't need to set it to cover
     background-color: colour(section-background);
     background-image: url(../img/section-background.jpg);
@@ -14,8 +14,6 @@
 
 // extended by sections with content (--hero or --contents)
 %content-section {
-    @extend %section-background;
-
     padding: $lib-spacing-unit;
     text-align: justify;
 }
