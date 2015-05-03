@@ -4530,6 +4530,8 @@ body.unselectable {
     width: 100%;
     padding-top: 95%;
     margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 5%;
   }
 }
 .section--entertainment__act-logo--hero {
@@ -4585,6 +4587,8 @@ body.unselectable {
     width: 100%;
     padding-top: 95%;
     margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 5%;
   }
 }
 .section--sponsors__sponsor-link--the-olive-grove:before {
