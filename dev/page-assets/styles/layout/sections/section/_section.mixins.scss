@@ -84,3 +84,56 @@
         }
     }
 }
+
+@mixin grid-section {
+    margin: $lib-spacing-unit 0;
+    text-align: center;
+}
+
+@mixin grid-section-item($items-per-row : 3, $item-hover : false) {
+    // sum of margins on either side of each link
+    $item-link-side-margin: 5%;
+    // fit this number to row
+    $item-link-width: (100% / $items-per-row) - $item-link-side-margin;
+    // just rectangular
+    $item-link-height: $item-link-width - $item-link-side-margin;
+
+    display: inline-block;
+    width: $item-link-width;
+    padding-top: $item-link-height;
+    margin-left: $item-link-side-margin / 2;
+    margin-right: $item-link-side-margin / 2;
+
+    position: relative;
+    opacity: 0.75;
+    transition: opacity 500ms;
+
+    @if ($item-hover) {
+        &:hover {
+            @extend %button:hover;
+
+            opacity: 1;
+        }
+    }
+
+    &:before {
+        content: "";
+
+        display: block;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+
+        position: absolute;
+        top: $lib-spacing-unit--small;
+        bottom: $lib-spacing-unit--small;
+        left: $lib-spacing-unit--small;
+        right: $lib-spacing-unit--small;
+    }
+    
+    @include respond(thumb) {
+        width: 100%;
+        padding-top: 95%;
+        margin-left: 0;
+    }
+}

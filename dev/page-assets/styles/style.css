@@ -501,7 +501,9 @@ html {
  * Extend the clearfix class with Sass to avoid the `.clearfix` class appearing
  * over and over in your markup.
  */
-.clearfix:after {
+.clearfix:after,
+.section--entertainment__act-list:after,
+.section--entertainment__act-hero:after {
   content: "";
   display: table;
   clear: both;
@@ -4489,6 +4491,63 @@ body.unselectable {
   background-image: url("../img/section-gap-7-layer-0-touch.jpg");
 }
 
+.section--entertainment__act-list,
+.section--entertainment__act-hero {
+  margin: 29.7px 0;
+  text-align: center;
+}
+
+.section--entertainment__act-hero-description {
+  text-align: justify;
+}
+
+.section--entertainment__act-logo {
+  display: inline-block;
+  width: 28.33333%;
+  padding-top: 23.33333%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+  position: relative;
+  opacity: 0.75;
+  -webkit-transition: opacity 500ms;
+  transition: opacity 500ms;
+}
+.section--entertainment__act-logo:before {
+  content: "";
+  display: block;
+  -webkit-background-size: contain;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  top: 15px;
+  bottom: 15px;
+  left: 15px;
+  right: 15px;
+}
+@media screen and (max-width: 299px) {
+  .section--entertainment__act-logo {
+    width: 100%;
+    padding-top: 95%;
+    margin-left: 0;
+  }
+}
+.section--entertainment__act-logo--hero {
+  float: left;
+  margin-left: 0;
+}
+.section--entertainment__act-logo--hero:before {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+.section--entertainment__act-logo--james-bay:before {
+  background-image: url(../img/james-bay-logo.jpg);
+}
+
 .section--sponsors__sponsor-link-container {
   margin: 29.7px 0;
   text-align: center;
@@ -4498,14 +4557,12 @@ body.unselectable {
   display: inline-block;
   width: 45%;
   padding-top: 40%;
-  margin-left: 5%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
   position: relative;
   opacity: 0.75;
   -webkit-transition: opacity 500ms;
   transition: opacity 500ms;
-}
-.section--sponsors__sponsor-link:first-child {
-  margin-left: 0;
 }
 .section--sponsors__sponsor-link:hover {
   opacity: 1;
@@ -4523,6 +4580,13 @@ body.unselectable {
   left: 15px;
   right: 15px;
 }
+@media screen and (max-width: 299px) {
+  .section--sponsors__sponsor-link {
+    width: 100%;
+    padding-top: 95%;
+    margin-left: 0;
+  }
+}
 .section--sponsors__sponsor-link--the-olive-grove:before {
   background-image: url(../img/the-olive-grove-logo.png);
 }
@@ -4537,13 +4601,6 @@ body.unselectable {
 }
 .section--sponsors__sponsor-link--corte-malgiacca:before {
   background-image: url(../img/corte-malgiacca-logo.jpg);
-}
-@media screen and (max-width: 299px) {
-  .section--sponsors__sponsor-link {
-    width: 100%;
-    padding-top: 95%;
-    margin-left: 0;
-  }
 }
 
 /* div */

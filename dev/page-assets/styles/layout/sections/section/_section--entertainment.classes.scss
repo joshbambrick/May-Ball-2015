@@ -1,0 +1,33 @@
+.section--entertainment__act-list,
+.section--entertainment__act-hero {
+    @extend %clearfix;
+    @include grid-section;
+}
+
+.section--entertainment__act-hero-description {
+    text-align: justify;
+}
+
+.section--entertainment__act-logo {
+    @include grid-section-item;
+    
+    &--hero {
+        float: left;
+        margin-left: 0;
+
+        &:before {
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            // bigger
+            background-size: cover;
+        }
+    }
+    
+    &--james-bay {
+        &:before {
+            background-image: url(../img/james-bay-logo.jpg);
+        }
+    }
+}
