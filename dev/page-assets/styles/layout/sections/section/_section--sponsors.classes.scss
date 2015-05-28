@@ -34,4 +34,22 @@
             background-image: url(../img/corte-malgiacca-logo.jpg);
         }
     }
+
+    &--fireball {
+        &:before {
+            background-image: url(../img/fireball-logo.png);
+        }
+    }
+
+    &--beaufort-and-blake {
+        &:before {
+            background-image: url(../img/beaufort-and-blake-logo.png);
+        }
+    }
+
+    &--saffron-brewery {
+        &:before {
+            background-image: url(../img/saffron-brewery-logo.jpg);
+        }
+    }
 }

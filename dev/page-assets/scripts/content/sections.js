@@ -99,6 +99,7 @@ define([
         title: 'Sponsors',
         titleTemplate: 'Spon<wbr>sors',
         type: 'content',
+        noImage: true,
         template: sponsorsTemplate
     }, {
         label: 'section-gap-4',
